@@ -1,0 +1,8 @@
+blockquote {
+  font-style: italic
+}
+
+/* Navbar links on mouse-over */
+.navbar a:hover {
+  background-color: #000;
+}

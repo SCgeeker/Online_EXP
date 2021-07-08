@@ -1,0 +1,239 @@
+---
+title: "線上實驗"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 推薦輔助資源
+
+- [TextImages](https://www.sttmedia.com/download=TextImagesEn) 文字轉圖檔
+- [FireAlpaca](https://briian.com/8492/) 多語系免費繪圖軟體
+- [Inkscape](https://inkscape.org/) 多語系向量圖(SVG)繪圖軟體。[中文教學#01 from official site](https://inkscape.org/zh-hant/doc/tutorials/basic/tutorial-basic.html);[中文教學#02 by Spitter Lin](https://www.youtube.com/watch?v=DgIFtW39bGM&list=UUzVRIHol4ER4uFA9Xlk2agA);[中文教學#03 by 阿簡](https://www.youtube.com/watch?v=Zz7c55bYeBQ&list=PLm6x13NbsKl5rSPMKte7EWvQCrsSCw6iv)
+- [imgur個人分享圖庫](https://imgur.com/)
+- [雅婷文字轉語音](https://tts.yating.tw/)
+<!---
+
+[中文Stroop示範實驗](https://www.psytoolkit.org/cgi-bin/psy2.6.1/survey?s=BGKGL)
+--->
+---
+
+## 規劃建議
+
+1. 依變項測量資料：限時按鍵反應 -> Experiment；量表選項 -> Survey
+2. 獨變項的刺激配置：因子設計 -> Experiment；題本 -> Survey
+3. 刺激(圖像、聲音)是外部檔案：有現成資料庫、需要自行製作、...
+4. 編輯實驗腳本
+ 
+---
+
+## Simon task腳本範例
+
+- [Psytoolkit資料庫的實驗腳本](https://www.psytoolkit.org/experiment-library/simon.html)
+- 登入畫面 -> `Get from library` -> 搜尋`Simon` -> Select and Copy
+ 
+---
+
+## 實驗腳本基本參數
+
+[options](https://www.psytoolkit.org/doc2.6.1/syntax.html#options) 螢幕模式、解析度、啟動滑鼠、設定特別參數  
+
+[bitmaps](https://www.psytoolkit.org/doc2.6.1/syntax.html#_bitmaps) 設定所有圖檔別名  
+
+[sounds](https://www.psytoolkit.org/doc2.6.1/syntax.html#sounds) 設定所有音訊檔別名  
+
+[fonts](https://www.psytoolkit.org/doc2.6.1/syntax.html#fonts) 設定呈現文字字型檔(中文字型的支援尚在測試)  
+
+[table](https://www.psytoolkit.org/doc2.6.1/syntax.html#table) 實驗刺激列表。至少設定一個欄位列出刺激別名，欄位之間以空白分隔。  
+
+```
+## 參數1 參數2 刺激別名 刺激獨變項標記
+ 10  2  bitmap1  "condition one"
+-10  1  bitmap2  "condition two"
+```
+
+[task](https://www.psytoolkit.org/doc2.6.1/syntax.html#task) 實驗作業嘗試程序。依計畫書說明設定。  
+<!---
+message 在指定段落呈現訊息，預設按空白鍵換頁。
+--->
+[block](https://www.psytoolkit.org/doc2.6.1/syntax.html#block) 實驗作業段落，設定`task`執行次數。  
+
+<!---
+[blockorder](https://www.psytoolkit.org/doc2.6.1/syntax.html#blockorder) 複數實驗作業段落排列。  
+--->
+
+---
+
+## 創建實驗
+
+1. 從頭開始
+2. 修改上傳至psytoolkit帳戶的腳本
+3. 修改官方或其他使用者分享的腳本
+
+![](https://i.imgur.com/N6qTgGM.png)
+實驗編輯器畫面。每次更新腳本必須按`Save`。
+
+---
+
+## 範例腳本解析
+
+- 執行選項
+
+```
+options
+  fullscreen  #全螢幕模式執行
+```
+
+- 刺激與執行訊息別名列表
+
+```
+bitmaps
+  instruction1 https://imgur.com/12by929.png
+  ...
+  fixpoint
+  ## 以上是執行訊息
+  yellowyellow https://imgur.com/G7QpXbX.png
+  yellowgreen https://imgur.com/K0URz5R.png 
+  ## 以上是實驗刺激
+```
+
+- 實驗刺激列表
+
+```
+## @1: 獨變項標記~刺激字 刺激字色 相符與否
+## @2: 實驗刺激別名
+## @3: 反應按鍵編號
+table stroop
+  "yellow yellow 1" yellowyellow 4
+  "yellow green  0" yellowgreen  2
+  "yellow blue   0" yellowblue   3
+  "yellow red    0" yellowred    1
+```
+
+- 實驗作業嘗試程序
+
+```
+task stroop #宣告實驗作業名稱
+  table stroop  #載入實驗刺激列表
+  keys r g b y  #載入可反應按鍵，順序對應編碼
+  delay 500     #實驗嘗試啟始，呈現空白螢幕500毫秒
+  show bitmap fixpoint #呈現凝視點
+  delay 200 #呈現凝視點200毫秒
+  clear 1 #結束呈現凝視點
+  delay 100 #呈現空白螢幕100毫秒
+  show bitmap @2 #呈現實驗刺激，自實驗刺激列表隨機取得
+  readkey @3 2000 #呈現實驗刺激2000毫秒，並紀錄反應按鍵
+  clear 2 #結束呈現實驗刺激
+  if STATUS == CORRECT #條件判斷：若反應正確
+    show bitmap correct #呈現正確訊息
+  fi
+  if STATUS != CORRECT  #條件判斷：若反應錯誤
+    show bitmap mistake #呈現錯誤訊息
+  fi
+  delay 500  #呈現反應正確或錯誤訊息500毫秒
+  clear 3 #結束呈現反應正確或錯誤訊息
+  save BLOCKNAME @1 TABLEROW KEY STATUS RT #儲存本次嘗試反應資訊
+```
+
+- 段落1:實驗指導語
+
+```
+message instruction1
+```
+
+- 段落2:實驗作業
+
+```
+block test  # 宣告段落名稱
+  tasklist
+    stroop 40  # 執行40次實驗作業
+  end
+```
+
+---
+
+## 編譯及執行實驗
+
+![](https://i.imgur.com/ViZCW6J.png)
+- 編譯可執行的實驗腳本。必須按下`Compile`，沒有錯誤訊息，才能測試或執行實驗腳本。按`Run experiment`可進行測試。
+- 可成功執行的實驗腳本，點擊`Download for running offline`下載網頁，可上傳至任何網站伺服器，提供使用者測試。
+
+---
+
+## 結合問卷發佈實驗
+
+```
+l: stroop
+t: experiment
+- Stroop_Chinese
+
+l: language
+t: check
+q: 我的母語是
+- 中文
+- 英文
+- 其他
+```
+
+---
+
+## 實驗及出口調查腳本
+
+```
+# check the large survey-library for ready-to-run examples you can
+# cut and paste here
+
+l: stroop
+t: experiment
+- Stroop_Chinese
+
+l: language
+t: check
+q: 我的母語是
+- 中文
+- 英文
+- 其他
+
+l: share
+t: textline
+q: 我的psytoolkit註冊帳號(電子郵件)，稍後分享實驗腳本。
+- {require} 
+```
+
+---
+
+## 反應資料分析預覽
+
+**一位參與者實驗資料的描述統計**
+
+- 載入檔案途徑
+(1) 載入已存檔案(Select a stored datafile)~從實驗連結開始的實驗;稍早上傳的檔案
+(2) 上傳適用psytoolkit處理格式的原始資料純文字檔(Upload a file)~以問卷模式進行的實驗
+(3) 複製貼上適用psytoolkit處理格式的原始資料純文字檔(Copy/paste data instead of uploading datafile)~以問卷模式進行的實驗
+
+- 編碼簿預編：預覽資料表格的欄位資訊
+
+```
+  save BLOCKNAME @1 TABLEROW KEY STATUS RT #儲存本次嘗試反應資訊
+```
+
+`BLOCKNAME` 實驗腳本中的段落名稱(block test)  
+`@1` 實驗刺激列表的第一欄資訊  
+`TABLEROW` 實驗刺激列表(table stroop)的行序  
+`KEY` 正確反應按鍵(1:r,2:g,3:b,4:y)  
+`STATUS` 反應正誤(1:正確,2:錯誤)  
+`RT` 反應時間  
+
+- 資料表格預覽
+![](https://i.imgur.com/ptz3a2O.png)
+
+- 資料處理預覽
+![](https://i.imgur.com/IDBmrIW.png)
+
+**多位參與者實驗資料的描述統計**
+
+![](https://i.imgur.com/vpvdrSW.png)
+
+預覽多位參與者的分組描述統計結果。評估預試(pilot study)，確認實驗設計是否符合計畫。

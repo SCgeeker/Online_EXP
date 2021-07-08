@@ -1,0 +1,13 @@
+---
+title: "PsyT_homework"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## 練習：詞彙判斷作業
+
+準備5個有意義的中文詞與5個沒意義的假詞，製作10個嘗試的詞彙判斷作業實驗。

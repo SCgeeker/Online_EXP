@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>PsyToolkit 開工預備</title>
+
+<script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+<style type="text/css">
+/* for pandoc --citeproc since 2.11 */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fas fa-home"></span>
+     
+    首頁
+  </a>
+</li>
+<li>
+  <a href="about.html">
+    <span class="fas fa-info"></span>
+     
+    關於
+  </a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    實驗平台
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">OpenSesame</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="OS_intro.html">準備指引</a>
+        </li>
+        <li>
+          <a href="OS_script.html">腳本設計</a>
+        </li>
+        <li>
+          <a href="OS_JATOS.html">JATOS部署與測試</a>
+        </li>
+        <li class="dropdown-header">開發中</li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">psytoolkit</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="PsyT_intro.html">準備指引</a>
+        </li>
+        <li>
+          <a href="PsyT_survey.html">線上問卷</a>
+        </li>
+        <li>
+          <a href="PsyT_exp.html">線上實驗</a>
+        </li>
+        <li class="dropdown-header">開發中</li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">formr</a>
+      <ul class="dropdown-menu" role="menu">
+        <li class="dropdown-header">開發中</li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Gorilla</a>
+      <ul class="dropdown-menu" role="menu">
+        <li class="dropdown-header">開發中</li>
+      </ul>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    招募平台
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Prolific</a>
+      <ul class="dropdown-menu" role="menu">
+        <li class="dropdown-header">開發中</li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">MTurk</a>
+      <ul class="dropdown-menu" role="menu">
+        <li class="dropdown-header">開發中</li>
+      </ul>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    資料整頓分析
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">開發中</li>
+  </ul>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">PsyToolkit 開工預備</h1>
+
+</div>
+
+
+<div id="開發者資訊" class="section level2">
+<h2>開發者資訊</h2>
+<ul>
+<li><p>開發者Gijsbert Stoet發表於Teaching of Psychology的論文<span class="citation">(Stoet, 2017)</span>，使用Psytoolkit完成的研究報告務必引用這份論文。</p></li>
+<li><p><a href="https://www.psytoolkit.org/contact.html">開發者聯絡方式</a>:詢問使用問題；建議；商業使用洽詢；教學用途洽詢。</p></li>
+<li><p><a href="http://psytoolkit.boards.net/">使用者論壇</a>：與開發者及其他使用者交流使用心得與問題；徵求實驗參與者。</p></li>
+<li><p>任何使用者可經<a href="https://www.psytoolkit.org/#_web_based_login">官方登入頁面</a>免費註冊帳號，線上管理與執行問卷與實驗腳本。官方登入頁面連結為最新版本。</p></li>
+</ul>
+</div>
+<div id="登入畫面介紹" class="section level2">
+<h2>登入畫面介紹</h2>
+<div class="figure">
+<img src="includes/img/Psytoolkit_login.png" alt="" />
+<p class="caption">2020年春季登入畫面截圖。實際畫面以官方網站為準。</p>
+</div>
+<div id="左側常駐功能列" class="section level3">
+<h3>左側常駐功能列</h3>
+<p><strong>General</strong> Psytoolkit版本資訊；帳號設定；求助；詢問；登出。<br/> <strong>Create</strong> 建立實驗腳本；建立問卷腳本；建立實驗刺激列表；取得官方腳本；取得其他使用者實驗腳本。<br/> <strong>Actions</strong> 己建腳本可執行的管理動作。刪除正在編輯的腳本；拷貝其他腳本至正在編輯腳本；更改正在編輯的腳本名稱；下載正在編輯的腳本；分享正在編輯腳本給其他使用者(目前只限實驗腳本)。</p>
+</div>
+</div>
+<div id="帳號設定畫面settings" class="section level2">
+<h2>帳號設定畫面(Settings)</h2>
+<div class="figure">
+<img src="includes/img/Psytoolkit_settings.png" alt="" />
+<p class="caption">重要設定項目見以下說明</p>
+</div>
+<ul>
+<li><strong>Disk space</strong> 帳號資料已用儲存空間資料<br/><br />
+</li>
+<li><strong>Teacher(for use in calss)</strong><br/> 使用者是學生，可在此填入教師註冊psytoolkit的e-mail帳號。<br/> 使用者是老師，可勾選<code>Click here if you are a teacher.</code>，開啟學生活動檢視頁面。 <br/></li>
+<li><strong>Various</strong> 進階設定。腳本編輯視窗顯示行號；已編輯腳本排序方式；腳本編輯畫面起始設定。</li>
+</ul>
+</div>
+<div id="教師線上協助" class="section level2">
+<h2>教師線上協助</h2>
+<p><span style="background-color: #FFFF00"> <strong>小提示：psytoolkit的腳本名稱必須為英文</strong> </span></p>
+<p>使用者如果有教師協助學習，可在帳號設定加入教師的psytoolkit帳號。之後教師可從自已的登入畫面，瀏覽及複製學生編輯的實驗腳本，協助學生排助遇到的問題。</p>
+<p>當學生在psytoolkit帳號設定加入教師的帳號之後，教師從<code>View students</code>連結查看學生帳號清單，每個學生帳號連結到學生已建立的實驗腳本活動頁面。</p>
+<div class="figure">
+<img src="includes/img/PsyToolkit_tutor.png" alt="" />
+<p class="caption">為保護學生個人資訊隱私，帳號採噴霧處理。</p>
+</div>
+<p>有學生告知教師問題，教師可登入該學生的活動頁面，觀看學生的已建立的腳本清單。下方截圖是其中一位學生已建立的實驗腳本清單，<strong>Activity</strong>之下未擷圖部分是學生的帳號活動紀錄。</p>
+<div class="figure">
+<img src="includes/img/Psytoolkit_student_view01.png" alt="" />
+<p class="caption">為保護學生個人資訊隱私，帳號資訊採噴霧處理。</p>
+</div>
+<p>「詞彙判斷作業」是教師指派的作業，教師可進入以下截圖頁面，複製腳本至教師帳號檢查，再回覆學生解決問題的方法。</p>
+<div class="figure">
+<img src="includes/img/Psytoolkit_student_view02.png" alt="" />
+<p class="caption">為保護學生個人資訊隱私，帳號資訊採噴霧處理。</p>
+</div>
+<div id="參考文獻" class="section level5 unnumbered">
+<h5 class="unnumbered">參考文獻</h5>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-stoetPsyToolkitNovelWebBased2017" class="csl-entry">
+Stoet, G. (2017). <span>PsyToolkit</span>: <span>A Novel Web</span>-<span>Based Method</span> for <span>Running Online Questionnaires</span> and <span>Reaction</span>-<span>Time Experiments</span>. <em>Teaching of Psychology</em>, <em>44</em>(1), 24–31. <a href="https://doi.org/10.1177/0098628316677643">https://doi.org/10.1177/0098628316677643</a>
+</div>
+</div>
+</div>
+</div>
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="創用 CC 授權條款" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png" /></a><br />本網站由慈濟大學人類發展與心理學系副教授<a href="https://scchen.com/">陳紹慶</a>創建維護，網站內容採用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">創用 CC 姓名標示-非商業性 4.0 國際 授權條款</a>授權.
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

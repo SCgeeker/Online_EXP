@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>線上問卷</title>
+
+<script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fas fa-home"></span>
+     
+    首頁
+  </a>
+</li>
+<li>
+  <a href="about.html">
+    <span class="fas fa-info"></span>
+     
+    關於
+  </a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    實驗平台
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">OpenSesame</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="OS_intro.html">準備指引</a>
+        </li>
+        <li>
+          <a href="OS_script.html">腳本設計</a>
+        </li>
+        <li>
+          <a href="OS_JATOS.html">JATOS部署與測試</a>
+        </li>
+        <li class="dropdown-header">開發中</li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">psytoolkit</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="PsyT_intro.html">準備指引</a>
+        </li>
+        <li>
+          <a href="PsyT_survey.html">線上問卷</a>
+        </li>
+        <li>
+          <a href="PsyT_exp.html">線上實驗</a>
+        </li>
+        <li class="dropdown-header">開發中</li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">formr</a>
+      <ul class="dropdown-menu" role="menu">
+        <li class="dropdown-header">開發中</li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Gorilla</a>
+      <ul class="dropdown-menu" role="menu">
+        <li class="dropdown-header">開發中</li>
+      </ul>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    招募平台
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Prolific</a>
+      <ul class="dropdown-menu" role="menu">
+        <li class="dropdown-header">開發中</li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">MTurk</a>
+      <ul class="dropdown-menu" role="menu">
+        <li class="dropdown-header">開發中</li>
+      </ul>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    資料整頓分析
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">開發中</li>
+  </ul>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">線上問卷</h1>
+
+</div>
+
+
+<div id="標準模式啟始畫面" class="section level2">
+<h2>標準模式啟始畫面</h2>
+<ol style="list-style-type: decimal">
+<li>問卷編輯視窗。測試題目執行之前，請先<code>Save</code>。</li>
+<li>預定於問卷題目呈現的圖像或音訊檔案，由<code>Upload files</code>按“瀏覽”上傳。</li>
+<li>按<code>print</code>下載問卷腳本odt檔</li>
+<li>按<code>view files</code>瀏覽、編輯與下載<a href="https://hackmd.io/hm00LyR8RR6VhKSg2uE3Bg#%E7%B5%90%E5%90%88%E5%95%8F%E5%8D%B7%E7%99%BC%E4%BD%88%E5%AF%A6%E9%A9%97">內置<strong>實驗腳本</strong></a> <img src="https://i.imgur.com/MI1gzp3.png" /></li>
+</ol>
+<ul>
+<li>簡易模式啟始畫面</li>
+</ul>
+<p><img src="https://i.imgur.com/cvOHqeB.png" /></p>
+<ul>
+<li>Psytoolkit問卷題目類型一覽</li>
+</ul>
+<p><em>於簡易模式增加題目即可開啟</em></p>
+<p><img src="https://i.imgur.com/R426EQj.png" /></p>
+</div>
+<div id="問卷元素行頭標示" class="section level2">
+<h2>問卷元素行頭標示</h2>
+<pre><code>scale: (選設)問卷題目類型是scale，於問卷題目標籤之前設定尺度項目。
+l: (必設)問卷題目標籤。題目在這份問卷的識別碼，建議使用大小寫字母與數字組合。
+t: (必設)問卷題目類型。可設類型見前圖。問卷題目類型是scale，於問卷題目標籤之前設定尺度項目。
+i: (選設)呈現圖片檔案名稱或取得路徑。
+a: (選設)呈現音訊檔案名稱或取得路徑。
+q: (必設)問卷題目可見資訊。受試者可看見的問題內容描述，可用受試者熟悉語文描述。
+o: (選設)問卷題目呈現及反應的選擇性設定。隨機排列選項、限時作答、顯示圖像...
+-  (必設)問卷題目選項資訊。受試者可看見的作答項目，呈現形式依問卷題目類型設定。</code></pre>
+<ul>
+<li>行頭標示定義問卷題目功能與內容</li>
+<li>一道問卷問題要有完整的行頭標示，才能正確運作。</li>
+<li>必設元素已到齊的問卷題目，可在簡易模式預覽執行畫面。</li>
+</ul>
+<hr />
+</div>
+<div id="問卷題目範例" class="section level2">
+<h2>問卷題目範例</h2>
+<p>創建一份新問卷腳本，複製以下內容至問卷編輯視窗，儲存(Save)並編譯(Compile)之後，即可生成問卷發佈網址。</p>
+<pre><code>l: example_message
+t: info
+q: 您好&lt;br&gt;
+這是一份示範用問卷，陳列的題目是psytoolkit支援的問卷題目類型。&lt;br&gt;
+存入你的psytoolkit帳號之後，可自行修改，嘗試各種設定的功能。
+
+l: examplequestion1
+t: radio
+q: (單選題)Which of the following foods do you like best?
+- Rice
+- Noodles
+- Bread
+- Potatoes
+
+l: examplequestion2
+t: check
+q: (多選題)Select all of the following drinks did you had today?
+- Water
+- Orange juice
+- Tea
+- Coffee
+
+scale: agree
+- Disagree
+- Neither agree nor disagree
+- Agree
+
+l: examplequestion3
+q: (李克特量尺)How much do you agree with each of the following
+t: scale agree
+- I see myself as Extraverted, enthusiastic
+- I see myself as Critical, quarrelsome
+- I see myself as Dependable, self-disciplined
+- I see myself as Anxious, easily upset
+
+l: examplequestion4
+t: range
+q: How old are you parents if alive
+- {min=18,max=120} Father
+- {min=18,max=120} Mother
+
+l: examplequestion5
+t: textline
+q: (視覺化量尺)Please enter your first name and surname
+- First name
+- {require} Surname
+
+l: examplequestion6
+t: textbox
+q: (自填答覆)Please enter your feedback
+- Your first comment (note: no with or height provided)
+- {w=100,h=5} Your second comment (here we have 100 characters width and 5 lines high
+- {width=100,height=5} Options spelled out in full works too
+</code></pre>
+<hr />
+</div>
+<div id="人口背景調查範本" class="section level2">
+<h2>人口背景調查範本</h2>
+<ul>
+<li>多數研究登出前，需要請參與者回覆人口背景調查，分析才能確認這些項目對研究結果的影響。有關調查項目，可參考官方網站提供的<a href="https://www.psytoolkit.org/survey-library/demographics.html">調查項目範本</a>。</li>
+</ul>
+<hr />
+</div>
+<div id="問卷題目跳題設定" class="section level2">
+<h2>問卷題目跳題設定</h2>
+<ul>
+<li>如果實驗問卷或實驗腳本有兩種以上，可使用問卷題目類型<em>集合</em>(set)與<em>跳題</em>(jump)設定在一份問卷腳本整合不同狀況。</li>
+</ul>
+<pre><code>## 隨機跳題示範 #######
+l: AssignBooklet
+t: set
+- random 1 2
+
+l:
+t: jump
+- if $AssignBooklet == 1 then goto survey01
+- if $AssignBooklet == 2 then goto survey02
+
+## Booklet 1 ###############################
+
+l: survey01
+t: info
+- 這是問卷版本1
+
+...
+
+l: go_to_end
+t: jump
+- goto end
+
+## Booklet 2 ###############################
+
+l: survey01
+t: info
+- 這是問卷版本2
+
+
+l:end
+t: info
+- 這是問卷結尾
+</code></pre>
+<hr />
+</div>
+<div id="問卷發佈設定" class="section level2">
+<h2>問卷發佈設定</h2>
+<ul>
+<li>問卷編譯</li>
+</ul>
+<p><strong>發佈最新版問卷之前，必須先按<code>Compile</code></strong></p>
+<ol style="list-style-type: decimal">
+<li>如果實驗要切換到全螢幕模式，勾選<code>No red box at start of experiments</code>能自動切換。</li>
+</ol>
+<p><img src="https://i.imgur.com/4ojpT0D.png" /></p>
+<ul>
+<li>問卷網址與發佈狀態</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li><code>Should this survey be online accessible so you can test it or participants can fill it in?</code> 問卷上線狀態: 不上線; 上線可修改; 上線不可修改。</li>
+<li><code>Link to survey (you can copy this and send to other people)</code> 上線問卷登入網址。</li>
+</ol>
+<p><img src="https://i.imgur.com/K3GRqWR.png" /></p>
+<ul>
+<li>問卷網頁設定</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li><code>Skip introduction/welcome screen</code> 是否開啟歡迎網頁</li>
+<li><code>Survey interface language and Color scheme</code> 網頁介面語言與主題佈景(2.5.3版之後有繁體中文)</li>
+</ol>
+<p><img src="https://i.imgur.com/oxvAxgS.png" /></p>
+<ol start="3" style="list-style-type: decimal">
+<li><code>About this survey:</code> 登入首頁介紹資訊，知情同意書裡的主要說明資訊請寫在這裡，篇幅建議在兩段之內。</li>
+<li><code>Read more section (expandable, for the long boring ethics stuff):</code>知情同意書裡的輔助說明資訊，篇幅限制一段。</li>
+<li><code>Contact information:</code> 顯示於歡迎網頁與結束網頁的研究者聯絡資訊。有申請倫理審查者，須與送件內容一致。</li>
+<li><code>Email associated with this research:</code> 顯示於歡迎網頁的研究者電子郵件。</li>
+<li><code>Consent and ethics information</code> 知情同意資訊、同意選項說明。勾選顯示，將在登入首頁顯示在此填寫的資訊。</li>
+</ol>
+<p><img src="https://i.imgur.com/aIrOlVK.png" /></p>
+<ol start="8" style="list-style-type: decimal">
+<li><code>Information shown to the participant in the header of the survey</code> 問卷畫面標題列資訊：問卷標題、是否顯示完成進度百分比。</li>
+<li><code>At the end of the survey</code> 問卷結束資訊與登出後網站：是否顯示結束資訊、是否產生實驗完成碼、結束資訊示範(參與者有需要取得完成碼，務必顯示範例資訊)</li>
+</ol>
+<p><img src="https://i.imgur.com/hSurG27.png" /></p>
+<ol start="9" style="list-style-type: decimal">
+<li><code>Allow participants to go back and change questions?</code> 是否允許參與者重新回答。</li>
+<li><code>Optional requirements for the computer of the participant</code> 參與者設備要求選項: 如果要求參與者在電腦或筆電做實驗，要勾選<em>This study requires a real keyboard</em></li>
+<li><code>Check this box if the user's internet address/country information should be stored</code> 是否儲存參與者上網網址與國家地區資訊。</li>
+<li><code>Check this box if you want that user cannot do survey again</code> 參與者能否以相同的IP再次登入研究網頁</li>
+<li><code>Optional browser exclusion</code> 過濾參與者登入的瀏覽器要求以及登入設備，如果實驗要在全螢幕模式進行，要排除Safari瀏覽器。</li>
+<li><code>In</code>與<code>Out</code> 特別設定，用於連結Psytoolkit與其他網路實驗平台</li>
+</ol>
+<p><img src="https://i.imgur.com/k0hlrSu.png" /></p>
+<ul>
+<li>下載作答資料 <img src="https://i.imgur.com/kKZB7u7.png" /></li>
+</ul>
+<ol style="list-style-type: decimal">
+<li><code>Prepare datafiles for download</code> 點擊後產生最新原始資料壓縮檔案。預設有csv格式檔案。</li>
+</ol>
+<p><img src="https://i.imgur.com/JUMLpjy.png" /></p>
+</div>
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="創用 CC 授權條款" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png" /></a><br />本網站由慈濟大學人類發展與心理學系副教授<a href="https://scchen.com/">陳紹慶</a>創建維護，網站內容採用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">創用 CC 姓名標示-非商業性 4.0 國際 授權條款</a>授權.
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

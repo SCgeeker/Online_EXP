@@ -1,0 +1,58 @@
+name: "OpenPsy"
+title: "心理學網路實驗開放資源"
+output_dir: "docs"
+navbar:
+  left:
+    - text: "首頁"
+      icon: fa-home
+      href: index.html
+    - text: "關於"
+      icon: fa-info
+      href: about.html
+  right:
+    - text: "實驗平台"
+      menu:
+        - text: "OpenSesame"
+          menu:
+            - text: "準備指引"
+              href: OS_intro.html
+            - text: "腳本設計"
+              href: OS_script.html
+            - text: "JATOS部署與測試"
+              href: OS_JATOS.html
+            - text: "開發中"
+        - text: "psytoolkit"
+          menu:
+            - text: "準備指引"
+              href: PsyT_intro.html
+            - text: "線上問卷"
+              href: PsyT_survey.html
+            - text: "線上實驗"
+              href: PsyT_exp.html
+            - text: "開發中"
+        - text: "formr"
+          menu:
+            - text: "開發中"
+        - text: "Gorilla"
+          menu:
+            - text: "開發中"
+    - text: "招募平台"
+      menu:
+        - text: "Prolific"
+          menu:
+            - text: "開發中"
+        - text: "MTurk"
+          menu:
+            - text: "開發中"
+    - text: "資料整頓分析"
+      menu:
+        - text: "開發中"
+output:
+  html_document:
+    toc: TRUE
+    toc_depth: 3
+    toc_float: TRUE
+    highlight: textmate
+    include:
+      after_body: footer.html
+    css: styles.css
