@@ -1,6 +1,14 @@
 ---
 title: "線上實驗"
-output: html_document
+output:
+  html_document:
+    toc: TRUE
+    toc_depth: 3
+    toc_float: TRUE
+    highlight: textmate
+    include:
+      after_body: footer.html
+    css: styles.css
 ---
 
 ```{r setup, include=FALSE}

@@ -4,6 +4,6 @@ author: "陳紹慶"
 ---
 
 
-本站使用`rmarkdown`套件製作，源始文件公開於[github]()。任何人可直接取用本站資源，或透過[git push](https://github.com/git-guides/git-push)增益本站內容。
+本站使用`rmarkdown`套件製作，源始文件公開於[github](https://github.com/SCgeeker/Online_EXP)。任何人可直接取用本站資源，或透過[git push](https://github.com/git-guides/git-push)增益本站內容。
 
 本站最近一次更新日期：`r Sys.Date()`
