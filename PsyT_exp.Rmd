@@ -19,13 +19,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 - [TextImages](https://www.sttmedia.com/download=TextImagesEn) 文字轉圖檔
 - [FireAlpaca](https://briian.com/8492/) 多語系免費繪圖軟體
-- [Inkscape](https://inkscape.org/) 多語系向量圖(SVG)繪圖軟體。[中文教學#01 from official site](https://inkscape.org/zh-hant/doc/tutorials/basic/tutorial-basic.html);[中文教學#02 by Spitter Lin](https://www.youtube.com/watch?v=DgIFtW39bGM&list=UUzVRIHol4ER4uFA9Xlk2agA);[中文教學#03 by 阿簡](https://www.youtube.com/watch?v=Zz7c55bYeBQ&list=PLm6x13NbsKl5rSPMKte7EWvQCrsSCw6iv)
+- [Inkscape](https://inkscape.org/) 多語系向量圖(SVG)繪圖軟體
+  - [中文教學#01 from official site](https://inkscape.org/zh-hant/doc/tutorials/basic/tutorial-basic.html)
+  - [中文教學#02 by Spitter Lin](https://www.youtube.com/watch?v=DgIFtW39bGM&list=UUzVRIHol4ER4uFA9Xlk2agA)
+  - [中文教學#03 by 阿簡](https://www.youtube.com/watch?v=Zz7c55bYeBQ&list=PLm6x13NbsKl5rSPMKte7EWvQCrsSCw6iv)
 - [imgur個人分享圖庫](https://imgur.com/)
 - [雅婷文字轉語音](https://tts.yating.tw/)
-<!---
 
-[中文Stroop示範實驗](https://www.psytoolkit.org/cgi-bin/psy2.6.1/survey?s=BGKGL)
---->
 ---
 
 ## 規劃建議
@@ -37,24 +37,26 @@ knitr::opts_chunk$set(echo = TRUE)
  
 ---
 
-## Simon task腳本範例
+## Stroop task腳本範例
 
-- [Psytoolkit資料庫的實驗腳本](https://www.psytoolkit.org/experiment-library/simon.html)
-- 登入畫面 -> `Get from library` -> 搜尋`Simon` -> Select and Copy
+- [中文Stroop示範實驗](https://www.psytoolkit.org/c/3.3.2/survey?s=BGKGL)
+
+- [Psytoolkit資料庫的實驗腳本](https://www.psytoolkit.org/experiment-library/stroop.html)
+- 登入畫面 -> `Get from library` -> 搜尋`Stroop` -> Select and Copy
  
 ---
 
 ## 實驗腳本基本參數
 
-[options](https://www.psytoolkit.org/doc2.6.1/syntax.html#options) 螢幕模式、解析度、啟動滑鼠、設定特別參數  
+[options](https://www.psytoolkit.org/doc3.3.2/syntax.html#options) 螢幕模式、解析度、啟動滑鼠、設定特別參數  
 
-[bitmaps](https://www.psytoolkit.org/doc2.6.1/syntax.html#_bitmaps) 設定所有圖檔別名  
+[bitmaps](https://www.psytoolkit.org/doc3.3.2/syntax.html#_bitmaps) 設定所有圖檔別名  
 
-[sounds](https://www.psytoolkit.org/doc2.6.1/syntax.html#sounds) 設定所有音訊檔別名  
+[sounds](https://www.psytoolkit.org/doc3.3.2/syntax.html#sounds) 設定所有音訊檔別名  
 
-[fonts](https://www.psytoolkit.org/doc2.6.1/syntax.html#fonts) 設定呈現文字字型檔(中文字型的支援尚在測試)  
+[fonts](https://www.psytoolkit.org/doc3.3.2/syntax.html#fonts) 設定呈現文字字型檔(中文字型的支援尚在測試)  
 
-[table](https://www.psytoolkit.org/doc2.6.1/syntax.html#table) 實驗刺激列表。至少設定一個欄位列出刺激別名，欄位之間以空白分隔。  
+[table](https://www.psytoolkit.org/doc3.3.2/syntax.html#table) 實驗刺激列表。至少設定一個欄位列出刺激別名，欄位之間以空白分隔。  
 
 ```
 ## 參數1 參數2 刺激別名 刺激獨變項標記
@@ -62,14 +64,14 @@ knitr::opts_chunk$set(echo = TRUE)
 -10  1  bitmap2  "condition two"
 ```
 
-[task](https://www.psytoolkit.org/doc2.6.1/syntax.html#task) 實驗作業嘗試程序。依計畫書說明設定。  
+[task](https://www.psytoolkit.org/doc3.3.2/syntax.html#task) 實驗作業嘗試程序。依計畫書說明設定。  
 <!---
 message 在指定段落呈現訊息，預設按空白鍵換頁。
 --->
-[block](https://www.psytoolkit.org/doc2.6.1/syntax.html#block) 實驗作業段落，設定`task`執行次數。  
+[block](https://www.psytoolkit.org/doc3.3.2/syntax.html#block) 實驗作業段落，設定`task`執行次數。  
 
 <!---
-[blockorder](https://www.psytoolkit.org/doc2.6.1/syntax.html#blockorder) 複數實驗作業段落排列。  
+[blockorder](https://www.psytoolkit.org/doc3.3.2/syntax.html#blockorder) 複數實驗作業段落排列。  
 --->
 
 ---

@@ -429,13 +429,16 @@ div.tocify {
 <ul>
 <li><a href="https://www.sttmedia.com/download=TextImagesEn">TextImages</a> 文字轉圖檔</li>
 <li><a href="https://briian.com/8492/">FireAlpaca</a> 多語系免費繪圖軟體</li>
-<li><a href="https://inkscape.org/">Inkscape</a> 多語系向量圖(SVG)繪圖軟體。<a href="https://inkscape.org/zh-hant/doc/tutorials/basic/tutorial-basic.html">中文教學#01 from official site</a>;<a href="https://www.youtube.com/watch?v=DgIFtW39bGM&amp;list=UUzVRIHol4ER4uFA9Xlk2agA">中文教學#02 by Spitter Lin</a>;<a href="https://www.youtube.com/watch?v=Zz7c55bYeBQ&amp;list=PLm6x13NbsKl5rSPMKte7EWvQCrsSCw6iv">中文教學#03 by 阿簡</a></li>
+<li><a href="https://inkscape.org/">Inkscape</a> 多語系向量圖(SVG)繪圖軟體
+<ul>
+<li><a href="https://inkscape.org/zh-hant/doc/tutorials/basic/tutorial-basic.html">中文教學#01 from official site</a></li>
+<li><a href="https://www.youtube.com/watch?v=DgIFtW39bGM&amp;list=UUzVRIHol4ER4uFA9Xlk2agA">中文教學#02 by Spitter Lin</a></li>
+<li><a href="https://www.youtube.com/watch?v=Zz7c55bYeBQ&amp;list=PLm6x13NbsKl5rSPMKte7EWvQCrsSCw6iv">中文教學#03 by 阿簡</a></li>
+</ul></li>
 <li><a href="https://imgur.com/">imgur個人分享圖庫</a></li>
-<li><a href="https://tts.yating.tw/">雅婷文字轉語音</a> <!---
-
-[中文Stroop示範實驗](https://www.psytoolkit.org/cgi-bin/psy2.6.1/survey?s=BGKGL)
----> —</li>
+<li><a href="https://tts.yating.tw/">雅婷文字轉語音</a></li>
 </ul>
+<hr />
 </div>
 <div id="規劃建議" class="section level2">
 <h2>規劃建議</h2>
@@ -447,30 +450,31 @@ div.tocify {
 </ol>
 <hr />
 </div>
-<div id="simon-task腳本範例" class="section level2">
-<h2>Simon task腳本範例</h2>
+<div id="stroop-task腳本範例" class="section level2">
+<h2>Stroop task腳本範例</h2>
 <ul>
-<li><a href="https://www.psytoolkit.org/experiment-library/simon.html">Psytoolkit資料庫的實驗腳本</a></li>
-<li>登入畫面 -&gt; <code>Get from library</code> -&gt; 搜尋<code>Simon</code> -&gt; Select and Copy</li>
+<li><p><a href="https://www.psytoolkit.org/c/3.3.2/survey?s=BGKGL">中文Stroop示範實驗</a></p></li>
+<li><p><a href="https://www.psytoolkit.org/experiment-library/stroop.html">Psytoolkit資料庫的實驗腳本</a></p></li>
+<li><p>登入畫面 -&gt; <code>Get from library</code> -&gt; 搜尋<code>Stroop</code> -&gt; Select and Copy</p></li>
 </ul>
 <hr />
 </div>
 <div id="實驗腳本基本參數" class="section level2">
 <h2>實驗腳本基本參數</h2>
-<p><a href="https://www.psytoolkit.org/doc2.6.1/syntax.html#options">options</a> 螢幕模式、解析度、啟動滑鼠、設定特別參數</p>
-<p><a href="https://www.psytoolkit.org/doc2.6.1/syntax.html#_bitmaps">bitmaps</a> 設定所有圖檔別名</p>
-<p><a href="https://www.psytoolkit.org/doc2.6.1/syntax.html#sounds">sounds</a> 設定所有音訊檔別名</p>
-<p><a href="https://www.psytoolkit.org/doc2.6.1/syntax.html#fonts">fonts</a> 設定呈現文字字型檔(中文字型的支援尚在測試)</p>
-<p><a href="https://www.psytoolkit.org/doc2.6.1/syntax.html#table">table</a> 實驗刺激列表。至少設定一個欄位列出刺激別名，欄位之間以空白分隔。</p>
+<p><a href="https://www.psytoolkit.org/doc3.3.2/syntax.html#options">options</a> 螢幕模式、解析度、啟動滑鼠、設定特別參數</p>
+<p><a href="https://www.psytoolkit.org/doc3.3.2/syntax.html#_bitmaps">bitmaps</a> 設定所有圖檔別名</p>
+<p><a href="https://www.psytoolkit.org/doc3.3.2/syntax.html#sounds">sounds</a> 設定所有音訊檔別名</p>
+<p><a href="https://www.psytoolkit.org/doc3.3.2/syntax.html#fonts">fonts</a> 設定呈現文字字型檔(中文字型的支援尚在測試)</p>
+<p><a href="https://www.psytoolkit.org/doc3.3.2/syntax.html#table">table</a> 實驗刺激列表。至少設定一個欄位列出刺激別名，欄位之間以空白分隔。</p>
 <pre><code>## 參數1 參數2 刺激別名 刺激獨變項標記
  10  2  bitmap1  &quot;condition one&quot;
 -10  1  bitmap2  &quot;condition two&quot;</code></pre>
-<p><a href="https://www.psytoolkit.org/doc2.6.1/syntax.html#task">task</a> 實驗作業嘗試程序。依計畫書說明設定。<br />
+<p><a href="https://www.psytoolkit.org/doc3.3.2/syntax.html#task">task</a> 實驗作業嘗試程序。依計畫書說明設定。<br />
 <!---
 message 在指定段落呈現訊息，預設按空白鍵換頁。
----> <a href="https://www.psytoolkit.org/doc2.6.1/syntax.html#block">block</a> 實驗作業段落，設定<code>task</code>執行次數。</p>
+---> <a href="https://www.psytoolkit.org/doc3.3.2/syntax.html#block">block</a> 實驗作業段落，設定<code>task</code>執行次數。</p>
 <!---
-[blockorder](https://www.psytoolkit.org/doc2.6.1/syntax.html#blockorder) 複數實驗作業段落排列。  
+[blockorder](https://www.psytoolkit.org/doc3.3.2/syntax.html#blockorder) 複數實驗作業段落排列。  
 --->
 <hr />
 </div>
