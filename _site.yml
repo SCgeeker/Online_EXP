@@ -29,7 +29,8 @@ navbar:
               href: PsyT_survey.html
             - text: "線上實驗"
               href: PsyT_exp.html
-            - text: "開發中"
+            - text: "資料處理"
+              href: PsyT_data.html
         - text: "formr"
           menu:
             - text: "開發中"
@@ -44,9 +45,6 @@ navbar:
         - text: "MTurk"
           menu:
             - text: "開發中"
-    - text: "資料整頓分析"
-      menu:
-        - text: "開發中"
 output:
   html_document:
     toc: TRUE

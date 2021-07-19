@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>資料處理</title>
+
+<script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fas fa-home"></span>
+     
+    首頁
+  </a>
+</li>
+<li>
+  <a href="about.html">
+    <span class="fas fa-info"></span>
+     
+    關於
+  </a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    實驗平台
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">OpenSesame</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="OS_intro.html">準備指引</a>
+        </li>
+        <li>
+          <a href="OS_script.html">腳本設計</a>
+        </li>
+        <li>
+          <a href="OS_JATOS.html">JATOS部署與測試</a>
+        </li>
+        <li class="dropdown-header">開發中</li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">psytoolkit</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="PsyT_intro.html">準備指引</a>
+        </li>
+        <li>
+          <a href="PsyT_survey.html">線上問卷</a>
+        </li>
+        <li>
+          <a href="PsyT_exp.html">線上實驗</a>
+        </li>
+        <li>
+          <a href="PsyT_data.html">資料處理</a>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">formr</a>
+      <ul class="dropdown-menu" role="menu">
+        <li class="dropdown-header">開發中</li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Gorilla</a>
+      <ul class="dropdown-menu" role="menu">
+        <li class="dropdown-header">開發中</li>
+      </ul>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    招募平台
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Prolific</a>
+      <ul class="dropdown-menu" role="menu">
+        <li class="dropdown-header">開發中</li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">MTurk</a>
+      <ul class="dropdown-menu" role="menu">
+        <li class="dropdown-header">開發中</li>
+      </ul>
+    </li>
+  </ul>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">資料處理</h1>
+
+</div>
+
+
+<p>這個部分使用<a href="PsyT_survey.html">線上問卷</a>展示的<a href="https://www.psytoolkit.org/c/3.3.2/survey?s=ZjBNx">示範問卷及實驗</a>，示範如何處理完成研究的資料。</p>
+<div id="上線前建議" class="section level2">
+<h2>上線前建議</h2>
+<ul>
+<li>除了測試問卷/實驗的執行程序的任何步驟符合計畫，檢查輸出資料是否符合資料分析需要也是必要的。</li>
+<li>測試結束要正式上線前，建議先刪除測試資料，避免混雜正式收集的資料。</li>
+</ul>
+<p><img src="includes/img/Psytoolkit_del_data.png" /></p>
+<ul>
+<li>使用測試資料準備分析程序，有助減少處理正式資料的時間，降低失誤機會。以下使用R做些展示。</li>
+</ul>
+</div>
+<div id="範例實驗及資料" class="section level2">
+<h2>範例實驗及資料</h2>
+<p><a href="https://www.psytoolkit.org/c/3.3.2/survey?s=ZjBNx">示範問卷及實驗</a>的測試資料壓縮檔可<a href="includes/scripts/test_data.zip">由此下載</a>，壓縮檔內檔案展示如下：</p>
+<pre class="r"><code>## path to the latest downloaded raw data
+downloaded_rawdata &lt;- &quot;includes/scripts/test_data.zip&quot;
+## Check the downloaded data files
+datafiles &lt;- unzip(downloaded_rawdata, list = TRUE)
+## List files in zip file
+datafiles %&gt;%
+  rmarkdown::paged_table()</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["Name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Length"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Date"],"name":[3],"type":["dttm"],"align":["right"]}],"data":[{"1":"data.csv","2":"1354","3":"2021-07-17 10:45:00"},{"1":"data_times.csv","2":"792","3":"2021-07-17 10:45:00"},{"1":"data.xlsx","2":"5700","3":"2021-07-17 10:45:00"},{"1":"data_times.xlsx","2":"5479","3":"2021-07-17 10:45:00"},{"1":"survey.txt","2":"1481","3":"2021-07-17 09:26:00"},{"1":"s.1d00c9d8-efdc-4862-b126-6ce54662d3d6.txt","2":"861","3":"2021-07-17 10:08:00"},{"1":"s.1d5fa6a6-b82e-416e-b95f-0f96b96e12e5.txt","2":"858","3":"2021-07-17 09:43:00"},{"1":"s.6dc1db70-d5c3-4703-827c-e366ede3ef1b.txt","2":"862","3":"2021-07-17 09:31:00"},{"1":"s.9c72892a-a814-4597-b776-e42fde97f907.txt","2":"877","3":"2021-07-17 10:41:00"},{"1":"s.ae6b57fc-15cb-4880-a95e-00f8c3852c36.txt","2":"864","3":"2021-07-17 10:11:00"},{"1":"Simon_circle.2021-07-17-0931.data.6dc1db70-d5c3-4703-827c-e366ede3ef1b.txt","2":"1043","3":"2021-07-17 09:31:00"},{"1":"Simon_circle.2021-07-17-0942.data.1d5fa6a6-b82e-416e-b95f-0f96b96e12e5.txt","2":"1042","3":"2021-07-17 09:42:00"},{"1":"Simon_circle.2021-07-17-1007.data.1d00c9d8-efdc-4862-b126-6ce54662d3d6.txt","2":"1040","3":"2021-07-17 10:07:00"},{"1":"Simon_circle.2021-07-17-1009.data.ae6b57fc-15cb-4880-a95e-00f8c3852c36.txt","2":"1040","3":"2021-07-17 10:09:00"},{"1":"Simon_circle.2021-07-17-1041.data.9c72892a-a814-4597-b776-e42fde97f907.txt","2":"1042","3":"2021-07-17 10:41:00"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<ul>
+<li><code>survey.txt</code> ~ 問卷腳本文字檔</li>
+<li><code>data.csv</code>,<code>data.xlsx</code> ~ 儲存所有參與紀錄的寛表單，逐欄紀錄各題作答資訊。<strong>問卷反應原始資料。</strong></li>
+<li><code>data_times.csv</code>,<code>data_times.xlsx</code> ~ 儲存所有參與紀錄的寛表單，逐欄紀錄各題作答時間，以毫秒為單位。<strong>可依此判斷參與者完成某部分的題目是否符合計劃預期。</strong></li>
+<li><code>s.</code>開頭檔案 ~ 每位參與者的問卷填答紀錄的長表單，自正式登入第一題網頁起，逐行紀錄開啓網頁日期時間、停留毫秒數、題目資訊、做答反應。</li>
+<li><code>Simon_circle</code>開頭檔案 ~ 每位參與者的實驗反應資料。<strong>實驗反應原始資料。</strong></li>
+</ul>
+</div>
+<div id="問卷反應原始資料處理" class="section level2">
+<h2>問卷反應原始資料處理</h2>
+<ul>
+<li><p><code>data.csv</code>,<code>data.xlsx</code>的欄位標題依腳本的標籤(<code>l</code>)命名。多選題、量表題組等不只一個欄位，建議事先根據欄位設定<strong>資料編碼簿</strong>，各欄位資料的處理方式。</p></li>
+<li><p><code>data.csv</code>,<code>data.xlsx</code>的共有欄位“participant”,“TIME_start”,“TIME_end”,“TIME_total”可做為合併的基準，或先由<code>data.csv</code>移除“TIME_start”,“TIME_end”,“TIME_total”。</p></li>
+</ul>
+<pre class="r"><code>## Import data
+datarows &lt;- read_csv(unz(downloaded_rawdata,filename = &quot;data.csv&quot;))
+datarows  %&gt;%
+  rmarkdown::paged_table()</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["participant"],"name":[1],"type":["chr"],"align":["left"]},{"label":["examplequestion1:1"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["examplequestion2:1"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["examplequestion2:2"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["examplequestion2:3"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["examplequestion2:4"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["examplequestion3:1"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["examplequestion3:2"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["examplequestion3:3"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["examplequestion3:4"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["examplequestion4:1"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["examplequestion4:2"],"name":[12],"type":["dbl"],"align":["right"]},{"label":["examplequestion5:1"],"name":[13],"type":["chr"],"align":["left"]},{"label":["examplequestion5:2"],"name":[14],"type":["lgl"],"align":["right"]},{"label":["examplequestion6:1"],"name":[15],"type":["chr"],"align":["left"]},{"label":["examplequestion7:1"],"name":[16],"type":["chr"],"align":["left"]},{"label":["examplequestion7:2"],"name":[17],"type":["chr"],"align":["left"]},{"label":["examplequestion7:3"],"name":[18],"type":["lgl"],"align":["right"]},{"label":["TIME_start"],"name":[19],"type":["chr"],"align":["left"]},{"label":["TIME_end"],"name":[20],"type":["chr"],"align":["left"]},{"label":["TIME_total"],"name":[21],"type":["dbl"],"align":["right"]}],"data":[{"1":"s.9c72892a-a814-4597-b776-e42fde97f907.txt","2":"2","3":"1","4":"1","5":"1","6":"1","7":"2","8":"2","9":"2","10":"2","11":"34","12":"33","13":"QQ","14":"NA","15":"Simon_circle.2021-07-17-1041.data.9c72892a-a814-4597-b776-e42fde97f907.txt","16":"Amazing","17":"NA","18":"NA","19":"2021-07-17-10-14","20":"2021-07-17-10-41","21":"27"},{"1":"s.1d5fa6a6-b82e-416e-b95f-0f96b96e12e5.txt","2":"2","3":"0","4":"1","5":"1","6":"0","7":"1","8":"1","9":"1","10":"1","11":"50","12":"50","13":"陳","14":"NA","15":"Simon_circle.2021-07-17-0942.data.1d5fa6a6-b82e-416e-b95f-0f96b96e12e5.txt","16":"好","17":"NA","18":"NA","19":"2021-07-17-09-41","20":"2021-07-17-09-43","21":"2"},{"1":"s.ae6b57fc-15cb-4880-a95e-00f8c3852c36.txt","2":"4","3":"1","4":"0","5":"0","6":"1","7":"2","8":"2","9":"2","10":"2","11":"46","12":"42","13":"PP","14":"NA","15":"Simon_circle.2021-07-17-1009.data.ae6b57fc-15cb-4880-a95e-00f8c3852c36.txt","16":"Great","17":"NA","18":"NA","19":"2021-07-17-10-08","20":"2021-07-17-10-11","21":"3"},{"1":"s.6dc1db70-d5c3-4703-827c-e366ede3ef1b.txt","2":"1","3":"1","4":"0","5":"0","6":"0","7":"2","8":"2","9":"2","10":"2","11":"65","12":"63","13":"馬","14":"NA","15":"Simon_circle.2021-07-17-0931.data.6dc1db70-d5c3-4703-827c-e366ede3ef1b.txt","16":"good","17":"nice","18":"NA","19":"2021-07-17-09-29","20":"2021-07-17-09-31","21":"2"},{"1":"s.1d00c9d8-efdc-4862-b126-6ce54662d3d6.txt","2":"3","3":"0","4":"0","5":"1","6":"1","7":"3","8":"3","9":"3","10":"3","11":"66","12":"67","13":"O","14":"NA","15":"Simon_circle.2021-07-17-1007.data.1d00c9d8-efdc-4862-b126-6ce54662d3d6.txt","16":"Nice","17":"NA","18":"NA","19":"2021-07-17-09-46","20":"2021-07-17-10-08","21":"22"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<pre class="r"><code>## Import data time
+datatimes &lt;- read_csv(unz(downloaded_rawdata,filename = &quot;data_times.csv&quot;)) 
+datatimes %&gt;% 
+  rmarkdown::paged_table()</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["participant"],"name":[1],"type":["chr"],"align":["left"]},{"label":["example_message"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["examplequestion1"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["examplequestion2"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["examplequestion3"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["examplequestion4"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["examplequestion5"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["examplequestion6"],"name":[8],"type":["lgl"],"align":["right"]},{"label":["examplequestion7"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["INFOSCREEN"],"name":[10],"type":["lgl"],"align":["right"]},{"label":["TIME_start"],"name":[11],"type":["chr"],"align":["left"]},{"label":["TIME_end"],"name":[12],"type":["chr"],"align":["left"]},{"label":["TIME_total"],"name":[13],"type":["dbl"],"align":["right"]}],"data":[{"1":"s.9c72892a-a814-4597-b776-e42fde97f907.txt","2":"3045","3":"1556617","4":"4150","5":"5014","6":"6531","7":"4177","8":"NA","9":"10821","10":"NA","11":"2021-07-17-10-14","12":"2021-07-17-10-41","13":"27"},{"1":"s.1d5fa6a6-b82e-416e-b95f-0f96b96e12e5.txt","2":"1420","3":"2404","4":"3034","5":"7218","6":"3380","7":"7607","8":"NA","9":"7420","10":"NA","11":"2021-07-17-09-41","12":"2021-07-17-09-43","13":"2"},{"1":"s.ae6b57fc-15cb-4880-a95e-00f8c3852c36.txt","2":"46632","3":"2142","4":"4116","5":"5201","6":"3747","7":"4455","8":"NA","9":"98001","10":"NA","11":"2021-07-17-10-08","12":"2021-07-17-10-11","13":"3"},{"1":"s.6dc1db70-d5c3-4703-827c-e366ede3ef1b.txt","2":"5133","3":"3650","4":"2184","5":"5922","6":"4703","7":"15056","8":"NA","9":"10087","10":"NA","11":"2021-07-17-09-29","12":"2021-07-17-09-31","13":"2"},{"1":"s.1d00c9d8-efdc-4862-b126-6ce54662d3d6.txt","2":"1811","3":"1956","4":"3261","5":"1042328","6":"4409","7":"9625","8":"NA","9":"6387","10":"NA","11":"2021-07-17-09-46","12":"2021-07-17-10-08","13":"22"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div id="實驗反應原始資料" class="section level2">
+<h2>實驗反應原始資料</h2>
+<ul>
+<li><p><a href="PsyT_exp.html#%E5%8F%8D%E6%87%89%E8%B3%87%E6%96%99%E5%88%86%E6%9E%90%E9%A0%90%E8%A6%BD">線上實驗</a>展示如何預覽一位參與者資料，正式實驗的資料必須先合併複數參與者的檔案，才能進行處理及分析。</p></li>
+<li><p><strong>實驗置入問卷的好處</strong>：個別檔案名稱存於<code>data.csv</code>,<code>data.xlsx</code>題目欄位，合併檔案只要抓欄位資料，檔名也是參與者ID。</p></li>
+<li><p>個別資料檔是以空白分欄的格式化文字檔。每個欄位定義在實驗腳本<code>save</code>之後，處理時要自行加入欄位名稱。詳見<a href="PsyT_exp.html#反應資料分析預覽">線上實驗反應資料分析預覽</a>。</p></li>
+<li><p>R的合併實驗資料檔示範：</p></li>
+</ul>
+<pre class="r"><code>## 自問卷data.csv取得實驗資料檔案名稱
+exp_datafiles &lt;- datarows$`examplequestion6:1`
+## 命名匯入資料的欄位名稱
+col_names &lt;- c(&quot;BLOCKNAME&quot;,&quot;circle_position&quot;,&quot;response_key&quot;,&quot;circle_circle&quot;,&quot;TABLEROW&quot;,&quot;KEY&quot;,&quot;correct&quot;,&quot;RT&quot;)
+## 預備空白資料框架
+df &lt;- data.frame()
+
+## 使用for迴圈匯入所有實驗資料檔案
+for(file in exp_datafiles) {
+  df = bind_rows(df, 
+## 使用實驗資料檔案名稱做為ID
+            cbind(ID= gsub(file,pattern = &quot;.txt&quot;,replacement = &quot;&quot;),
+              read.table(unz(downloaded_rawdata,filename = file),header=FALSE,col.names=col_names))
+              )
+}
+## 展示合併後的資料
+df %&gt;%
+    rmarkdown::paged_table(options = list(rows.print = 5))</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["ID"],"name":[1],"type":["chr"],"align":["left"]},{"label":["BLOCKNAME"],"name":[2],"type":["chr"],"align":["left"]},{"label":["circle_position"],"name":[3],"type":["chr"],"align":["left"]},{"label":["response_key"],"name":[4],"type":["chr"],"align":["left"]},{"label":["circle_circle"],"name":[5],"type":["chr"],"align":["left"]},{"label":["TABLEROW"],"name":[6],"type":["int"],"align":["right"]},{"label":["KEY"],"name":[7],"type":["int"],"align":["right"]},{"label":["correct"],"name":[8],"type":["int"],"align":["right"]},{"label":["RT"],"name":[9],"type":["int"],"align":["right"]}],"data":[{"1":"Simon_circle.2021-07-17-1041.data.9c72892a-a814-4597-b776-e42fde97f907","2":"test","3":"right_stimulus","4":"left_response","5":"red","6":"2","7":"1","8":"1","9":"1677"},{"1":"Simon_circle.2021-07-17-1041.data.9c72892a-a814-4597-b776-e42fde97f907","2":"test","3":"right_stimulus","4":"right_response","5":"green","6":"3","7":"2","8":"1","9":"627"},{"1":"Simon_circle.2021-07-17-1041.data.9c72892a-a814-4597-b776-e42fde97f907","2":"test","3":"left_stimulus","4":"right_response","5":"green","6":"4","7":"2","8":"1","9":"724"},{"1":"Simon_circle.2021-07-17-1041.data.9c72892a-a814-4597-b776-e42fde97f907","2":"test","3":"left_stimulus","4":"left_response","5":"red","6":"1","7":"2","8":"2","9":"880"},{"1":"Simon_circle.2021-07-17-1041.data.9c72892a-a814-4597-b776-e42fde97f907","2":"test","3":"right_stimulus","4":"left_response","5":"red","6":"2","7":"1","8":"1","9":"431"},{"1":"Simon_circle.2021-07-17-1041.data.9c72892a-a814-4597-b776-e42fde97f907","2":"test","3":"right_stimulus","4":"left_response","5":"red","6":"2","7":"1","8":"1","9":"469"},{"1":"Simon_circle.2021-07-17-1041.data.9c72892a-a814-4597-b776-e42fde97f907","2":"test","3":"right_stimulus","4":"left_response","5":"red","6":"2","7":"1","8":"1","9":"395"},{"1":"Simon_circle.2021-07-17-1041.data.9c72892a-a814-4597-b776-e42fde97f907","2":"test","3":"right_stimulus","4":"right_response","5":"green","6":"3","7":"2","8":"1","9":"477"},{"1":"Simon_circle.2021-07-17-1041.data.9c72892a-a814-4597-b776-e42fde97f907","2":"test","3":"right_stimulus","4":"left_response","5":"red","6":"2","7":"1","8":"1","9":"623"},{"1":"Simon_circle.2021-07-17-1041.data.9c72892a-a814-4597-b776-e42fde97f907","2":"test","3":"left_stimulus","4":"left_response","5":"red","6":"1","7":"1","8":"1","9":"581"},{"1":"Simon_circle.2021-07-17-1041.data.9c72892a-a814-4597-b776-e42fde97f907","2":"test","3":"right_stimulus","4":"left_response","5":"red","6":"2","7":"1","8":"1","9":"531"},{"1":"Simon_circle.2021-07-17-1041.data.9c72892a-a814-4597-b776-e42fde97f907","2":"test","3":"left_stimulus","4":"right_response","5":"green","6":"4","7":"2","8":"1","9":"564"},{"1":"Simon_circle.2021-07-17-1041.data.9c72892a-a814-4597-b776-e42fde97f907","2":"test","3":"left_stimulus","4":"right_response","5":"green","6":"4","7":"2","8":"1","9":"425"},{"1":"Simon_circle.2021-07-17-1041.data.9c72892a-a814-4597-b776-e42fde97f907","2":"test","3":"right_stimulus","4":"left_response","5":"red","6":"2","7":"1","8":"1","9":"514"},{"1":"Simon_circle.2021-07-17-1041.data.9c72892a-a814-4597-b776-e42fde97f907","2":"test","3":"right_stimulus","4":"right_response","5":"green","6":"3","7":"1","8":"2","9":"437"},{"1":"Simon_circle.2021-07-17-1041.data.9c72892a-a814-4597-b776-e42fde97f907","2":"test","3":"right_stimulus","4":"right_response","5":"green","6":"3","7":"2","8":"1","9":"390"},{"1":"Simon_circle.2021-07-17-1041.data.9c72892a-a814-4597-b776-e42fde97f907","2":"test","3":"left_stimulus","4":"left_response","5":"red","6":"1","7":"1","8":"1","9":"644"},{"1":"Simon_circle.2021-07-17-1041.data.9c72892a-a814-4597-b776-e42fde97f907","2":"test","3":"right_stimulus","4":"left_response","5":"red","6":"2","7":"1","8":"1","9":"1008"},{"1":"Simon_circle.2021-07-17-1041.data.9c72892a-a814-4597-b776-e42fde97f907","2":"test","3":"left_stimulus","4":"left_response","5":"red","6":"1","7":"1","8":"1","9":"490"},{"1":"Simon_circle.2021-07-17-1041.data.9c72892a-a814-4597-b776-e42fde97f907","2":"test","3":"right_stimulus","4":"right_response","5":"green","6":"3","7":"2","8":"1","9":"305"},{"1":"Simon_circle.2021-07-17-0942.data.1d5fa6a6-b82e-416e-b95f-0f96b96e12e5","2":"test","3":"right_stimulus","4":"right_response","5":"green","6":"3","7":"2","8":"1","9":"1116"},{"1":"Simon_circle.2021-07-17-0942.data.1d5fa6a6-b82e-416e-b95f-0f96b96e12e5","2":"test","3":"right_stimulus","4":"right_response","5":"green","6":"3","7":"2","8":"1","9":"510"},{"1":"Simon_circle.2021-07-17-0942.data.1d5fa6a6-b82e-416e-b95f-0f96b96e12e5","2":"test","3":"right_stimulus","4":"left_response","5":"red","6":"2","7":"1","8":"1","9":"885"},{"1":"Simon_circle.2021-07-17-0942.data.1d5fa6a6-b82e-416e-b95f-0f96b96e12e5","2":"test","3":"right_stimulus","4":"left_response","5":"red","6":"2","7":"1","8":"1","9":"523"},{"1":"Simon_circle.2021-07-17-0942.data.1d5fa6a6-b82e-416e-b95f-0f96b96e12e5","2":"test","3":"left_stimulus","4":"right_response","5":"green","6":"4","7":"2","8":"1","9":"690"},{"1":"Simon_circle.2021-07-17-0942.data.1d5fa6a6-b82e-416e-b95f-0f96b96e12e5","2":"test","3":"left_stimulus","4":"right_response","5":"green","6":"4","7":"2","8":"1","9":"448"},{"1":"Simon_circle.2021-07-17-0942.data.1d5fa6a6-b82e-416e-b95f-0f96b96e12e5","2":"test","3":"right_stimulus","4":"right_response","5":"green","6":"3","7":"1","8":"2","9":"793"},{"1":"Simon_circle.2021-07-17-0942.data.1d5fa6a6-b82e-416e-b95f-0f96b96e12e5","2":"test","3":"left_stimulus","4":"right_response","5":"green","6":"4","7":"2","8":"1","9":"701"},{"1":"Simon_circle.2021-07-17-0942.data.1d5fa6a6-b82e-416e-b95f-0f96b96e12e5","2":"test","3":"left_stimulus","4":"left_response","5":"red","6":"1","7":"1","8":"1","9":"593"},{"1":"Simon_circle.2021-07-17-0942.data.1d5fa6a6-b82e-416e-b95f-0f96b96e12e5","2":"test","3":"right_stimulus","4":"right_response","5":"green","6":"3","7":"2","8":"1","9":"573"},{"1":"Simon_circle.2021-07-17-0942.data.1d5fa6a6-b82e-416e-b95f-0f96b96e12e5","2":"test","3":"right_stimulus","4":"right_response","5":"green","6":"3","7":"2","8":"1","9":"653"},{"1":"Simon_circle.2021-07-17-0942.data.1d5fa6a6-b82e-416e-b95f-0f96b96e12e5","2":"test","3":"right_stimulus","4":"right_response","5":"green","6":"3","7":"2","8":"1","9":"388"},{"1":"Simon_circle.2021-07-17-0942.data.1d5fa6a6-b82e-416e-b95f-0f96b96e12e5","2":"test","3":"left_stimulus","4":"right_response","5":"green","6":"4","7":"2","8":"1","9":"560"},{"1":"Simon_circle.2021-07-17-0942.data.1d5fa6a6-b82e-416e-b95f-0f96b96e12e5","2":"test","3":"right_stimulus","4":"right_response","5":"green","6":"3","7":"2","8":"1","9":"453"},{"1":"Simon_circle.2021-07-17-0942.data.1d5fa6a6-b82e-416e-b95f-0f96b96e12e5","2":"test","3":"left_stimulus","4":"right_response","5":"green","6":"4","7":"2","8":"1","9":"676"},{"1":"Simon_circle.2021-07-17-0942.data.1d5fa6a6-b82e-416e-b95f-0f96b96e12e5","2":"test","3":"left_stimulus","4":"left_response","5":"red","6":"1","7":"1","8":"1","9":"815"},{"1":"Simon_circle.2021-07-17-0942.data.1d5fa6a6-b82e-416e-b95f-0f96b96e12e5","2":"test","3":"left_stimulus","4":"left_response","5":"red","6":"1","7":"1","8":"1","9":"608"},{"1":"Simon_circle.2021-07-17-0942.data.1d5fa6a6-b82e-416e-b95f-0f96b96e12e5","2":"test","3":"right_stimulus","4":"right_response","5":"green","6":"3","7":"2","8":"1","9":"1144"},{"1":"Simon_circle.2021-07-17-0942.data.1d5fa6a6-b82e-416e-b95f-0f96b96e12e5","2":"test","3":"right_stimulus","4":"left_response","5":"red","6":"2","7":"1","8":"1","9":"740"},{"1":"Simon_circle.2021-07-17-0942.data.1d5fa6a6-b82e-416e-b95f-0f96b96e12e5","2":"test","3":"right_stimulus","4":"right_response","5":"green","6":"3","7":"1","8":"2","9":"602"},{"1":"Simon_circle.2021-07-17-1009.data.ae6b57fc-15cb-4880-a95e-00f8c3852c36","2":"test","3":"left_stimulus","4":"left_response","5":"red","6":"1","7":"2","8":"2","9":"650"},{"1":"Simon_circle.2021-07-17-1009.data.ae6b57fc-15cb-4880-a95e-00f8c3852c36","2":"test","3":"right_stimulus","4":"right_response","5":"green","6":"3","7":"2","8":"1","9":"519"},{"1":"Simon_circle.2021-07-17-1009.data.ae6b57fc-15cb-4880-a95e-00f8c3852c36","2":"test","3":"left_stimulus","4":"right_response","5":"green","6":"4","7":"2","8":"1","9":"478"},{"1":"Simon_circle.2021-07-17-1009.data.ae6b57fc-15cb-4880-a95e-00f8c3852c36","2":"test","3":"right_stimulus","4":"left_response","5":"red","6":"2","7":"1","8":"1","9":"435"},{"1":"Simon_circle.2021-07-17-1009.data.ae6b57fc-15cb-4880-a95e-00f8c3852c36","2":"test","3":"right_stimulus","4":"right_response","5":"green","6":"3","7":"2","8":"1","9":"762"},{"1":"Simon_circle.2021-07-17-1009.data.ae6b57fc-15cb-4880-a95e-00f8c3852c36","2":"test","3":"left_stimulus","4":"right_response","5":"green","6":"4","7":"2","8":"1","9":"559"},{"1":"Simon_circle.2021-07-17-1009.data.ae6b57fc-15cb-4880-a95e-00f8c3852c36","2":"test","3":"right_stimulus","4":"left_response","5":"red","6":"2","7":"1","8":"1","9":"472"},{"1":"Simon_circle.2021-07-17-1009.data.ae6b57fc-15cb-4880-a95e-00f8c3852c36","2":"test","3":"right_stimulus","4":"right_response","5":"green","6":"3","7":"1","8":"2","9":"834"},{"1":"Simon_circle.2021-07-17-1009.data.ae6b57fc-15cb-4880-a95e-00f8c3852c36","2":"test","3":"right_stimulus","4":"left_response","5":"red","6":"2","7":"1","8":"1","9":"724"},{"1":"Simon_circle.2021-07-17-1009.data.ae6b57fc-15cb-4880-a95e-00f8c3852c36","2":"test","3":"right_stimulus","4":"left_response","5":"red","6":"2","7":"1","8":"1","9":"579"},{"1":"Simon_circle.2021-07-17-1009.data.ae6b57fc-15cb-4880-a95e-00f8c3852c36","2":"test","3":"right_stimulus","4":"right_response","5":"green","6":"3","7":"2","8":"1","9":"430"},{"1":"Simon_circle.2021-07-17-1009.data.ae6b57fc-15cb-4880-a95e-00f8c3852c36","2":"test","3":"right_stimulus","4":"left_response","5":"red","6":"2","7":"1","8":"1","9":"606"},{"1":"Simon_circle.2021-07-17-1009.data.ae6b57fc-15cb-4880-a95e-00f8c3852c36","2":"test","3":"left_stimulus","4":"left_response","5":"red","6":"1","7":"1","8":"1","9":"455"},{"1":"Simon_circle.2021-07-17-1009.data.ae6b57fc-15cb-4880-a95e-00f8c3852c36","2":"test","3":"left_stimulus","4":"left_response","5":"red","6":"1","7":"1","8":"1","9":"355"},{"1":"Simon_circle.2021-07-17-1009.data.ae6b57fc-15cb-4880-a95e-00f8c3852c36","2":"test","3":"left_stimulus","4":"left_response","5":"red","6":"1","7":"1","8":"1","9":"370"},{"1":"Simon_circle.2021-07-17-1009.data.ae6b57fc-15cb-4880-a95e-00f8c3852c36","2":"test","3":"left_stimulus","4":"left_response","5":"red","6":"1","7":"1","8":"1","9":"342"},{"1":"Simon_circle.2021-07-17-1009.data.ae6b57fc-15cb-4880-a95e-00f8c3852c36","2":"test","3":"left_stimulus","4":"left_response","5":"red","6":"1","7":"1","8":"1","9":"401"},{"1":"Simon_circle.2021-07-17-1009.data.ae6b57fc-15cb-4880-a95e-00f8c3852c36","2":"test","3":"left_stimulus","4":"left_response","5":"red","6":"1","7":"1","8":"1","9":"600"},{"1":"Simon_circle.2021-07-17-1009.data.ae6b57fc-15cb-4880-a95e-00f8c3852c36","2":"test","3":"right_stimulus","4":"left_response","5":"red","6":"2","7":"2","8":"2","9":"459"},{"1":"Simon_circle.2021-07-17-1009.data.ae6b57fc-15cb-4880-a95e-00f8c3852c36","2":"test","3":"right_stimulus","4":"right_response","5":"green","6":"3","7":"2","8":"1","9":"750"},{"1":"Simon_circle.2021-07-17-0931.data.6dc1db70-d5c3-4703-827c-e366ede3ef1b","2":"test","3":"left_stimulus","4":"left_response","5":"red","6":"1","7":"1","8":"1","9":"2374"},{"1":"Simon_circle.2021-07-17-0931.data.6dc1db70-d5c3-4703-827c-e366ede3ef1b","2":"test","3":"left_stimulus","4":"right_response","5":"green","6":"4","7":"2","8":"1","9":"1118"},{"1":"Simon_circle.2021-07-17-0931.data.6dc1db70-d5c3-4703-827c-e366ede3ef1b","2":"test","3":"left_stimulus","4":"left_response","5":"red","6":"1","7":"1","8":"1","9":"628"},{"1":"Simon_circle.2021-07-17-0931.data.6dc1db70-d5c3-4703-827c-e366ede3ef1b","2":"test","3":"right_stimulus","4":"right_response","5":"green","6":"3","7":"2","8":"1","9":"479"},{"1":"Simon_circle.2021-07-17-0931.data.6dc1db70-d5c3-4703-827c-e366ede3ef1b","2":"test","3":"left_stimulus","4":"left_response","5":"red","6":"1","7":"1","8":"1","9":"483"},{"1":"Simon_circle.2021-07-17-0931.data.6dc1db70-d5c3-4703-827c-e366ede3ef1b","2":"test","3":"left_stimulus","4":"right_response","5":"green","6":"4","7":"2","8":"1","9":"829"},{"1":"Simon_circle.2021-07-17-0931.data.6dc1db70-d5c3-4703-827c-e366ede3ef1b","2":"test","3":"left_stimulus","4":"left_response","5":"red","6":"1","7":"1","8":"1","9":"792"},{"1":"Simon_circle.2021-07-17-0931.data.6dc1db70-d5c3-4703-827c-e366ede3ef1b","2":"test","3":"left_stimulus","4":"left_response","5":"red","6":"1","7":"1","8":"1","9":"1150"},{"1":"Simon_circle.2021-07-17-0931.data.6dc1db70-d5c3-4703-827c-e366ede3ef1b","2":"test","3":"right_stimulus","4":"left_response","5":"red","6":"2","7":"1","8":"1","9":"588"},{"1":"Simon_circle.2021-07-17-0931.data.6dc1db70-d5c3-4703-827c-e366ede3ef1b","2":"test","3":"right_stimulus","4":"right_response","5":"green","6":"3","7":"2","8":"1","9":"415"},{"1":"Simon_circle.2021-07-17-0931.data.6dc1db70-d5c3-4703-827c-e366ede3ef1b","2":"test","3":"right_stimulus","4":"right_response","5":"green","6":"3","7":"2","8":"1","9":"370"},{"1":"Simon_circle.2021-07-17-0931.data.6dc1db70-d5c3-4703-827c-e366ede3ef1b","2":"test","3":"right_stimulus","4":"left_response","5":"red","6":"2","7":"1","8":"1","9":"535"},{"1":"Simon_circle.2021-07-17-0931.data.6dc1db70-d5c3-4703-827c-e366ede3ef1b","2":"test","3":"left_stimulus","4":"left_response","5":"red","6":"1","7":"1","8":"1","9":"397"},{"1":"Simon_circle.2021-07-17-0931.data.6dc1db70-d5c3-4703-827c-e366ede3ef1b","2":"test","3":"right_stimulus","4":"left_response","5":"red","6":"2","7":"1","8":"1","9":"442"},{"1":"Simon_circle.2021-07-17-0931.data.6dc1db70-d5c3-4703-827c-e366ede3ef1b","2":"test","3":"left_stimulus","4":"right_response","5":"green","6":"4","7":"2","8":"1","9":"463"},{"1":"Simon_circle.2021-07-17-0931.data.6dc1db70-d5c3-4703-827c-e366ede3ef1b","2":"test","3":"right_stimulus","4":"right_response","5":"green","6":"3","7":"2","8":"1","9":"411"},{"1":"Simon_circle.2021-07-17-0931.data.6dc1db70-d5c3-4703-827c-e366ede3ef1b","2":"test","3":"left_stimulus","4":"left_response","5":"red","6":"1","7":"1","8":"1","9":"443"},{"1":"Simon_circle.2021-07-17-0931.data.6dc1db70-d5c3-4703-827c-e366ede3ef1b","2":"test","3":"left_stimulus","4":"left_response","5":"red","6":"1","7":"1","8":"1","9":"402"},{"1":"Simon_circle.2021-07-17-0931.data.6dc1db70-d5c3-4703-827c-e366ede3ef1b","2":"test","3":"left_stimulus","4":"left_response","5":"red","6":"1","7":"1","8":"1","9":"402"},{"1":"Simon_circle.2021-07-17-0931.data.6dc1db70-d5c3-4703-827c-e366ede3ef1b","2":"test","3":"left_stimulus","4":"left_response","5":"red","6":"1","7":"1","8":"1","9":"374"},{"1":"Simon_circle.2021-07-17-1007.data.1d00c9d8-efdc-4862-b126-6ce54662d3d6","2":"test","3":"left_stimulus","4":"left_response","5":"red","6":"1","7":"2","8":"2","9":"854"},{"1":"Simon_circle.2021-07-17-1007.data.1d00c9d8-efdc-4862-b126-6ce54662d3d6","2":"test","3":"left_stimulus","4":"left_response","5":"red","6":"1","7":"1","8":"1","9":"447"},{"1":"Simon_circle.2021-07-17-1007.data.1d00c9d8-efdc-4862-b126-6ce54662d3d6","2":"test","3":"left_stimulus","4":"right_response","5":"green","6":"4","7":"2","8":"1","9":"537"},{"1":"Simon_circle.2021-07-17-1007.data.1d00c9d8-efdc-4862-b126-6ce54662d3d6","2":"test","3":"left_stimulus","4":"left_response","5":"red","6":"1","7":"1","8":"1","9":"494"},{"1":"Simon_circle.2021-07-17-1007.data.1d00c9d8-efdc-4862-b126-6ce54662d3d6","2":"test","3":"left_stimulus","4":"right_response","5":"green","6":"4","7":"2","8":"1","9":"529"},{"1":"Simon_circle.2021-07-17-1007.data.1d00c9d8-efdc-4862-b126-6ce54662d3d6","2":"test","3":"left_stimulus","4":"right_response","5":"green","6":"4","7":"2","8":"1","9":"965"},{"1":"Simon_circle.2021-07-17-1007.data.1d00c9d8-efdc-4862-b126-6ce54662d3d6","2":"test","3":"left_stimulus","4":"right_response","5":"green","6":"4","7":"2","8":"1","9":"469"},{"1":"Simon_circle.2021-07-17-1007.data.1d00c9d8-efdc-4862-b126-6ce54662d3d6","2":"test","3":"right_stimulus","4":"left_response","5":"red","6":"2","7":"1","8":"1","9":"547"},{"1":"Simon_circle.2021-07-17-1007.data.1d00c9d8-efdc-4862-b126-6ce54662d3d6","2":"test","3":"right_stimulus","4":"right_response","5":"green","6":"3","7":"2","8":"1","9":"897"},{"1":"Simon_circle.2021-07-17-1007.data.1d00c9d8-efdc-4862-b126-6ce54662d3d6","2":"test","3":"left_stimulus","4":"right_response","5":"green","6":"4","7":"2","8":"1","9":"555"},{"1":"Simon_circle.2021-07-17-1007.data.1d00c9d8-efdc-4862-b126-6ce54662d3d6","2":"test","3":"right_stimulus","4":"right_response","5":"green","6":"3","7":"2","8":"1","9":"480"},{"1":"Simon_circle.2021-07-17-1007.data.1d00c9d8-efdc-4862-b126-6ce54662d3d6","2":"test","3":"right_stimulus","4":"right_response","5":"green","6":"3","7":"2","8":"1","9":"422"},{"1":"Simon_circle.2021-07-17-1007.data.1d00c9d8-efdc-4862-b126-6ce54662d3d6","2":"test","3":"left_stimulus","4":"right_response","5":"green","6":"4","7":"1","8":"2","9":"592"},{"1":"Simon_circle.2021-07-17-1007.data.1d00c9d8-efdc-4862-b126-6ce54662d3d6","2":"test","3":"right_stimulus","4":"right_response","5":"green","6":"3","7":"2","8":"1","9":"367"},{"1":"Simon_circle.2021-07-17-1007.data.1d00c9d8-efdc-4862-b126-6ce54662d3d6","2":"test","3":"right_stimulus","4":"right_response","5":"green","6":"3","7":"2","8":"1","9":"347"},{"1":"Simon_circle.2021-07-17-1007.data.1d00c9d8-efdc-4862-b126-6ce54662d3d6","2":"test","3":"right_stimulus","4":"left_response","5":"red","6":"2","7":"1","8":"1","9":"513"},{"1":"Simon_circle.2021-07-17-1007.data.1d00c9d8-efdc-4862-b126-6ce54662d3d6","2":"test","3":"right_stimulus","4":"left_response","5":"red","6":"2","7":"1","8":"1","9":"501"},{"1":"Simon_circle.2021-07-17-1007.data.1d00c9d8-efdc-4862-b126-6ce54662d3d6","2":"test","3":"right_stimulus","4":"left_response","5":"red","6":"2","7":"1","8":"1","9":"521"},{"1":"Simon_circle.2021-07-17-1007.data.1d00c9d8-efdc-4862-b126-6ce54662d3d6","2":"test","3":"left_stimulus","4":"right_response","5":"green","6":"4","7":"2","8":"1","9":"424"},{"1":"Simon_circle.2021-07-17-1007.data.1d00c9d8-efdc-4862-b126-6ce54662d3d6","2":"test","3":"right_stimulus","4":"right_response","5":"green","6":"3","7":"2","8":"1","9":"382"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[5],"max":[5]},"pages":{}}}
+  </script>
+</div>
+<div id="上一步線上實驗" class="section level4">
+<h4>上一步：<a href="PsyT_exp.html">線上實驗</a></h4>
+</div>
+</div>
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="創用 CC 授權條款" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png" /></a><br />本網站由慈濟大學人類發展與心理學系副教授<a href="https://scchen.com/">陳紹慶</a>創建維護，網站內容採用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">創用 CC 姓名標示-非商業性 4.0 國際 授權條款</a>授權.
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

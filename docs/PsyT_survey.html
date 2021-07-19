@@ -370,7 +370,9 @@ div.tocify {
         <li>
           <a href="PsyT_exp.html">線上實驗</a>
         </li>
-        <li class="dropdown-header">開發中</li>
+        <li>
+          <a href="PsyT_data.html">資料處理</a>
+        </li>
       </ul>
     </li>
     <li class="dropdown-submenu">
@@ -406,16 +408,6 @@ div.tocify {
         <li class="dropdown-header">開發中</li>
       </ul>
     </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    資料整頓分析
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">開發中</li>
   </ul>
 </li>
       </ul>
@@ -470,7 +462,11 @@ o: (選設)問卷題目呈現及反應的選擇性設定。隨機排列選項、
 <div id="問卷題目範例" class="section level2">
 <h2>問卷題目範例</h2>
 <p>創建一份新問卷腳本，複製以下內容至問卷編輯視窗，儲存(Save)並編譯(Compile)之後，即可生成問卷發佈網址。</p>
-<pre><code>l: example_message
+<p><span style="background-color: #FFFF00"> 學習者可開啟<a href="https://www.psytoolkit.org/c/3.3.2/survey?s=ZjBNx">這個網頁</a>，測試問卷裡的六項問題，其中一個是Simon作業反應時間實驗，可點擊<a href="includes/scripts/Simon_circle.html">這裡</a>直接體驗，還有這裡檢視<a href="includes/scripts/Simon_circle.txt">實驗腳本</a>。這份問卷與實驗的資料處理示範，請見<a href="PsyT_data.html">資料處理</a>。 </span></p>
+<pre><code># check the large survey-library for ready-to-run examples you can
+# cut and paste here
+
+l: example_message
 t: info
 q: 您好&lt;br&gt;
 這是一份示範用問卷，陳列的題目是psytoolkit支援的問卷題目類型。&lt;br&gt;
@@ -478,51 +474,58 @@ q: 您好&lt;br&gt;
 
 l: examplequestion1
 t: radio
-q: (單選題)Which of the following foods do you like best?
-- Rice
-- Noodles
-- Bread
-- Potatoes
+q: (單選題)你喜歡那一種食物?
+o: require
+- 米飯
+- 麵條
+- 麵包
+- 馬鈴薯
 
 l: examplequestion2
 t: check
-q: (多選題)Select all of the following drinks did you had today?
-- Water
-- Orange juice
-- Tea
-- Coffee
+q: (多選題)今天喝過那些飲料?
+- 開水
+- 果汁
+- 茶
+- 咖啡
 
 scale: agree
-- Disagree
-- Neither agree nor disagree
-- Agree
+- 不符合
+- 一半符合,一半不符合
+- 符合
 
 l: examplequestion3
-q: (李克特量尺)How much do you agree with each of the following
+q: (李克特量尺)你自認這些描述符合個人特質的程度
 t: scale agree
-- I see myself as Extraverted, enthusiastic
-- I see myself as Critical, quarrelsome
-- I see myself as Dependable, self-disciplined
-- I see myself as Anxious, easily upset
+- 外向又熱情
+- 嚴肅又好爭辯
+- 可依賴又自律
+- 焦燥又脾氣壞
 
 l: examplequestion4
 t: range
-q: How old are you parents if alive
-- {min=18,max=120} Father
-- {min=18,max=120} Mother
+q: (視覺化量尺)你的父母健在的話，今年的歲數是？
+- {min=18,max=120} 父親
+- {min=18,max=120} 母親
 
 l: examplequestion5
 t: textline
-q: (視覺化量尺)Please enter your first name and surname
-- First name
-- {require} Surname
+q: (有限制輸入文字)請分別輸入你的姓(必填)與名(選填）
+- {require} 姓氏
+- 名字
 
 l: examplequestion6
+t: experiment
+q: 來進行一小段Simon作業(實驗腳本要存在同一個帳號)
+- Simon_circle
+
+l: examplequestion7
 t: textbox
-q: (自填答覆)Please enter your feedback
-- Your first comment (note: no with or height provided)
-- {w=100,h=5} Your second comment (here we have 100 characters width and 5 lines high
-- {width=100,height=5} Options spelled out in full works too
+q: (文字框)請留下你的建議
+- 建議一 (無設定文字框長寬)
+- {w=100,h=5} 建議二 (文字框100字符寬,5行高)
+- {width=100,height=5} 建議三(文字框100字符寬,5行高)
+
 </code></pre>
 <hr />
 </div>
@@ -628,6 +631,9 @@ t: info
 <li><code>Prepare datafiles for download</code> 點擊後產生最新原始資料壓縮檔案。預設有csv格式檔案。</li>
 </ol>
 <p><img src="https://i.imgur.com/JUMLpjy.png" /></p>
+<div id="上一步開工預備-下一步線上實驗" class="section level4">
+<h4>上一步：<a href="PsyT_intro.html">開工預備</a>    下一步：<a href="PsyT_exp.html">線上實驗</a></h4>
+</div>
 </div>
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="創用 CC 授權條款" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png" /></a><br />本網站由慈濟大學人類發展與心理學系副教授<a href="https://scchen.com/">陳紹慶</a>創建維護，網站內容採用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">創用 CC 姓名標示-非商業性 4.0 國際 授權條款</a>授權.

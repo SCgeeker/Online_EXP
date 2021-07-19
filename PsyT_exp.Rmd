@@ -245,3 +245,6 @@ q: 我的psytoolkit註冊帳號(電子郵件)，稍後分享實驗腳本。
 ![](https://i.imgur.com/vpvdrSW.png)
 
 預覽多位參與者的分組描述統計結果。評估預試(pilot study)，確認實驗設計是否符合計畫。
+
+
+#### 上一步：[線上問卷](PsyT_survey.html)&nbsp;&nbsp;&nbsp;&nbsp;下一步：[資料處理](PsyT_data.html)

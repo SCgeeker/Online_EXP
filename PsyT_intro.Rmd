@@ -26,11 +26,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 - [使用者論壇](http://psytoolkit.boards.net/)：與開發者及其他使用者交流使用心得與問題；徵求實驗參與者。
 
-- 任何使用者可經[官方登入頁面](https://www.psytoolkit.org/#_web_based_login)免費註冊帳號，線上管理與執行問卷與實驗腳本。官方登入頁面連結為最新版本。
+- 任何使用者可經[官方登入頁面](https://www.psytoolkit.org/#_web_based_login)免費註冊帳號，線上管理與執行問卷與實驗腳本。官方登入頁面連結為最新版本。**註** 2021年七月起除了歐洲伺服器，增加美國伺服器。使用者可自行選擇要在那個伺服器註冊，兩者的帳戶資料彼此獨立。
 
-## 登入畫面介紹
+
+## 註冊/登入畫面介紹
 
 ![2020年春季登入畫面截圖。實際畫面以官方網站為準。](includes/img/Psytoolkit_login.png)  
+
 
 ### 左側常駐功能列
 
@@ -54,7 +56,12 @@ knitr::opts_chunk$set(echo = TRUE)
 **小提示：psytoolkit的腳本名稱必須為英文**
 </span>
 
-使用者如果有教師協助學習，可在帳號設定加入教師的psytoolkit帳號。之後教師可從自已的登入畫面，瀏覽及複製學生編輯的實驗腳本，協助學生排助遇到的問題。
+使用者如果有教師協助學習，可在帳號設定加入教師的psytoolkit帳號。之後教師可從自已的登入畫面，瀏覽及複製學生編輯的**實驗腳本**，協助學生排助遇到的問題。
+
+<span style="background-color: #FFFF00">
+由於**問卷腳本**執行核心不同於**實驗腳本**，網站尚未提供線上批改。有需要的老師與學生建議使用其他協作平台如google doc, HackMD作業。
+</span>
+
 
 當學生在psytoolkit帳號設定加入教師的帳號之後，教師從`View students`連結查看學生帳號清單，每個學生帳號連結到學生已建立的實驗腳本活動頁面。
 
@@ -68,5 +75,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ![為保護學生個人資訊隱私，帳號資訊採噴霧處理。](includes/img/Psytoolkit_student_view02.png)
 
+
+#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 下一步：[線上問卷](PsyT_survey.html)
+
 ##### 參考文獻
+
 

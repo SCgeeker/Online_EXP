@@ -1,0 +1,52 @@
+# Fundamental option of this study
+options
+  fullscreen
+
+# Simon spatial stimulus-response compatibility.
+# Everything following hash mark is a comment.
+  
+# the bitmaps section tells the computer which images to use for this
+# experiment
+    
+bitmaps
+  instruction   # bitmap showing instructions
+  mistake       # bitmap shown after wrong response
+  red_circle    # bitmap of left stimulus
+  green_circle  # bitmap of right stimulus
+
+# Below a table with 4 conditions. Col(umns) mean the following
+# col1: description. col2: x-position (-200 or 200).
+# col3: stimuli, 
+# col4: which of the two keys used is the correct one.
+# Each time the task runs, one row will be used for the trial.
+
+table simontasktable
+  "left_stimulus  left_response  red  "  -200  red_circle   1
+  "right_stimulus left_response  red  "   200  red_circle   1
+  "right_stimulus right_response green"   200  green_circle  2
+  "left_stimulus  right_response green"  -200  green_circle  2
+
+task simon
+  table simontasktable                 # call the table that describes conditions 
+  keys z m                             # define the used keys
+  show rectangle 0 0 10 10 255 255 255 # define features and position of fixpoint
+  delay 200                            # define how long a fixpoint appear: wait 200 ms                              
+  clear 1                              # Erase fixpoint on screen                
+  delay 50                             # define how long a blank last before stimulus  
+  show bitmap @3 @2 0                  # show the stimulus based on table column 3 (X=@2,Y=0)
+  readkey @4 5000                      # define how long subject could make a response                        
+  clear 2                              # Erase stimulus on screen
+  if STATUS != CORRECT                 # if correct response was not made
+    show bitmap mistake 
+    delay 1000
+    clear 3
+  fi                                   # end of conditional block ("fi" is opposite of "if")
+  delay 500                            # define how long a blank before next trial  
+  save BLOCKNAME @1 TABLEROW KEY STATUS RT  # save data
+
+message instruction  # show "instruction" and wait for space bar
+
+block test
+  tasklist
+    simon 20  # do 20 trials of simon task.
+  end

@@ -1,0 +1,100 @@
+---
+title: "資料處理"
+output:
+  html_document:
+    toc: TRUE
+    toc_depth: 3
+    toc_float: TRUE
+    highlight: textmate
+    include:
+      after_body: footer.html
+    css: styles.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+這個部分使用[線上問卷](PsyT_survey.html)展示的[示範問卷及實驗](https://www.psytoolkit.org/c/3.3.2/survey?s=ZjBNx)，示範如何處理完成研究的資料。
+
+## 上線前建議
+
+- 除了測試問卷/實驗的執行程序的任何步驟符合計畫，檢查輸出資料是否符合資料分析需要也是必要的。
+- 測試結束要正式上線前，建議先刪除測試資料，避免混雜正式收集的資料。
+
+![](includes/img/Psytoolkit_del_data.png)
+
+- 使用測試資料準備分析程序，有助減少處理正式資料的時間，降低失誤機會。以下使用R做些展示。
+
+## 範例實驗及資料
+
+[示範問卷及實驗](https://www.psytoolkit.org/c/3.3.2/survey?s=ZjBNx)的測試資料壓縮檔可[由此下載](includes/scripts/test_data.zip)，壓縮檔內檔案展示如下：
+
+```{r read_data, message=FALSE, warning=FALSE}
+## path to the latest downloaded raw data
+downloaded_rawdata <- "includes/scripts/test_data.zip"
+## Check the downloaded data files
+datafiles <- unzip(downloaded_rawdata, list = TRUE)
+## List files in zip file
+datafiles %>%
+  rmarkdown::paged_table()
+```
+
+- `survey.txt` ~ 問卷腳本文字檔
+- `data.csv`,`data.xlsx` ~ 儲存所有參與紀錄的寛表單，逐欄紀錄各題作答資訊。**問卷反應原始資料。**
+- `data_times.csv`,`data_times.xlsx` ~ 儲存所有參與紀錄的寛表單，逐欄紀錄各題作答時間，以毫秒為單位。**可依此判斷參與者完成某部分的題目是否符合計劃預期。**
+- `s.`開頭檔案 ~ 每位參與者的問卷填答紀錄的長表單，自正式登入第一題網頁起，逐行紀錄開啓網頁日期時間、停留毫秒數、題目資訊、做答反應。
+- `Simon_circle`開頭檔案 ~ 每位參與者的實驗反應資料。**實驗反應原始資料。**
+
+
+## 問卷反應原始資料處理
+
+- `data.csv`,`data.xlsx`的欄位標題依腳本的標籤(`l`)命名。多選題、量表題組等不只一個欄位，建議事先根據欄位設定**資料編碼簿**，各欄位資料的處理方式。
+
+- `data.csv`,`data.xlsx`的共有欄位"participant","TIME_start","TIME_end","TIME_total"可做為合併的基準，或先由`data.csv`移除"TIME_start","TIME_end","TIME_total"。
+
+```{r survey_data, message=FALSE, warning=FALSE}
+## Import data
+datarows <- read_csv(unz(downloaded_rawdata,filename = "data.csv"))
+datarows  %>%
+  rmarkdown::paged_table()
+## Import data time
+datatimes <- read_csv(unz(downloaded_rawdata,filename = "data_times.csv")) 
+datatimes %>% 
+  rmarkdown::paged_table()
+```
+
+## 實驗反應原始資料
+
+- [線上實驗](PsyT_exp.html#%E5%8F%8D%E6%87%89%E8%B3%87%E6%96%99%E5%88%86%E6%9E%90%E9%A0%90%E8%A6%BD)展示如何預覽一位參與者資料，正式實驗的資料必須先合併複數參與者的檔案，才能進行處理及分析。
+
+- **實驗置入問卷的好處**：個別檔案名稱存於`data.csv`,`data.xlsx`題目欄位，合併檔案只要抓欄位資料，檔名也是參與者ID。
+
+- 個別資料檔是以空白分欄的格式化文字檔。每個欄位定義在實驗腳本`save `之後，處理時要自行加入欄位名稱。詳見[線上實驗反應資料分析預覽](PsyT_exp.html#反應資料分析預覽)。
+
+- R的合併實驗資料檔示範：
+
+```{r exp_data, message=FALSE, warning=FALSE}
+## 自問卷data.csv取得實驗資料檔案名稱
+exp_datafiles <- datarows$`examplequestion6:1`
+## 命名匯入資料的欄位名稱
+col_names <- c("BLOCKNAME","circle_position","response_key","circle_circle","TABLEROW","KEY","correct","RT")
+## 預備空白資料框架
+df <- data.frame()
+
+## 使用for迴圈匯入所有實驗資料檔案
+for(file in exp_datafiles) {
+  df = bind_rows(df, 
+## 使用實驗資料檔案名稱做為ID
+            cbind(ID= gsub(file,pattern = ".txt",replacement = ""),
+              read.table(unz(downloaded_rawdata,filename = file),header=FALSE,col.names=col_names))
+              )
+}
+## 展示合併後的資料
+df %>%
+    rmarkdown::paged_table(options = list(rows.print = 5))
+```
+
+
+#### 上一步：[線上實驗](PsyT_exp.html)
