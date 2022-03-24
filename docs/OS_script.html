@@ -13,8 +13,8 @@
 
 <title>OSWeb腳本編輯：句圖比對作業</title>
 
-<script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -57,6 +57,7 @@ if (window.hljs) {
   }
 }
 </script>
+
 
 
 
@@ -108,6 +109,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -333,7 +337,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -344,14 +348,14 @@ div.tocify {
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
     首頁
   </a>
 </li>
 <li>
   <a href="about.html">
-    <span class="fas fa-info"></span>
+    <span class="fa fa-info"></span>
      
     關於
   </a>
@@ -359,14 +363,14 @@ div.tocify {
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     實驗平台
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">OpenSesame</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">OpenSesame</a>
       <ul class="dropdown-menu" role="menu">
         <li>
           <a href="OS_intro.html">準備指引</a>
@@ -377,11 +381,13 @@ div.tocify {
         <li>
           <a href="OS_JATOS.html">JATOS部署與測試</a>
         </li>
-        <li class="dropdown-header">開發中</li>
+        <li>
+          <a href="OS_data.html">實驗資料處理</a>
+        </li>
       </ul>
     </li>
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">psytoolkit</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">psytoolkit</a>
       <ul class="dropdown-menu" role="menu">
         <li>
           <a href="PsyT_intro.html">準備指引</a>
@@ -398,13 +404,13 @@ div.tocify {
       </ul>
     </li>
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">formr</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">formr</a>
       <ul class="dropdown-menu" role="menu">
         <li class="dropdown-header">開發中</li>
       </ul>
     </li>
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Gorilla</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Gorilla</a>
       <ul class="dropdown-menu" role="menu">
         <li class="dropdown-header">開發中</li>
       </ul>
@@ -412,20 +418,20 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     招募平台
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Prolific</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Prolific</a>
       <ul class="dropdown-menu" role="menu">
         <li class="dropdown-header">開發中</li>
       </ul>
     </li>
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">MTurk</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">MTurk</a>
       <ul class="dropdown-menu" role="menu">
         <li class="dropdown-header">開發中</li>
       </ul>
@@ -451,7 +457,7 @@ div.tocify {
 <h2>簡介句圖比對作業</h2>
 <p>句圖比對作業(sentence-picture verification task)用於探討人類能否以視覺經驗理解句子，過去發現顯示閱讀描述物體的句子，暗示形狀、顏色、與方向等視覺屬性，判斷的物體圖片與脈絡一致，反應快於不一致的物體圖片<span class="citation">(Connell, 2007; Stanfield &amp; Zwaan, 2001; Zwaan et al., 2002; Zwaan &amp; Pecher, 2012)</span>。在此以 <span class="citation">Stanfield &amp; Zwaan (2001)</span> 的程序示範OpenSesame腳本編輯，<a href="includes/scripts/OrientationCrossLanguages_ZH_example.osexp">示範腳本</a>源自 <span class="citation">Chen et al. (2018)</span> 使用的繁體中文版實驗。示範說明依照序列(sequence)階層排列，建議學習者下載示範腳本後，按照以下說明調整測試，學習建構腳本的技巧。</p>
 <p><span style="background-color: #FFFF00"> <strong>OSWeb顯示中文字的限制</strong><br/><br />
-OpenSesame以HTML語法控制在螢幕呈現的文字，如果是中文字且一行文字長度超出螢幕寬度，目前的版本(v3.3)無法自動斷行。因此目前所有中文字的指導語及刺激項目，都需要事先轉換為PNG圖檔，置入要呈現的序列或迴圈元件。 </span></p>
+OpenSesame以HTML語法控制在螢幕呈現的中文文字自動斷行，也就是說如果文字長度超出螢幕寬度，目前的版本(v3.3)無法自動斷行。因此所有顯示中文字的指導語及刺激項目，建意事先轉換為PNG圖檔，或在要斷行的文字之間使用斷行標籤。 </span></p>
 </div>
 <div id="建立主序列" class="section level1">
 <h1>建立主序列</h1>
@@ -706,20 +712,36 @@ function getRndInteger(min, max) {
   return Math.floor(Math.random() * (max - min + 1) ) + min;
 }
 
+// 儲存已呈現probe至5個以上開始執行
+if(vars.list_length &gt; 5){
+
 // 決定probe_list的位置序號
-vars.anchor = getRndInteger(0,5);
+  vars.anchor = getRndInteger(0,5);
 
 // 依anchor位置序號，從probe_list載入該序號的刺激檔案至rectarget
 // 序列`Memory_seq`下元件`Probe_sti`呈現rectarget
-vars.rectarget = vars.probe_list[vars.anchor];
+  vars.rectarget = vars.probe_list[vars.anchor];
 
 // 設定`Probe_sti_response`正確反應按鍵，小於3為&quot;是&quot;，否則為&quot;否&quot;
-if(vars.anchor &lt; 3) {
+  if(vars.anchor &lt; 3) {
         vars.correct_response = &#39;j&#39;;
-}
-else{
+  }
+  else{
         vars.correct_response = &#39;f&#39;;
-}</code></pre>
+  }
+}
+
+// 儲存辨別目標正確至變數correct_response_Target
+vars.correct_response_Target = vars.correct_response
+
+// 標記此次嘗試有無記憶測試
+if( (vars.trial_seq == vars.check0) | (vars.trial_seq == vars.check_1) | (vars.trial_seq == vars.check_2) | (vars.trial_seq == vars.check_3) | (vars.trial_seq == vars.check_4) | (vars.trial_seq == vars.check_5) | (vars.trial_seq == vars.check_6) | (vars.trial_seq == vars.check_7) | (vars.trial_seq == vars.check_8) | (vars.trial_seq == vars.check_9) | (vars.trial_seq == vars.check_10) ){
+        vars.memory = &quot;y&quot;;
+} 
+else{
+        vars.memory = &#39;n&#39;;
+}
+</code></pre>
 <ol start="6" style="list-style-type: decimal">
 <li>序列<code>Memory_seq</code>執行memory check。“Run if”設定其中11次嘗試執行，每次實驗要執行的嘗試由<code>presetup</code>決定(見圖 11)。</li>
 </ol>
@@ -754,7 +776,7 @@ else{
 <h2>題目迴圈</h2>
 <p>圖 15 呈現調查題目迴圈<code>Survey</code>，參數設定大致與練習嘗試迴圈<code>SP_Practice</code>相同，除了“Repeat”與“Break if”是元件預設。表單內欄位“Question”與“Options”置入要呈現的題目與作答選項說明，依序呈現於題目序列<code>Survey_seq</code>的<code>Survey_board</code>。</p>
 <div class="figure">
-<img src="includes/img/post_seq02.png" alt="圖  15: Survey迴圈元件編輯畫面，表格置入調查問題與選項。" width="322" />
+<img src="includes/img/post_seq02.png" alt="圖  15: Survey迴圈元件編輯畫面，表格置入調查問題與選項。" width="319" />
 <p class="caption">
 圖 15: Survey迴圈元件編輯畫面，表格置入調查問題與選項。
 </p>
@@ -762,25 +784,25 @@ else{
 </div>
 <div id="題目序列" class="section level2">
 <h2>題目序列</h2>
-<p>圖 16展示調查執行序列<code>Survey_seq</code>，題目只有一套，執行三項題目即結束。</p>
+<p>圖 16展示調查執行序列<code>Survey_seq</code>，題目只有一套，執行二項題目即結束。</p>
 <div class="figure">
-<img src="includes/img/post_seq03.png" alt="圖  16: Survey_seq序列元件一覽。" width="174" />
+<img src="includes/img/post_seq03.png" alt="圖  16: Survey_seq序列元件一覽。" width="158" />
 <p class="caption">
 圖 16: Survey_seq序列元件一覽。
 </p>
 </div>
 <ol style="list-style-type: decimal">
-<li><code>Survey_Board</code>呈現題目與作答選項，題目迴圈<code>Survey</code>內選單欄位[Question]與[Options]；<code>Survey_response</code>說定可作答的按鍵，無回答時間限制。</li>
+<li><code>post_survey_input</code>是Form元件，能讓參與者自行輸入按鍵資訊。題目迴圈<code>Survey</code>內選單欄位[Question]與[Options]，呈現題目資訊與作答選項，無回答時間限制。</li>
 </ol>
 <div class="figure">
 <img src="includes/img/OS/survey_trial_001.png" alt="" />
-<p class="caption">左:題目sketchpad物件;右:選項keyboard response物件</p>
+<p class="caption">調查表單元件設定</p>
 </div>
 <ol start="2" style="list-style-type: decimal">
 <li>實驗嘗試紀錄<code>Task_logger</code>：從<code>Prac_trial</code><strong>關聯性複製</strong></li>
 </ol>
 <div id="上一步open-sesame開工預備-下一步jatos部署與測試" class="section level4">
-<h4>上一步：<a href="OS_intro.html">Open Sesame開工預備</a>        下一步：<a href="OS_OSWeb.html">JATOS部署與測試</a></h4>
+<h4>上一步：<a href="OS_intro.html">Open Sesame開工預備</a>        下一步：<a href="OS_JATOS.html">JATOS部署與測試</a></h4>
 <p><br/></p>
 <div id="參考文獻" class="section level5 unnumbered">
 <h5 class="unnumbered">參考文獻</h5>
@@ -795,10 +817,10 @@ Connell, L. (2007). Representing object colour in language comprehension. <em>Co
 Stanfield, R. A., &amp; Zwaan, R. A. (2001). The effect of implied orientation derived from verbal context on picture recognition. <em>Psychological Science</em>, <em>12</em>(2), 153–156. <a href="https://doi.org/10.1111/1467-9280.00326">https://doi.org/10.1111/1467-9280.00326</a>
 </div>
 <div id="ref-zwaanRevisitingMentalSimulation2012" class="csl-entry">
-Zwaan, R. A., &amp; Pecher, D. (2012). Revisiting <span>Mental Simulation</span> in <span>Language Comprehension</span>: <span>Six Replication Attempts</span>. <em>PLoS ONE</em>, <em>7</em>, e51382. <a href="https://doi.org/10.1371/journal.pone.0051382">https://doi.org/10.1371/journal.pone.0051382</a>
+Zwaan, R. A., &amp; Pecher, D. (2012). Revisiting mental simulation in language comprehension: Six replication attempts. <em>PLoS ONE</em>, <em>7</em>, e51382. <a href="https://doi.org/10.1371/journal.pone.0051382">https://doi.org/10.1371/journal.pone.0051382</a>
 </div>
 <div id="ref-zwaanLanguageComprehendersMentally2002" class="csl-entry">
-Zwaan, R. A., Stanfield, R. A., &amp; Yaxley, R. H. (2002). Language <span>Comprehenders Mentally Represent</span> the <span>Shapes</span> of <span>Objects</span>. <em>Psychological Science</em>, <em>13</em>, 168–171. <a href="https://doi.org/10.1111/1467-9280.00430">https://doi.org/10.1111/1467-9280.00430</a>
+Zwaan, R. A., Stanfield, R. A., &amp; Yaxley, R. H. (2002). Language comprehenders mentally represent the shapes of objects. <em>Psychological Science</em>, <em>13</em>, 168–171. <a href="https://doi.org/10.1111/1467-9280.00430">https://doi.org/10.1111/1467-9280.00430</a>
 </div>
 </div>
 </div>
@@ -845,6 +867,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

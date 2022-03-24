@@ -13,8 +13,8 @@
 
 <title>JATOS部署與測試</title>
 
-<script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -57,6 +57,7 @@ if (window.hljs) {
   }
 }
 </script>
+
 
 
 
@@ -108,6 +109,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -333,7 +337,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -344,14 +348,14 @@ div.tocify {
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
     首頁
   </a>
 </li>
 <li>
   <a href="about.html">
-    <span class="fas fa-info"></span>
+    <span class="fa fa-info"></span>
      
     關於
   </a>
@@ -359,14 +363,14 @@ div.tocify {
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     實驗平台
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">OpenSesame</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">OpenSesame</a>
       <ul class="dropdown-menu" role="menu">
         <li>
           <a href="OS_intro.html">準備指引</a>
@@ -377,11 +381,13 @@ div.tocify {
         <li>
           <a href="OS_JATOS.html">JATOS部署與測試</a>
         </li>
-        <li class="dropdown-header">開發中</li>
+        <li>
+          <a href="OS_data.html">實驗資料處理</a>
+        </li>
       </ul>
     </li>
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">psytoolkit</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">psytoolkit</a>
       <ul class="dropdown-menu" role="menu">
         <li>
           <a href="PsyT_intro.html">準備指引</a>
@@ -398,13 +404,13 @@ div.tocify {
       </ul>
     </li>
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">formr</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">formr</a>
       <ul class="dropdown-menu" role="menu">
         <li class="dropdown-header">開發中</li>
       </ul>
     </li>
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Gorilla</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Gorilla</a>
       <ul class="dropdown-menu" role="menu">
         <li class="dropdown-header">開發中</li>
       </ul>
@@ -412,20 +418,20 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     招募平台
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Prolific</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Prolific</a>
       <ul class="dropdown-menu" role="menu">
         <li class="dropdown-header">開發中</li>
       </ul>
     </li>
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">MTurk</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">MTurk</a>
       <ul class="dropdown-menu" role="menu">
         <li class="dropdown-header">開發中</li>
       </ul>
@@ -449,13 +455,13 @@ div.tocify {
 <div id="jatos伺服器" class="section level2">
 <h2>JATOS伺服器</h2>
 <ul>
-<li><p>測試腳本專用伺服器<a href="https://cortex.jatos.org/">Cortex</a></p></li>
-<li><p>歐洲認知心理學會(ESCoP)支持的免費研究用伺服器<a href="https://www.mindprobe.eu/">MindProbe</a></p></li>
+<li><p>測試腳本專用伺服器<a href="https://cortex.jatos.org/">Cortex</a>：自由註冊；系統每二十四小時自動重置，上傳的腳本會被刪除。</p></li>
+<li><p>歐洲認知心理學會(ESCoP)支持的免費研究用伺服器<a href="https://www.mindprobe.eu/">MindProbe</a>：自行寫信向管理者註冊帳號；執行研究期間，要留意系統維護訊息。</p></li>
 </ul>
-<p>由德國Max Planck研究所 <span class="citation">Lange et al. (2015)</span> 開發的JATOS網路伺服器開源程式，讓研究人員能自行架設或租用網站伺服器，部署以javascript撰寫的實驗腳本，包括 <a href="https://www.jspsych.org/">jsPsych</a>, <a href="https://lab.js.org/">lab.js</a>, <a href="https://osdoc.cogsci.nl/">OSWeb/OpenSesame</a>, 以及<a href="https://www.psytoolkit.org/">PsyToolkit</a>。</p>
+<p>JATOS網路伺服器開源程式是由德國Max Planck研究所 <span class="citation">Lange et al. (2015)</span> 開發，讓研究人員能自行架設或租用網站伺服器，部署以javascript撰寫的實驗腳本，包括 <a href="https://www.jspsych.org/">jsPsych</a>, <a href="https://lab.js.org/">lab.js</a>, <a href="https://osdoc.cogsci.nl/">OSWeb/OpenSesame</a>, 以及<a href="https://www.psytoolkit.org/">PsyToolkit</a>。</p>
 <p>以下示範截圖來自測試腳本伺服器<a href="https://cortex.jatos.org/">Cortex</a>。如果要正式部署實驗腳本收集資料，建議自行準備伺服器，或使用<a href="https://www.mindprobe.eu/">MindProbe</a>部署。</p>
 <ol style="list-style-type: decimal">
-<li>只要有google帳號，任何人都能自行登入Cortex伺服器。</li>
+<li>只要有google帳號，任何人都能自行註冊登入Cortex伺服器。</li>
 </ol>
 <div class="figure">
 <img src="includes/img/JATOS/cortex_login.png" alt="" />
@@ -555,13 +561,13 @@ div.tocify {
 <img src="includes/img/JATOS/OSWeb_Transfer.gif" alt="" />
 <p class="caption">檔案轉換操作示範</p>
 </div>
-<div id="上一步osweb腳本編輯" class="section level4">
-<h4>上一步：<a href="OS_script.html">OSWeb腳本編輯</a></h4>
+<div id="上一步osweb腳本編輯-下一步os資料處理示範" class="section level4">
+<h4>上一步：<a href="OS_script.html">OSWeb腳本編輯</a>        下一步：<a href="OS_data.html">OS資料處理示範</a></h4>
 <div id="參考文獻" class="section level5 unnumbered">
 <h5 class="unnumbered">參考文獻</h5>
 <div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
 <div id="ref-langeJustAnotherTool2015" class="csl-entry">
-Lange, K., Kühn, S., &amp; Filevich, E. (2015). "<span>Just Another Tool</span> for <span>Online Studies</span>” (<span>JATOS</span>): <span>An Easy Solution</span> for <span>Setup</span> and <span>Management</span> of <span>Web Servers Supporting Online Studies</span>. <em>PLOS ONE</em>, <em>10</em>(6), e0130834. <a href="https://doi.org/10.1371/journal.pone.0130834">https://doi.org/10.1371/journal.pone.0130834</a>
+Lange, K., Kühn, S., &amp; Filevich, E. (2015). "<span>Just Another Tool</span> for <span>Online Studies</span>” (<span>JATOS</span>): <span>An</span> easy solution for setup and management of web servers supporting online studies. <em>PLOS ONE</em>, <em>10</em>(6), e0130834. <a href="https://doi.org/10.1371/journal.pone.0130834">https://doi.org/10.1371/journal.pone.0130834</a>
 </div>
 </div>
 </div>
@@ -607,6 +613,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

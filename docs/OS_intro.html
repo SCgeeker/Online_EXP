@@ -13,8 +13,8 @@
 
 <title>Open Sesame開工預備</title>
 
-<script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -57,6 +57,7 @@ if (window.hljs) {
   }
 }
 </script>
+
 
 
 
@@ -108,6 +109,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -333,7 +337,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -344,14 +348,14 @@ div.tocify {
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
     首頁
   </a>
 </li>
 <li>
   <a href="about.html">
-    <span class="fas fa-info"></span>
+    <span class="fa fa-info"></span>
      
     關於
   </a>
@@ -359,14 +363,14 @@ div.tocify {
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     實驗平台
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">OpenSesame</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">OpenSesame</a>
       <ul class="dropdown-menu" role="menu">
         <li>
           <a href="OS_intro.html">準備指引</a>
@@ -377,11 +381,13 @@ div.tocify {
         <li>
           <a href="OS_JATOS.html">JATOS部署與測試</a>
         </li>
-        <li class="dropdown-header">開發中</li>
+        <li>
+          <a href="OS_data.html">實驗資料處理</a>
+        </li>
       </ul>
     </li>
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">psytoolkit</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">psytoolkit</a>
       <ul class="dropdown-menu" role="menu">
         <li>
           <a href="PsyT_intro.html">準備指引</a>
@@ -398,13 +404,13 @@ div.tocify {
       </ul>
     </li>
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">formr</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">formr</a>
       <ul class="dropdown-menu" role="menu">
         <li class="dropdown-header">開發中</li>
       </ul>
     </li>
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Gorilla</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Gorilla</a>
       <ul class="dropdown-menu" role="menu">
         <li class="dropdown-header">開發中</li>
       </ul>
@@ -412,20 +418,20 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     招募平台
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Prolific</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Prolific</a>
       <ul class="dropdown-menu" role="menu">
         <li class="dropdown-header">開發中</li>
       </ul>
     </li>
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">MTurk</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">MTurk</a>
       <ul class="dropdown-menu" role="menu">
         <li class="dropdown-header">開發中</li>
       </ul>
@@ -449,7 +455,7 @@ div.tocify {
 <div id="開發者資訊" class="section level2">
 <h2>開發者資訊</h2>
 <ul>
-<li><p>開發者Sebastiaan Mathôt等人發表於Behavior Research Methods volume的論文<span class="citation">(Mathôt et al., 2012)</span>，使用OpenSesame完成的研究報告務必引用這份論文。</p></li>
+<li><p>開發者<a href="https://github.com/smathot">Sebastiaan Mathôt</a>等人發表於Behavior Research Methods的論文<span class="citation">(Mathôt et al., 2012)</span>，使用OpenSesame完成的研究，務必在報告中引用這篇論文。</p></li>
 <li><p><a href="https://forum.cogsci.nl/">使用者論壇</a>：與開發者及其他使用者交流使用心得與問題。</p></li>
 </ul>
 </div>
@@ -460,11 +466,20 @@ div.tocify {
 <ul>
 <li>依照使用者的作業系統，下載對應的安裝檔或免安裝壓縮檔。
 <ul>
-<li><strong>註</strong> Windows 10執行安裝檔出現不建議安裝的訊息視窗時，選擇繼續安裝即可。</li>
+<li><strong>Windows 10 11</strong> 執行安裝檔出現不建議安裝的訊息視窗時，選擇繼續安裝即可。</li>
+<li><strong>Mac OS</strong> (1) 參考<a href="https://support.apple.com/en-in/guide/mac-help/mh40616/mac">蘋果官方手冊</a>，了解如何安裝未經官方認證的應用程式。 (2) 使用<code>Homebrew</code>安裝，步驟如下：</li>
 </ul></li>
+</ul>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li>開啟終端機視窗，複製下列指令至視窗內執行：<br/><br/> <code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</code> <br/><br/></li>
+<li>執行完畢，重新開啟終端機視窗，複製下列指令至視窗內執行：<br/><br/> <code>brew install --cask opensesame</code><br/></li>
+</ol>
+</blockquote>
+<ul>
 <li>安裝方式如同多數應用程式，建議安裝目錄設置在實驗程式相關路徑。例如<code>D:\EXP_APP\OpenSesame</code></li>
-<li>官方推出更新版本時，到官方下載網頁下載安裝檔，重新執行安裝程序。</li>
-<li>OpenSesame使用Python開發，熟悉Python的使用者可透過下載Python函式庫的方式安裝於任何作業系統。</li>
+<li>官方推出更新版本時，到官方下載網頁下載最新版本安裝程式，執行安裝程式即可更新。</li>
+<li>OpenSesame本體是一種Python IDE，熟悉Python的使用者可透過下載Python函式庫的方式安裝於任何作業系統。</li>
 </ul>
 </div>
 </div>
@@ -484,8 +499,8 @@ OpenSesame開啟畫面。
 <li>啟動瀏覽器僅測試執行效果，不會儲存資料。</li>
 <li>實驗程序要呈現圖片、聲音等外部媒體檔案，要放到刺激檔案總覽畫面之內。</li>
 </ul>
-<div id="必設定實驗元件" class="section level3">
-<h3>必設定實驗元件</h3>
+<div id="必用實驗元件" class="section level3">
+<h3>必用實驗元件</h3>
 <p><strong>一個腳本的程序由三種實驗元件構成</strong></p>
 <p><img src="includes/img/os-experiment.png" alt="實驗" /> <strong>腳本啟動元件</strong> <br/> - 創建新腳本就存在的元件。 - 設定執行引擎(Back-end)、螢幕解析度(Resolution)、前景色(Foreground)、背景色(Background)、預設字型(Font) <br/> <br/></p>
 <p><img src="includes/img/os-experiment-gui.png" /></p>
@@ -503,6 +518,7 @@ OpenSesame開啟畫面。
 <div id="osweb功能" class="section level2">
 <h2>OSWeb功能</h2>
 <ul>
+<li>轉換OpenSesame本機腳本為JATOS伺服器可執行腳本的函式庫。</li>
 <li>主選單“Tools -&gt; OSWeb”切換至OSWeb介面。按鈕功能如下圖說明：</li>
 </ul>
 <div class="figure">
@@ -563,6 +579,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')
