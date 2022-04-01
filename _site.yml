@@ -1,6 +1,7 @@
 name: "OpenPsy"
 title: "心理學網路實驗開放資源"
 output_dir: "docs"
+exclude: ["test"]
 navbar:
   left:
     - text: "首頁"
@@ -20,7 +21,8 @@ navbar:
               href: OS_script.html
             - text: "JATOS部署與測試"
               href: OS_JATOS.html
-            - text: "開發中"
+            - text: "實驗資料處理"
+              href: OS_data.html
         - text: "psytoolkit"
           menu:
             - text: "準備指引"

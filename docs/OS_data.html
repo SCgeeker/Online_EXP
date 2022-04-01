@@ -432,9 +432,61 @@ div.tocify {
 
 <ul>
 <li><p>本機執行OpenSesame腳本實驗，預設輸出格式為csv。logger預設儲存所有變項。</p></li>
-<li><p>JATOS執行OpenSesame腳本，預設輸出格式為JASON，必須<a href="OS_JATOS.html#OSWeb實驗資料格式轉換">轉換為csv格式</a>。考慮網路傳輸延遲，logger要自行設定儲存變項。</p></li>
+<li><p>JATOS執行OpenSesame腳本，預設輸出格式為JASON，必須<a href="OS_JATOS.html#OSWeb實驗資料格式轉換">轉換為csv格式</a>。考慮網路傳輸延遲，使用者要在腳本logger物件自行設定儲存變項。</p></li>
 </ul>
-<p>(示範資料準備中)</p>
+<div id="jatos系統變項欄位" class="section level2">
+<h2>JATOS系統變項欄位</h2>
+<ul>
+<li><p>輸出資料檔內有以下欄位，記錄參與者端的顯示器硬體設定、作業系統及瀏覽器設定，JATOS伺服器版本，實驗腳本頁首資訊(OpenSesame General properties)，以及參與者登入日期時間等資訊。如果實驗條件與這些資訊有關，可列入資料分析。</p></li>
+<li><p>以下是JATOS 3.7.3版匯出的系統變項，下載資料後可將這些變項另存檔案，以便處理真正的資料欄位。未來版本更新後，可能會有變動。</p></li>
+</ul>
+<p>browser_codename, browser_name, browser_version, date_startdate, date_startdateUTC, date_starttime, experiment_debug, experiment_parameters, experiment_pilot, experiment_taskname, experiment_taskversion, jatosStudyResultId, jatosVersion, screen_availableHeight, screen_availableWidth, screen_colorDepth, screen_height, screen_pixelDepth, screen_screenX, screen_screenY, screen_width, system_os</p>
+</div>
+<div id="實驗變項設定與資料處理" class="section level2">
+<h2>實驗變項設定與資料處理</h2>
+<ul>
+<li><p>實驗獨變項變項必須在實驗迴圈表格(table)設定，並在<code>logger</code>元件內設定，才能紀錄在JATOS伺服器。</p></li>
+<li><p>任何參與者的反應輸入預設儲存變項是”response”，必須在<code>logger</code>元件設定”response”變項，才能紀錄在JATOS伺服器。</p></li>
+<li><p>任何序列及迴圈的作業目標可能不同，反應輸入預設儲存變項都是”response”。在每個迴圈表格(table)設定<strong>標記變項</strong>，有助區隔不同區塊的原始資料。</p></li>
+<li><p>有設定<code>keyboard_response</code>元件，必須在<code>logger</code>元件 設定”response_time”變項，才能在JATOS伺服器紀錄反應時間資料。</p></li>
+<li><p>反應正誤在迴圈表格內指定變項設定(預設”correct_response”)，必須在<code>logger</code>元件 設定”correct”變項，才能在JATOS伺服器紀錄反應正誤資料。</p></li>
+<li><p>設定實驗完成碼需要使用javascript，產生隨機代號，存於”identifier”變項。只要是<strong>線上實驗</strong>，不論如何招募參與者，建議都要生成實驗完成碼，在最後畫面呈現，才能確認參與者有按照步驟完成實驗。</p></li>
+</ul>
+<blockquote>
+<p>以下R程式碼示範原始資料前置處理，實際使用需依正式實驗程序修改程式碼。</p>
+</blockquote>
+<!---
+{r preprocessing, echo=TRUE, eval=1, results='hide'}
+--->
+<pre><code>## 匯入原始資料csv檔
+rawdata &lt;- read_csv(&quot;test/test_results.csv&quot;)
+## 選定系統資訊變項及實驗完成碼，建立sys_data
+sys_data &lt;- select(rawdata, c(&quot;identifier&quot;,sys_cols))
+## 選定非系統資訊變項之其他資料，建立response_data
+response_data &lt;- select(rawdata, -sys_cols)
+
+## 選定來自練習段落的反應資料
+response_Prac &lt;- filter(response_data,Task==&quot;Prac&quot;)
+## 過濾不屬於練習段落的變項欄位
+response_Prac &lt;- response_Prac[,which(colSums(response_Prac!=&quot;None&quot;,na.rm = TRUE) != 0)]
+## 預覽練習段落的反應資料
+glimpse(response_Prac)
+
+
+## 選定來自實驗段落的反應資料
+response_Exp &lt;- filter(response_data,Task==&quot;SP&quot;)
+## 過濾不屬於實驗段落的變項欄位
+response_Exp &lt;- response_Exp[,which(colSums(response_Exp!=&quot;None&quot;,na.rm = TRUE) != 0)]
+## 預覽實驗段落的反應資料
+glimpse(response_Exp)
+
+## 選定來自出口調查的反應資料
+response_Exit &lt;- filter(response_data,Task==&quot;Post&quot;)
+## 過濾不屬於出口調查的變項欄位
+response_Exit &lt;- response_Exit[,which(colSums(response_Exit!=&quot;None&quot;,na.rm = TRUE) != 0)]
+## 預覽出口調查的反應資料
+glimpse(response_Exit)</code></pre>
+</div>
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="創用 CC 授權條款" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png" /></a><br />本網站由慈濟大學人類發展與心理學系副教授<a href="https://scchen.com/">陳紹慶</a>創建維護，網站內容採用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">創用 CC 姓名標示-非商業性 4.0 國際 授權條款</a>授權.
 

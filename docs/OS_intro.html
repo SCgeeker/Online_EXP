@@ -486,12 +486,6 @@ div.tocify {
 <div id="腳本編輯器介面" class="section level2">
 <h2>腳本編輯器介面</h2>
 <p>下圖是直接開啓OpenSesame的初始使用者介面，圖中註解有關編輯與測試實驗腳本的重要功能及選單。</p>
-<div class="figure">
-<img src="includes/img/OS_TOP.png" alt="OpenSesame開啟畫面。" width="2090" />
-<p class="caption">
-OpenSesame開啟畫面。
-</p>
-</div>
 <ul>
 <li>增加任何一個實驗元件到程序總覽畫面，可在編輯介面編輯元件內容。</li>
 <li>程序總覽畫面內的元件由上而下依順序執行。</li>
@@ -502,7 +496,11 @@ OpenSesame開啟畫面。
 <div id="必用實驗元件" class="section level3">
 <h3>必用實驗元件</h3>
 <p><strong>一個腳本的程序由三種實驗元件構成</strong></p>
-<p><img src="includes/img/os-experiment.png" alt="實驗" /> <strong>腳本啟動元件</strong> <br/> - 創建新腳本就存在的元件。 - 設定執行引擎(Back-end)、螢幕解析度(Resolution)、前景色(Foreground)、背景色(Background)、預設字型(Font) <br/> <br/></p>
+<p><img src="includes/img/os-experiment.png" alt="實驗" /> <strong>腳本啟動元件</strong> <br/></p>
+<ul>
+<li>創建新腳本就存在的元件。</li>
+<li>設定執行引擎(Back-end)、螢幕解析度(Resolution)、前景色(Foreground)、背景色(Background)、預設字型(Font)</li>
+</ul>
 <p><img src="includes/img/os-experiment-gui.png" /></p>
 <p><img src="includes/img/os-sequence.png" alt="序列" /> <strong>執行序列控制元件</strong> <br/></p>
 <ul>
@@ -511,7 +509,14 @@ OpenSesame開啟畫面。
 <li><code>Run if</code>欄位設定元件行條件： always ~ 腳本啟動後必執行; never ~ 腳本啟動後不執行</li>
 </ul>
 <p><img src="includes/img/os-sequence-pad.png" /></p>
-<p><img src="includes/img/os-loop.png" alt="迴圈" /> <strong>迴圈序列控制元件</strong> <br/> - 設定一系列需要重覆執行的序列，例如連續的實驗嘗試。 - 上一階層必須設定<strong>執行序列控制元件</strong> - 置於下一階層的<strong>執行序列控制元件</strong>是迴圈控制的重覆序列，例如實驗嘗試的刺激到反應事件。 - 可設定參數：停止條件(Break if); 最多重覆次數(Repeat); 呈現順序(Order); 內容來源(Source)</p>
+<p><img src="includes/img/os-loop.png" alt="迴圈" /> <strong>迴圈序列控制元件</strong> <br/></p>
+<ul>
+<li><p>設定一系列需要重覆執行的序列，例如連續的實驗嘗試。</p></li>
+<li><p>上一階層必須設定<strong>執行序列控制元件</strong></p></li>
+<li><p>置於下一階層的<strong>執行序列控制元件</strong>是迴圈控制的重覆序列，例如實驗嘗試的刺激到反應事件。</p></li>
+<li><p>可設定參數：停止條件(Break if); 最多重覆次數(Repeat); 呈現順序(Order); 內容來源(Source)</p></li>
+<li><p><strong>設計訣竅</strong> 迴圈的表格(table)設定的變項可存於輸出資料檔，設定一個<span style="background-color: #FFFF00">段落標記變項</span>有助清理及整頓資料。</p></li>
+</ul>
 <p><img src="includes/img/os-loop-pad.png" /></p>
 </div>
 </div>
@@ -519,14 +524,8 @@ OpenSesame開啟畫面。
 <h2>OSWeb功能</h2>
 <ul>
 <li>轉換OpenSesame本機腳本為JATOS伺服器可執行腳本的函式庫。</li>
-<li>主選單“Tools -&gt; OSWeb”切換至OSWeb介面。按鈕功能如下圖說明：</li>
+<li>主選單”Tools -&gt; OSWeb”切換至OSWeb介面。按鈕功能如下圖說明：</li>
 </ul>
-<div class="figure">
-<img src="includes/img/OSWeb.png" alt="OSWeb介面及功能說明，功能詳見範例示範。" width="687" />
-<p class="caption">
-OSWeb介面及功能說明，功能詳見範例示範。
-</p>
-</div>
 <div id="下一步腳本設計" class="section level4">
 <h4>         下一步：<a href="OS_script.html">腳本設計</a></h4>
 <div id="參考文獻" class="section level5 unnumbered">
