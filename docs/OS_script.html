@@ -466,6 +466,27 @@ OpenSesame以HTML語法控制在螢幕呈現的中文文字自動斷行，也就
 <li>可隨意記錄筆記，放在其他元件之前，可註解後續元件的功能與設定內容。</li>
 </ul>
 </div>
+<div id="file-pool" class="section level1">
+<h1>File pool</h1>
+<ul>
+<li><p>一套腳本要呈現圖片、聲音等檔案，要先將檔案存入File pool。在主畫面視窗按“Ctrl + P”，或選擇View -&gt; Show file pool，開啟File pool子視窗。</p></li>
+<li><p>子視窗功能按鈕有加入檔案，開啟檔案總管視窗。使用者可依需要，操作功能管理檔案。</p></li>
+</ul>
+</div>
+<div id="variable-inspector" class="section level1">
+<h1>Variable inspector</h1>
+<ul>
+<li><p>要檢視所有元件的可存取變項，在主畫面視窗按“Ctrl + I”，或選擇View -&gt; Show variable inspector，開啟Variable inspector子視窗。</p></li>
+<li><p>在javascropt元件內定義的變項不會顯示。</p></li>
+<li><p>子視窗的三個欄位</p>
+<ul>
+<li>Variable : 變項名稱</li>
+<li>Value: 變項數值；無數值為紀錄實驗數據的空變項</li>
+<li>Source(s): 變項有運作的實驗元件；global為全局變項</li>
+</ul></li>
+<li><p>由於3.3.9版起，線上實驗腳本要由使用者要自訂需紀錄的變項。<span style="background-color: #FFFF00">上線前務必規劃要紀錄的變項。</span></p></li>
+</ul>
+</div>
 <div id="建立主序列" class="section level1">
 <h1>建立主序列</h1>
 <p>圖 1展示句圖比對作業的主序列<code>PSA002</code>之下的實驗元件，主序列元件之下的實驗元件依順序執行，這個實驗程序有兩個次級序列：<code>SP</code>實驗作業；<code>PostSurvey</code>出口調查。每個實驗元件可設定執行條件<code>Run if</code>，預設總是執行(always)，若要跳過某個元件不執行，只要點轉對應的<code>Run if</code>欄位文字，改成永不執行(never)。</p>
