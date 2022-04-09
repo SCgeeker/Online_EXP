@@ -62,6 +62,28 @@ if (window.hljs) {
 
 
 
+<style type="text/css">
+/* for pandoc --citeproc since 2.11 */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
@@ -452,7 +474,7 @@ library(tidyverse)</code></pre>
 <h2>JATOS系統變項欄位</h2>
 <ul>
 <li><p>輸出資料檔內有以下欄位，記錄參與者端的顯示器硬體設定、作業系統及瀏覽器設定，JATOS伺服器版本，實驗腳本頁首資訊(OpenSesame General properties)，以及參與者登入日期時間等資訊。如果實驗條件與這些資訊有關，可列入資料分析。</p></li>
-<li><p>以下是JATOS 3.7.3版匯出的系統變項，下載資料後可將這些變項另存檔案，以便處理真正的資料欄位。未來版本更新後，可能會有變動。</p></li>
+<li><p>以下是JATOS 3.7.3版匯出的系統變項，下載資料後將這些變項資料另存檔案，可區分系統資訊與實驗資料欄位。<strong>請注意</strong>，未來JATOS版本更新後，可能會有變動。</p></li>
 </ul>
 <p>browser_codename, browser_name, browser_version, date_startdate, date_startdateUTC, date_starttime, experiment_debug, experiment_parameters, experiment_pilot, experiment_taskname, experiment_taskversion, jatosStudyResultId, jatosVersion, screen_availableHeight, screen_availableWidth, screen_colorDepth, screen_height, screen_pixelDepth, screen_screenX, screen_screenY, screen_width, system_os</p>
 </div>
@@ -500,8 +522,21 @@ response_Exit &lt;- filter(response_data,Task==&quot;Post&quot;)
 response_Exit &lt;- response_Exit[,which(colSums(response_Exit!=&quot;None&quot;,na.rm = TRUE) != 0)]
 ## 預覽出口調查的反應資料
 glimpse(response_Exit)</code></pre>
-<div id="上一步os資料處理示範" class="section level4">
-<h4>上一步：<a href="OS_data.html">OS資料處理示範</a></h4>
+</div>
+<div id="進階範例" class="section level2">
+<h2>進階範例</h2>
+<p><span class="citation">Mathot &amp; March (2021)</span> 以語言學習實驗為例，展示如何設計及部署線上實驗，透過<a href="https://www.prolific.co/">Prolific</a>徵求參與者，以及分析實驗資料。</p>
+<div id="上一步jatos部署與測試" class="section level4">
+<h4>上一步：<a href="OS_JATOS.html">JATOS部署與測試</a></h4>
+<p><br/></p>
+<div id="參考文獻" class="section level5 unnumbered">
+<h5 class="unnumbered">參考文獻</h5>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-mathotConductingLinguisticExperiments2021" class="csl-entry">
+Mathot, S., &amp; March, J. (2021). <em>Conducting linguistic experiments online with <span>OpenSesame</span> and <span>OSWeb</span></em>. <span>PsyArXiv</span>. <a href="https://doi.org/10.31234/osf.io/wnryc">https://doi.org/10.31234/osf.io/wnryc</a>
+</div>
+</div>
+</div>
 </div>
 </div>
 
