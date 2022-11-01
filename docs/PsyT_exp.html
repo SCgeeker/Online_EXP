@@ -13,7 +13,7 @@
 
 <title>線上實驗</title>
 
-<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.17/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -147,11 +147,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -180,8 +184,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -189,16 +193,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -433,13 +430,23 @@ div.tocify {
 <div id="推薦輔助資源" class="section level2">
 <h2>推薦輔助資源</h2>
 <ul>
-<li><a href="https://www.sttmedia.com/download=TextImagesEn">TextImages</a> 文字轉圖檔</li>
-<li><a href="https://briian.com/8492/">FireAlpaca</a> 多語系免費繪圖軟體</li>
-<li><a href="https://inkscape.org/">Inkscape</a> 多語系向量圖(SVG)繪圖軟體
+<li><a
+href="https://www.sttmedia.com/download=TextImagesEn">TextImages</a>
+文字轉圖檔</li>
+<li><a href="https://briian.com/8492/">FireAlpaca</a>
+多語系免費繪圖軟體</li>
+<li><a href="https://inkscape.org/">Inkscape</a>
+多語系向量圖(SVG)繪圖軟體
 <ul>
-<li><a href="https://inkscape.org/zh-hant/doc/tutorials/basic/tutorial-basic.html">中文教學#01 from official site</a></li>
-<li><a href="https://www.youtube.com/watch?v=DgIFtW39bGM&amp;list=UUzVRIHol4ER4uFA9Xlk2agA">中文教學#02 by Spitter Lin</a></li>
-<li><a href="https://www.youtube.com/watch?v=Zz7c55bYeBQ&amp;list=PLm6x13NbsKl5rSPMKte7EWvQCrsSCw6iv">中文教學#03 by 阿簡</a></li>
+<li><a
+href="https://inkscape.org/zh-hant/doc/tutorials/basic/tutorial-basic.html">中文教學#01
+from official site</a></li>
+<li><a
+href="https://www.youtube.com/watch?v=DgIFtW39bGM&amp;list=UUzVRIHol4ER4uFA9Xlk2agA">中文教學#02
+by Spitter Lin</a></li>
+<li><a
+href="https://www.youtube.com/watch?v=Zz7c55bYeBQ&amp;list=PLm6x13NbsKl5rSPMKte7EWvQCrsSCw6iv">中文教學#03
+by 阿簡</a></li>
 </ul></li>
 <li><a href="https://imgur.com/">imgur個人分享圖庫</a></li>
 <li><a href="https://tts.yating.tw/">雅婷文字轉語音</a></li>
@@ -449,7 +456,8 @@ div.tocify {
 <div id="規劃建議" class="section level2">
 <h2>規劃建議</h2>
 <ol style="list-style-type: decimal">
-<li>依變項測量資料：限時按鍵反應 -&gt; Experiment；量表選項 -&gt; Survey</li>
+<li>依變項測量資料：限時按鍵反應 -&gt; Experiment；量表選項 -&gt;
+Survey</li>
 <li>獨變項的刺激配置：因子設計 -&gt; Experiment；題本 -&gt; Survey</li>
 <li>刺激(圖像、聲音)是外部檔案：有現成資料庫、需要自行製作、…</li>
 <li>編輯實驗腳本</li>
@@ -459,26 +467,43 @@ div.tocify {
 <div id="stroop-task腳本範例" class="section level2">
 <h2>Stroop task腳本範例</h2>
 <ul>
-<li><p><a href="https://www.psytoolkit.org/c/3.3.2/survey?s=BGKGL">中文Stroop示範實驗</a></p></li>
-<li><p><a href="https://www.psytoolkit.org/experiment-library/stroop.html">Psytoolkit資料庫的實驗腳本</a></p></li>
-<li><p>登入畫面 -&gt; <code>Get from library</code> -&gt; 搜尋<code>Stroop</code> -&gt; Select and Copy</p></li>
+<li><p><a
+href="https://www.psytoolkit.org/c/3.3.2/survey?s=BGKGL">中文Stroop示範實驗</a></p></li>
+<li><p><a
+href="https://www.psytoolkit.org/experiment-library/stroop.html">Psytoolkit資料庫的實驗腳本</a></p></li>
+<li><p>登入畫面 -&gt; <code>Get from library</code> -&gt;
+搜尋<code>Stroop</code> -&gt; Select and Copy</p></li>
 </ul>
 <hr />
 </div>
 <div id="實驗腳本基本參數" class="section level2">
 <h2>實驗腳本基本參數</h2>
-<p><a href="https://www.psytoolkit.org/doc3.3.2/syntax.html#options">options</a> 螢幕模式、解析度、啟動滑鼠、設定特別參數</p>
-<p><a href="https://www.psytoolkit.org/doc3.3.2/syntax.html#_bitmaps">bitmaps</a> 設定所有圖檔別名</p>
-<p><a href="https://www.psytoolkit.org/doc3.3.2/syntax.html#sounds">sounds</a> 設定所有音訊檔別名</p>
-<p><a href="https://www.psytoolkit.org/doc3.3.2/syntax.html#fonts">fonts</a> 設定呈現文字字型檔(中文字型的支援尚在測試)</p>
-<p><a href="https://www.psytoolkit.org/doc3.3.2/syntax.html#table">table</a> 實驗刺激列表。至少設定一個欄位列出刺激別名，欄位之間以空白分隔。</p>
+<p><a
+href="https://www.psytoolkit.org/doc3.3.2/syntax.html#options">options</a>
+螢幕模式、解析度、啟動滑鼠、設定特別參數</p>
+<p><a
+href="https://www.psytoolkit.org/doc3.3.2/syntax.html#_bitmaps">bitmaps</a>
+設定所有圖檔別名</p>
+<p><a
+href="https://www.psytoolkit.org/doc3.3.2/syntax.html#sounds">sounds</a>
+設定所有音訊檔別名</p>
+<p><a
+href="https://www.psytoolkit.org/doc3.3.2/syntax.html#fonts">fonts</a>
+設定呈現文字字型檔(中文字型的支援尚在測試)</p>
+<p><a
+href="https://www.psytoolkit.org/doc3.3.2/syntax.html#table">table</a>
+實驗刺激列表。至少設定一個欄位列出刺激別名，欄位之間以空白分隔。</p>
 <pre><code>## 參數1 參數2 刺激別名 刺激獨變項標記
  10  2  bitmap1  &quot;condition one&quot;
 -10  1  bitmap2  &quot;condition two&quot;</code></pre>
-<p><a href="https://www.psytoolkit.org/doc3.3.2/syntax.html#task">task</a> 實驗作業嘗試程序。依計畫書說明設定。<br />
+<p><a
+href="https://www.psytoolkit.org/doc3.3.2/syntax.html#task">task</a>
+實驗作業嘗試程序。依計畫書說明設定。<br />
 <!---
 message 在指定段落呈現訊息，預設按空白鍵換頁。
----> <a href="https://www.psytoolkit.org/doc3.3.2/syntax.html#block">block</a> 實驗作業段落，設定<code>task</code>執行次數。</p>
+---> <a
+href="https://www.psytoolkit.org/doc3.3.2/syntax.html#block">block</a>
+實驗作業段落，設定<code>task</code>執行次數。</p>
 <!---
 [blockorder](https://www.psytoolkit.org/doc3.3.2/syntax.html#blockorder) 複數實驗作業段落排列。  
 --->
@@ -491,7 +516,8 @@ message 在指定段落呈現訊息，預設按空白鍵換頁。
 <li>修改上傳至psytoolkit帳戶的腳本</li>
 <li>修改官方或其他使用者分享的腳本</li>
 </ol>
-<p><img src="https://i.imgur.com/N6qTgGM.png" /> 實驗編輯器畫面。每次更新腳本必須按<code>Save</code>。</p>
+<p><img src="https://i.imgur.com/N6qTgGM.png" />
+實驗編輯器畫面。每次更新腳本必須按<code>Save</code>。</p>
 <hr />
 </div>
 <div id="範例腳本解析" class="section level2">
@@ -561,7 +587,10 @@ table stroop
 </div>
 <div id="編譯及執行實驗" class="section level2">
 <h2>編譯及執行實驗</h2>
-<p><img src="https://i.imgur.com/ViZCW6J.png" /> - 編譯可執行的實驗腳本。必須按下<code>Compile</code>，沒有錯誤訊息，才能測試或執行實驗腳本。按<code>Run experiment</code>可進行測試。 - 可成功執行的實驗腳本，點擊<code>Download for running offline</code>下載網頁，可上傳至任何網站伺服器，提供使用者測試。</p>
+<p><img src="https://i.imgur.com/ViZCW6J.png" /> -
+編譯可執行的實驗腳本。必須按下<code>Compile</code>，沒有錯誤訊息，才能測試或執行實驗腳本。按<code>Run experiment</code>可進行測試。
+-
+可成功執行的實驗腳本，點擊<code>Download for running offline</code>下載網頁，可上傳至任何網站伺服器，提供使用者測試。</p>
 <hr />
 </div>
 <div id="結合問卷發佈實驗" class="section level2">
@@ -607,9 +636,12 @@ q: 我的psytoolkit註冊帳號(電子郵件)，稍後分享實驗腳本。
 <li>載入檔案途徑</li>
 </ul>
 <ol style="list-style-type: decimal">
-<li>載入已存檔案(Select a stored datafile)~從實驗連結開始的實驗;稍早上傳的檔案</li>
-<li>上傳適用psytoolkit處理格式的原始資料純文字檔(Upload a file)~以問卷模式進行的實驗</li>
-<li>複製貼上適用psytoolkit處理格式的原始資料純文字檔(Copy/paste data instead of uploading datafile)~以問卷模式進行的實驗</li>
+<li>載入已存檔案(Select a stored
+datafile)~從實驗連結開始的實驗;稍早上傳的檔案</li>
+<li>上傳適用psytoolkit處理格式的原始資料純文字檔(Upload a
+file)~以問卷模式進行的實驗</li>
+<li>複製貼上適用psytoolkit處理格式的原始資料純文字檔(Copy/paste data
+instead of uploading datafile)~以問卷模式進行的實驗</li>
 </ol>
 <ul>
 <li>編碼簿預編：預覽資料表格的欄位資訊</li>
@@ -622,14 +654,18 @@ q: 我的psytoolkit註冊帳號(電子郵件)，稍後分享實驗腳本。
 <code>STATUS</code> 反應正誤(1:正確,2:錯誤)<br />
 <code>RT</code> 反應時間</p>
 <ul>
-<li><p>資料表格預覽 <img src="https://i.imgur.com/ptz3a2O.png" /></p></li>
-<li><p>資料處理預覽 <img src="https://i.imgur.com/IDBmrIW.png" /></p></li>
+<li><p>資料表格預覽 <img
+src="https://i.imgur.com/ptz3a2O.png" /></p></li>
+<li><p>資料處理預覽 <img
+src="https://i.imgur.com/IDBmrIW.png" /></p></li>
 </ul>
 <p><strong>多位參與者實驗資料的描述統計</strong></p>
 <p><img src="https://i.imgur.com/vpvdrSW.png" /></p>
-<p>預覽多位參與者的分組描述統計結果。評估預試(pilot study)，確認實驗設計是否符合計畫。</p>
+<p>預覽多位參與者的分組描述統計結果。評估預試(pilot
+study)，確認實驗設計是否符合計畫。</p>
 <div id="上一步線上問卷-下一步資料處理" class="section level4">
-<h4>上一步：<a href="PsyT_survey.html">線上問卷</a>    下一步：<a href="PsyT_data.html">資料處理</a></h4>
+<h4>上一步：<a href="PsyT_survey.html">線上問卷</a>    下一步：<a
+href="PsyT_data.html">資料處理</a></h4>
 </div>
 </div>
 

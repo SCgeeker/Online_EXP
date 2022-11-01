@@ -13,7 +13,7 @@
 
 <title>線上問卷</title>
 
-<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.17/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -147,11 +147,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -180,8 +184,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -189,16 +193,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -434,9 +431,11 @@ div.tocify {
 <h2>標準模式啟始畫面</h2>
 <ol style="list-style-type: decimal">
 <li>問卷編輯視窗。測試題目執行之前，請先<code>Save</code>。</li>
-<li>預定於問卷題目呈現的圖像或音訊檔案，由<code>Upload files</code>按“瀏覽”上傳。</li>
+<li>預定於問卷題目呈現的圖像或音訊檔案，由<code>Upload files</code>按”瀏覽”上傳。</li>
 <li>按<code>print</code>下載問卷腳本odt檔</li>
-<li>按<code>view files</code>瀏覽、編輯與下載<a href="https://hackmd.io/hm00LyR8RR6VhKSg2uE3Bg#%E7%B5%90%E5%90%88%E5%95%8F%E5%8D%B7%E7%99%BC%E4%BD%88%E5%AF%A6%E9%A9%97">內置<strong>實驗腳本</strong></a> <img src="https://i.imgur.com/MI1gzp3.png" /></li>
+<li>按<code>view files</code>瀏覽、編輯與下載<a
+href="https://hackmd.io/hm00LyR8RR6VhKSg2uE3Bg#%E7%B5%90%E5%90%88%E5%95%8F%E5%8D%B7%E7%99%BC%E4%BD%88%E5%AF%A6%E9%A9%97">內置<strong>實驗腳本</strong></a>
+<img src="https://i.imgur.com/MI1gzp3.png" /></li>
 </ol>
 <ul>
 <li>簡易模式啟始畫面</li>
@@ -468,7 +467,11 @@ o: (選設)問卷題目呈現及反應的選擇性設定。隨機排列選項、
 <div id="問卷題目範例" class="section level2">
 <h2>問卷題目範例</h2>
 <p>創建一份新問卷腳本，複製以下內容至問卷編輯視窗，儲存(Save)並編譯(Compile)之後，即可生成問卷發佈網址。</p>
-<p><span style="background-color: #FFFF00"> 學習者可開啟<a href="https://www.psytoolkit.org/c/3.3.2/survey?s=ZjBNx">這個網頁</a>，測試問卷裡的六項問題，其中一個是Simon作業反應時間實驗，可點擊<a href="includes/scripts/Simon_circle.html">這裡</a>直接體驗，還有這裡檢視<a href="includes/scripts/Simon_circle.txt">實驗腳本</a>。這份問卷與實驗的資料處理示範，請見<a href="PsyT_data.html">資料處理</a>。 </span></p>
+<p><span style="background-color: #FFFF00"> 學習者可開啟<a
+href="https://www.psytoolkit.org/c/3.3.2/survey?s=ZjBNx">這個網頁</a>，測試問卷裡的六項問題，其中一個是Simon作業反應時間實驗，可點擊<a
+href="includes/scripts/Simon_circle.html">這裡</a>直接體驗，還有這裡檢視<a
+href="includes/scripts/Simon_circle.txt">實驗腳本</a>。這份問卷與實驗的資料處理示範，請見<a
+href="PsyT_data.html">資料處理</a>。 </span></p>
 <pre><code># check the large survey-library for ready-to-run examples you can
 # cut and paste here
 
@@ -538,7 +541,8 @@ q: (文字框)請留下你的建議
 <div id="人口背景調查範本" class="section level2">
 <h2>人口背景調查範本</h2>
 <ul>
-<li>多數研究登出前，需要請參與者回覆人口背景調查，分析才能確認這些項目對研究結果的影響。有關調查項目，可參考官方網站提供的<a href="https://www.psytoolkit.org/survey-library/demographics.html">調查項目範本</a>。</li>
+<li>多數研究登出前，需要請參與者回覆人口背景調查，分析才能確認這些項目對研究結果的影響。有關調查項目，可參考官方網站提供的<a
+href="https://www.psytoolkit.org/survey-library/demographics.html">調查項目範本</a>。</li>
 </ul>
 <hr />
 </div>
@@ -596,8 +600,10 @@ t: info
 <li>問卷網址與發佈狀態</li>
 </ul>
 <ol style="list-style-type: decimal">
-<li><code>Should this survey be online accessible so you can test it or participants can fill it in?</code> 問卷上線狀態: 不上線; 上線可修改; 上線不可修改。</li>
-<li><code>Link to survey (you can copy this and send to other people)</code> 上線問卷登入網址。</li>
+<li><code>Should this survey be online accessible so you can test it or participants can fill it in?</code>
+問卷上線狀態: 不上線; 上線可修改; 上線不可修改。</li>
+<li><code>Link to survey (you can copy this and send to other people)</code>
+上線問卷登入網址。</li>
 </ol>
 <p><img src="https://i.imgur.com/K3GRqWR.png" /></p>
 <ul>
@@ -605,40 +611,56 @@ t: info
 </ul>
 <ol style="list-style-type: decimal">
 <li><code>Skip introduction/welcome screen</code> 是否開啟歡迎網頁</li>
-<li><code>Survey interface language and Color scheme</code> 網頁介面語言與主題佈景(2.5.3版之後有繁體中文)</li>
+<li><code>Survey interface language and Color scheme</code>
+網頁介面語言與主題佈景(2.5.3版之後有繁體中文)</li>
 </ol>
 <p><img src="https://i.imgur.com/oxvAxgS.png" /></p>
 <ol start="3" style="list-style-type: decimal">
-<li><code>About this survey:</code> 登入首頁介紹資訊，知情同意書裡的主要說明資訊請寫在這裡，篇幅建議在兩段之內。</li>
+<li><code>About this survey:</code>
+登入首頁介紹資訊，知情同意書裡的主要說明資訊請寫在這裡，篇幅建議在兩段之內。</li>
 <li><code>Read more section (expandable, for the long boring ethics stuff):</code>知情同意書裡的輔助說明資訊，篇幅限制一段。</li>
-<li><code>Contact information:</code> 顯示於歡迎網頁與結束網頁的研究者聯絡資訊。有申請倫理審查者，須與送件內容一致。</li>
-<li><code>Email associated with this research:</code> 顯示於歡迎網頁的研究者電子郵件。</li>
-<li><code>Consent and ethics information</code> 知情同意資訊、同意選項說明。勾選顯示，將在登入首頁顯示在此填寫的資訊。</li>
+<li><code>Contact information:</code>
+顯示於歡迎網頁與結束網頁的研究者聯絡資訊。有申請倫理審查者，須與送件內容一致。</li>
+<li><code>Email associated with this research:</code>
+顯示於歡迎網頁的研究者電子郵件。</li>
+<li><code>Consent and ethics information</code>
+知情同意資訊、同意選項說明。勾選顯示，將在登入首頁顯示在此填寫的資訊。</li>
 </ol>
 <p><img src="https://i.imgur.com/aIrOlVK.png" /></p>
 <ol start="8" style="list-style-type: decimal">
-<li><code>Information shown to the participant in the header of the survey</code> 問卷畫面標題列資訊：問卷標題、是否顯示完成進度百分比。</li>
-<li><code>At the end of the survey</code> 問卷結束資訊與登出後網站：是否顯示結束資訊、是否產生實驗完成碼、結束資訊示範(參與者有需要取得完成碼，務必顯示範例資訊)</li>
+<li><code>Information shown to the participant in the header of the survey</code>
+問卷畫面標題列資訊：問卷標題、是否顯示完成進度百分比。</li>
+<li><code>At the end of the survey</code>
+問卷結束資訊與登出後網站：是否顯示結束資訊、是否產生實驗完成碼、結束資訊示範(參與者有需要取得完成碼，務必顯示範例資訊)</li>
 </ol>
 <p><img src="https://i.imgur.com/hSurG27.png" /></p>
 <ol start="9" style="list-style-type: decimal">
-<li><code>Allow participants to go back and change questions?</code> 是否允許參與者重新回答。</li>
-<li><code>Optional requirements for the computer of the participant</code> 參與者設備要求選項: 如果要求參與者在電腦或筆電做實驗，要勾選<em>This study requires a real keyboard</em></li>
-<li><code>Check this box if the user's internet address/country information should be stored</code> 是否儲存參與者上網網址與國家地區資訊。</li>
-<li><code>Check this box if you want that user cannot do survey again</code> 參與者能否以相同的IP再次登入研究網頁</li>
-<li><code>Optional browser exclusion</code> 過濾參與者登入的瀏覽器要求以及登入設備，如果實驗要在全螢幕模式進行，要排除Safari瀏覽器。</li>
-<li><code>In</code>與<code>Out</code> 特別設定，用於連結Psytoolkit與其他網路實驗平台</li>
+<li><code>Allow participants to go back and change questions?</code>
+是否允許參與者重新回答。</li>
+<li><code>Optional requirements for the computer of the participant</code>
+參與者設備要求選項: 如果要求參與者在電腦或筆電做實驗，要勾選<em>This
+study requires a real keyboard</em></li>
+<li><code>Check this box if the user's internet address/country information should be stored</code>
+是否儲存參與者上網網址與國家地區資訊。</li>
+<li><code>Check this box if you want that user cannot do survey again</code>
+參與者能否以相同的IP再次登入研究網頁</li>
+<li><code>Optional browser exclusion</code>
+過濾參與者登入的瀏覽器要求以及登入設備，如果實驗要在全螢幕模式進行，要排除Safari瀏覽器。</li>
+<li><code>In</code>與<code>Out</code>
+特別設定，用於連結Psytoolkit與其他網路實驗平台</li>
 </ol>
 <p><img src="https://i.imgur.com/k0hlrSu.png" /></p>
 <ul>
 <li>下載作答資料 <img src="https://i.imgur.com/kKZB7u7.png" /></li>
 </ul>
 <ol style="list-style-type: decimal">
-<li><code>Prepare datafiles for download</code> 點擊後產生最新原始資料壓縮檔案。預設有csv格式檔案。</li>
+<li><code>Prepare datafiles for download</code>
+點擊後產生最新原始資料壓縮檔案。預設有csv格式檔案。</li>
 </ol>
 <p><img src="https://i.imgur.com/JUMLpjy.png" /></p>
 <div id="上一步開工預備-下一步線上實驗" class="section level4">
-<h4>上一步：<a href="PsyT_intro.html">開工預備</a>    下一步：<a href="PsyT_exp.html">線上實驗</a></h4>
+<h4>上一步：<a href="PsyT_intro.html">開工預備</a>    下一步：<a
+href="PsyT_exp.html">線上實驗</a></h4>
 </div>
 </div>
 

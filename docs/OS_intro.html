@@ -13,7 +13,7 @@
 
 <title>Open Sesame開工預備</title>
 
-<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.17/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -169,11 +169,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -202,8 +206,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -211,16 +215,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -455,31 +452,43 @@ div.tocify {
 <div id="開發者資訊" class="section level2">
 <h2>開發者資訊</h2>
 <ul>
-<li><p>開發者<a href="https://github.com/smathot">Sebastiaan Mathôt</a>等人發表於Behavior Research Methods的論文<span class="citation">(Mathôt et al., 2012)</span>，使用OpenSesame完成的研究，務必在報告中引用這篇論文。</p></li>
-<li><p><a href="https://forum.cogsci.nl/">使用者論壇</a>：與開發者及其他使用者交流使用心得與問題。</p></li>
+<li><p>開發者<a href="https://github.com/smathot">Sebastiaan
+Mathôt</a>等人發表於Behavior Research Methods的論文<span
+class="citation">(Mathôt et al.,
+2012)</span>，使用OpenSesame完成的研究，務必在報告中引用這篇論文。</p></li>
+<li><p><a
+href="https://forum.cogsci.nl/">使用者論壇</a>：與開發者及其他使用者交流使用心得與問題。</p></li>
 </ul>
 </div>
 <div id="下載與安裝" class="section level2">
 <h2>下載與安裝</h2>
 <div id="官方網站下載網頁" class="section level4">
-<h4><a href="https://osdoc.cogsci.nl/3.3/download/">官方網站下載網頁</a></h4>
+<h4><a
+href="https://osdoc.cogsci.nl/3.3/download/">官方網站下載網頁</a></h4>
 <ul>
 <li>依照使用者的作業系統，下載對應的安裝檔或免安裝壓縮檔。
 <ul>
-<li><strong>Windows 10 11</strong> 執行安裝檔出現不建議安裝的訊息視窗時，選擇繼續安裝即可。</li>
-<li><strong>Mac OS</strong> (1) 參考<a href="https://support.apple.com/en-in/guide/mac-help/mh40616/mac">蘋果官方手冊</a>，了解如何安裝未經官方認證的應用程式。 (2) 使用<code>Homebrew</code>安裝，步驟如下：</li>
+<li><strong>Windows 10 11</strong>
+執行安裝檔出現不建議安裝的訊息視窗時，選擇繼續安裝即可。</li>
+<li><strong>Mac OS</strong> (1) 參考<a
+href="https://support.apple.com/en-in/guide/mac-help/mh40616/mac">蘋果官方手冊</a>，了解如何安裝未經官方認證的應用程式。
+(2) 使用<code>Homebrew</code>安裝，步驟如下：</li>
 </ul></li>
 </ul>
 <blockquote>
 <ol style="list-style-type: decimal">
-<li>開啟終端機視窗，複製下列指令至視窗內執行：<br/><br/> <code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</code> <br/><br/></li>
-<li>執行完畢，重新開啟終端機視窗，複製下列指令至視窗內執行：<br/><br/> <code>brew install --cask opensesame</code><br/></li>
+<li>開啟終端機視窗，複製下列指令至視窗內執行：<br/><br/>
+<code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</code>
+<br/><br/></li>
+<li>執行完畢，重新開啟終端機視窗，複製下列指令至視窗內執行：<br/><br/>
+<code>brew install --cask opensesame</code><br/></li>
 </ol>
 </blockquote>
 <ul>
 <li>安裝方式如同多數應用程式，建議安裝目錄設置在實驗程式相關路徑。例如<code>D:\EXP_APP\OpenSesame</code></li>
 <li>官方推出更新版本時，到官方下載網頁下載最新版本安裝程式，執行安裝程式即可更新。</li>
-<li>OpenSesame本體是一種Python IDE，熟悉Python的使用者可透過下載Python函式庫的方式安裝於任何作業系統。</li>
+<li>OpenSesame本體是一種Python
+IDE，熟悉Python的使用者可透過下載Python函式庫的方式安裝於任何作業系統。</li>
 </ul>
 </div>
 </div>
@@ -502,26 +511,33 @@ OpenSesame開啟畫面。
 <div id="必用實驗元件" class="section level3">
 <h3>必用實驗元件</h3>
 <p><strong>一個腳本的程序由三種實驗元件構成</strong></p>
-<p><img src="includes/img/os-experiment.png" alt="實驗" /> <strong>腳本啟動元件</strong> <br/></p>
+<p><img src="includes/img/os-experiment.png" alt="實驗" />
+<strong>腳本啟動元件</strong> <br/></p>
 <ul>
 <li>創建新腳本就存在的元件。</li>
 <li>設定執行引擎(Back-end)、螢幕解析度(Resolution)、前景色(Foreground)、背景色(Background)、預設字型(Font)</li>
 </ul>
 <p><img src="includes/img/os-experiment-gui.png" /></p>
-<p><img src="includes/img/os-sequence.png" alt="序列" /> <strong>執行序列控制元件</strong> <br/></p>
+<p><img src="includes/img/os-sequence.png" alt="序列" />
+<strong>執行序列控制元件</strong> <br/></p>
 <ul>
 <li>第一個必設元件</li>
 <li>置於序列元件下一層的元件依序執行</li>
-<li><code>Run if</code>欄位設定元件行條件： always ~ 腳本啟動後必執行; never ~ 腳本啟動後不執行</li>
+<li><code>Run if</code>欄位設定元件行條件： always ~ 腳本啟動後必執行;
+never ~ 腳本啟動後不執行</li>
 </ul>
 <p><img src="includes/img/os-sequence-pad.png" /></p>
-<p><img src="includes/img/os-loop.png" alt="迴圈" /> <strong>迴圈序列控制元件</strong> <br/></p>
+<p><img src="includes/img/os-loop.png" alt="迴圈" />
+<strong>迴圈序列控制元件</strong> <br/></p>
 <ul>
 <li><p>設定一系列需要重覆執行的序列，例如連續的實驗嘗試。</p></li>
 <li><p>上一階層必須設定<strong>執行序列控制元件</strong></p></li>
 <li><p>置於下一階層的<strong>執行序列控制元件</strong>是迴圈控制的重覆序列，例如實驗嘗試的刺激到反應事件。</p></li>
-<li><p>可設定參數：停止條件(Break if); 最多重覆次數(Repeat); 呈現順序(Order); 內容來源(Source)</p></li>
-<li><p><strong>設計訣竅</strong> 迴圈的表格(table)設定的變項可存於輸出資料檔，設定一個<span style="background-color: #FFFF00">段落標記變項</span>有助清理及整頓資料。</p></li>
+<li><p>可設定參數：停止條件(Break if); 最多重覆次數(Repeat);
+呈現順序(Order); 內容來源(Source)</p></li>
+<li><p><strong>設計訣竅</strong>
+迴圈的表格(table)設定的變項可存於輸出資料檔，設定一個<span
+style="background-color: #FFFF00">段落標記變項</span>有助清理及整頓資料。</p></li>
 </ul>
 <p><img src="includes/img/os-loop-pad.png" /></p>
 </div>
@@ -530,7 +546,7 @@ OpenSesame開啟畫面。
 <h2>OSWeb功能</h2>
 <ul>
 <li>轉換OpenSesame本機腳本為JATOS伺服器可執行腳本的函式庫。</li>
-<li>主選單“Tools -&gt; OSWeb”切換至OSWeb介面。按鈕功能如下圖說明：</li>
+<li>主選單”Tools -&gt; OSWeb”切換至OSWeb介面。按鈕功能如下圖說明：</li>
 </ul>
 <div class="figure">
 <img src="includes/img/OSWeb.png" alt="OSWeb介面及功能說明，功能詳見範例示範。" width="687" />
@@ -542,9 +558,14 @@ OSWeb介面及功能說明，功能詳見範例示範。
 <h4>         下一步：<a href="OS_script.html">腳本設計</a></h4>
 <div id="參考文獻" class="section level5 unnumbered">
 <h5 class="unnumbered">參考文獻</h5>
-<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="refs" class="references csl-bib-body hanging-indent"
+line-spacing="2">
 <div id="ref-mathotOpenSesameOpensourceGraphical2012" class="csl-entry">
-Mathôt, S., Schreij, D., &amp; Theeuwes, J. (2012). <span>OpenSesame</span>: <span>An</span> open-source, graphical experiment builder for the social sciences. <em>Behavior Research Methods</em>, <em>44</em>(2), 314–324. <a href="https://doi.org/10.3758/s13428-011-0168-7">https://doi.org/10.3758/s13428-011-0168-7</a>
+Mathôt, S., Schreij, D., &amp; Theeuwes, J. (2012).
+<span>OpenSesame</span>: <span>An</span> open-source, graphical
+experiment builder for the social sciences. <em>Behavior Research
+Methods</em>, <em>44</em>(2), 314–324. <a
+href="https://doi.org/10.3758/s13428-011-0168-7">https://doi.org/10.3758/s13428-011-0168-7</a>
 </div>
 </div>
 </div>

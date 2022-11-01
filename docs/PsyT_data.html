@@ -13,7 +13,7 @@
 
 <title>資料處理</title>
 
-<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.17/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -149,11 +149,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -182,8 +186,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -191,16 +195,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -432,7 +429,8 @@ div.tocify {
 </div>
 
 
-<p>這個部分使用<a href="PsyT_survey.html">線上問卷</a>展示的<a href="https://www.psytoolkit.org/c/3.3.2/survey?s=ZjBNx">示範問卷及實驗</a>，示範如何處理完成研究的資料。</p>
+<p>這個部分使用<a href="PsyT_survey.html">線上問卷</a>展示的<a
+href="https://www.psytoolkit.org/c/3.3.2/survey?s=ZjBNx">示範問卷及實驗</a>，示範如何處理完成研究的資料。</p>
 <div id="上線前建議" class="section level2">
 <h2>上線前建議</h2>
 <ul>
@@ -446,7 +444,9 @@ div.tocify {
 </div>
 <div id="範例實驗及資料" class="section level2">
 <h2>範例實驗及資料</h2>
-<p><a href="https://www.psytoolkit.org/c/3.3.2/survey?s=ZjBNx">示範問卷及實驗</a>的測試資料壓縮檔可<a href="includes/scripts/test_data.zip">由此下載</a>，壓縮檔內檔案展示如下：</p>
+<p><a
+href="https://www.psytoolkit.org/c/3.3.2/survey?s=ZjBNx">示範問卷及實驗</a>的測試資料壓縮檔可<a
+href="includes/scripts/test_data.zip">由此下載</a>，壓縮檔內檔案展示如下：</p>
 <pre class="r"><code>## path to the latest downloaded raw data
 downloaded_rawdata &lt;- &quot;includes/scripts/test_data.zip&quot;
 ## Check the downloaded data files
@@ -461,17 +461,21 @@ datafiles %&gt;%
 </div>
 <ul>
 <li><code>survey.txt</code> ~ 問卷腳本文字檔</li>
-<li><code>data.csv</code>,<code>data.xlsx</code> ~ 儲存所有參與紀錄的寛表單，逐欄紀錄各題作答資訊。<strong>問卷反應原始資料。</strong></li>
-<li><code>data_times.csv</code>,<code>data_times.xlsx</code> ~ 儲存所有參與紀錄的寛表單，逐欄紀錄各題作答時間，以毫秒為單位。<strong>可依此判斷參與者完成某部分的題目是否符合計劃預期。</strong></li>
-<li><code>s.</code>開頭檔案 ~ 每位參與者的問卷填答紀錄的長表單，自正式登入第一題網頁起，逐行紀錄開啓網頁日期時間、停留毫秒數、題目資訊、做答反應。</li>
-<li><code>Simon_circle</code>開頭檔案 ~ 每位參與者的實驗反應資料。<strong>實驗反應原始資料。</strong></li>
+<li><code>data.csv</code>,<code>data.xlsx</code> ~
+儲存所有參與紀錄的寛表單，逐欄紀錄各題作答資訊。<strong>問卷反應原始資料。</strong></li>
+<li><code>data_times.csv</code>,<code>data_times.xlsx</code> ~
+儲存所有參與紀錄的寛表單，逐欄紀錄各題作答時間，以毫秒為單位。<strong>可依此判斷參與者完成某部分的題目是否符合計劃預期。</strong></li>
+<li><code>s.</code>開頭檔案 ~
+每位參與者的問卷填答紀錄的長表單，自正式登入第一題網頁起，逐行紀錄開啓網頁日期時間、停留毫秒數、題目資訊、做答反應。</li>
+<li><code>Simon_circle</code>開頭檔案 ~
+每位參與者的實驗反應資料。<strong>實驗反應原始資料。</strong></li>
 </ul>
 </div>
 <div id="問卷反應原始資料處理" class="section level2">
 <h2>問卷反應原始資料處理</h2>
 <ul>
 <li><p><code>data.csv</code>,<code>data.xlsx</code>的欄位標題依腳本的標籤(<code>l</code>)命名。多選題、量表題組等不只一個欄位，建議事先根據欄位設定<strong>資料編碼簿</strong>，各欄位資料的處理方式。</p></li>
-<li><p><code>data.csv</code>,<code>data.xlsx</code>的共有欄位“participant”,“TIME_start”,“TIME_end”,“TIME_total”可做為合併的基準，或先由<code>data.csv</code>移除“TIME_start”,“TIME_end”,“TIME_total”。</p></li>
+<li><p><code>data.csv</code>,<code>data.xlsx</code>的共有欄位”participant”,“TIME_start”,“TIME_end”,“TIME_total”可做為合併的基準，或先由<code>data.csv</code>移除”TIME_start”,“TIME_end”,“TIME_total”。</p></li>
 </ul>
 <pre class="r"><code>## Import data
 datarows &lt;- read_csv(unz(downloaded_rawdata,filename = &quot;data.csv&quot;))
@@ -495,9 +499,11 @@ datatimes %&gt;%
 <div id="實驗反應原始資料" class="section level2">
 <h2>實驗反應原始資料</h2>
 <ul>
-<li><p><a href="PsyT_exp.html#%E5%8F%8D%E6%87%89%E8%B3%87%E6%96%99%E5%88%86%E6%9E%90%E9%A0%90%E8%A6%BD">線上實驗</a>展示如何預覽一位參與者資料，正式實驗的資料必須先合併複數參與者的檔案，才能進行處理及分析。</p></li>
+<li><p><a
+href="PsyT_exp.html#%E5%8F%8D%E6%87%89%E8%B3%87%E6%96%99%E5%88%86%E6%9E%90%E9%A0%90%E8%A6%BD">線上實驗</a>展示如何預覽一位參與者資料，正式實驗的資料必須先合併複數參與者的檔案，才能進行處理及分析。</p></li>
 <li><p><strong>實驗置入問卷的好處</strong>：個別檔案名稱存於<code>data.csv</code>,<code>data.xlsx</code>題目欄位，合併檔案只要抓欄位資料，檔名也是參與者ID。</p></li>
-<li><p>個別資料檔是以空白分欄的格式化文字檔。每個欄位定義在實驗腳本<code>save</code>之後，處理時要自行加入欄位名稱。詳見<a href="PsyT_exp.html#反應資料分析預覽">線上實驗反應資料分析預覽</a>。</p></li>
+<li><p>個別資料檔是以空白分欄的格式化文字檔。每個欄位定義在實驗腳本<code>save</code>之後，處理時要自行加入欄位名稱。詳見<a
+href="PsyT_exp.html#反應資料分析預覽">線上實驗反應資料分析預覽</a>。</p></li>
 <li><p>R的合併實驗資料檔示範：</p></li>
 </ul>
 <pre class="r"><code>## 自問卷data.csv取得實驗資料檔案名稱

@@ -13,7 +13,7 @@
 
 <title>PsyToolkit 開工預備</title>
 
-<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.17/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -169,11 +169,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -202,8 +206,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -211,16 +215,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -455,10 +452,16 @@ div.tocify {
 <div id="開發者資訊" class="section level2">
 <h2>開發者資訊</h2>
 <ul>
-<li><p>開發者Gijsbert Stoet發表於Teaching of Psychology的論文<span class="citation">(Stoet, 2017)</span>，使用Psytoolkit完成的研究報告務必引用這份論文。</p></li>
-<li><p><a href="https://www.psytoolkit.org/contact.html">開發者聯絡方式</a>:詢問使用問題；建議；商業使用洽詢；教學用途洽詢。</p></li>
-<li><p><a href="http://psytoolkit.boards.net/">使用者論壇</a>：與開發者及其他使用者交流使用心得與問題；徵求實驗參與者。</p></li>
-<li><p>任何使用者可經<a href="https://www.psytoolkit.org/#_web_based_login">官方登入頁面</a>免費註冊帳號，線上管理與執行問卷與實驗腳本。官方登入頁面連結為最新版本。<strong>註</strong> 2021年七月起除了歐洲伺服器，增加美國伺服器。使用者可自行選擇要在那個伺服器註冊，兩者的帳戶資料彼此獨立。</p></li>
+<li><p>開發者Gijsbert Stoet發表於Teaching of Psychology的論文<span
+class="citation">(Stoet,
+2017)</span>，使用Psytoolkit完成的研究報告務必引用這份論文。</p></li>
+<li><p><a
+href="https://www.psytoolkit.org/contact.html">開發者聯絡方式</a>:詢問使用問題；建議；商業使用洽詢；教學用途洽詢。</p></li>
+<li><p><a
+href="http://psytoolkit.boards.net/">使用者論壇</a>：與開發者及其他使用者交流使用心得與問題；徵求實驗參與者。</p></li>
+<li><p>任何使用者可經<a
+href="https://www.psytoolkit.org/#_web_based_login">官方登入頁面</a>免費註冊帳號，線上管理與執行問卷與實驗腳本。官方登入頁面連結為最新版本。<strong>註</strong>
+2021年七月起除了歐洲伺服器，增加美國伺服器。使用者可自行選擇要在那個伺服器註冊，兩者的帳戶資料彼此獨立。</p></li>
 </ul>
 </div>
 <div id="註冊登入畫面介紹" class="section level2">
@@ -469,7 +472,12 @@ div.tocify {
 </div>
 <div id="左側常駐功能列" class="section level3">
 <h3>左側常駐功能列</h3>
-<p><strong>General</strong> Psytoolkit版本資訊；帳號設定；求助；詢問；登出。<br/> <strong>Create</strong> 建立實驗腳本；建立問卷腳本；建立實驗刺激列表；取得官方腳本；取得其他使用者實驗腳本。<br/> <strong>Actions</strong> 己建腳本可執行的管理動作。刪除正在編輯的腳本；拷貝其他腳本至正在編輯腳本；更改正在編輯的腳本名稱；下載正在編輯的腳本；分享正在編輯腳本給其他使用者(目前只限實驗腳本)。</p>
+<p><strong>General</strong>
+Psytoolkit版本資訊；帳號設定；求助；詢問；登出。<br/>
+<strong>Create</strong>
+建立實驗腳本；建立問卷腳本；建立實驗刺激列表；取得官方腳本；取得其他使用者實驗腳本。<br/>
+<strong>Actions</strong>
+己建腳本可執行的管理動作。刪除正在編輯的腳本；拷貝其他腳本至正在編輯腳本；更改正在編輯的腳本名稱；下載正在編輯的腳本；分享正在編輯腳本給其他使用者(目前只限實驗腳本)。</p>
 </div>
 </div>
 <div id="帳號設定畫面settings" class="section level2">
@@ -481,15 +489,22 @@ div.tocify {
 <ul>
 <li><strong>Disk space</strong> 帳號資料已用儲存空間資料<br/><br />
 </li>
-<li><strong>Teacher(for use in calss)</strong><br/> 使用者是學生，可在此填入教師註冊psytoolkit的e-mail帳號。<br/> 使用者是老師，可勾選<code>Click here if you are a teacher.</code>，開啟學生活動檢視頁面。 <br/></li>
-<li><strong>Various</strong> 進階設定。腳本編輯視窗顯示行號；已編輯腳本排序方式；腳本編輯畫面起始設定。</li>
+<li><strong>Teacher(for use in calss)</strong><br/>
+使用者是學生，可在此填入教師註冊psytoolkit的e-mail帳號。<br/>
+使用者是老師，可勾選<code>Click here if you are a teacher.</code>，開啟學生活動檢視頁面。
+<br/></li>
+<li><strong>Various</strong>
+進階設定。腳本編輯視窗顯示行號；已編輯腳本排序方式；腳本編輯畫面起始設定。</li>
 </ul>
 </div>
 <div id="教師線上協助" class="section level2">
 <h2>教師線上協助</h2>
-<p><span style="background-color: #FFFF00"> <strong>小提示：psytoolkit的腳本名稱必須為英文</strong> </span></p>
+<p><span style="background-color: #FFFF00">
+<strong>小提示：psytoolkit的腳本名稱必須為英文</strong> </span></p>
 <p>使用者如果有教師協助學習，可在帳號設定加入教師的psytoolkit帳號。之後教師可從自已的登入畫面，瀏覽及複製學生編輯的<strong>實驗腳本</strong>，協助學生排助遇到的問題。</p>
-<p><span style="background-color: #FFFF00"> 由於<strong>問卷腳本</strong>執行核心不同於<strong>實驗腳本</strong>，網站尚未提供線上批改。有需要的老師與學生建議使用其他協作平台如google doc, HackMD作業。 </span></p>
+<p><span style="background-color: #FFFF00">
+由於<strong>問卷腳本</strong>執行核心不同於<strong>實驗腳本</strong>，網站尚未提供線上批改。有需要的老師與學生建議使用其他協作平台如google
+doc, HackMD作業。 </span></p>
 <p>當學生在psytoolkit帳號設定加入教師的帳號之後，教師從<code>View students</code>連結查看學生帳號清單，每個學生帳號連結到學生已建立的實驗腳本活動頁面。</p>
 <div class="figure">
 <img src="includes/img/PsyToolkit_tutor.png" alt="" />
@@ -505,13 +520,28 @@ div.tocify {
 <img src="includes/img/Psytoolkit_student_view02.png" alt="" />
 <p class="caption">為保護學生個人資訊隱私，帳號資訊採噴霧處理。</p>
 </div>
+</div>
+<div id="其他介紹" class="section level2">
+<h2>其他介紹</h2>
+<ul>
+<li>佛光大學周蔚倫老師製作的教學示範影片</li>
+</ul>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/BzBpmu_w2AU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/HOfhZE5gCzA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
 <div id="下一步線上問卷" class="section level4">
 <h4>            下一步：<a href="PsyT_survey.html">線上問卷</a></h4>
 <div id="參考文獻" class="section level5 unnumbered">
 <h5 class="unnumbered">參考文獻</h5>
-<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="refs" class="references csl-bib-body hanging-indent"
+line-spacing="2">
 <div id="ref-stoetPsyToolkitNovelWebBased2017" class="csl-entry">
-Stoet, G. (2017). <span>PsyToolkit</span>: <span>A Novel Web-Based Method</span> for <span>Running Online Questionnaires</span> and <span>Reaction-Time Experiments</span>. <em>Teaching of Psychology</em>, <em>44</em>(1), 24–31. <a href="https://doi.org/10.1177/0098628316677643">https://doi.org/10.1177/0098628316677643</a>
+Stoet, G. (2017). <span>PsyToolkit</span>: <span>A Novel Web-Based
+Method</span> for <span>Running Online Questionnaires</span> and
+<span>Reaction-Time Experiments</span>. <em>Teaching of Psychology</em>,
+<em>44</em>(1), 24–31. <a
+href="https://doi.org/10.1177/0098628316677643">https://doi.org/10.1177/0098628316677643</a>
 </div>
 </div>
 </div>

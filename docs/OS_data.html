@@ -13,7 +13,7 @@
 
 <title>OpenSeasme輸出資料處理示範</title>
 
-<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.17/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -62,28 +62,6 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-/* for pandoc --citeproc since 2.11 */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
-</style>
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
@@ -169,11 +147,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -202,8 +184,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -211,16 +193,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -458,35 +433,39 @@ div.tocify {
     include = FALSE
 )
 library(tidyverse)</code></pre>
-<pre><code>## -- Attaching packages ------------------------------------ tidyverse 1.3.1 --</code></pre>
-<pre><code>## √ ggplot2 3.3.5     √ purrr   0.3.4
-## √ tibble  3.1.6     √ dplyr   1.0.8
-## √ tidyr   1.2.0     √ stringr 1.4.0
-## √ readr   2.1.2     √ forcats 0.5.1</code></pre>
-<pre><code>## -- Conflicts --------------------------------------- tidyverse_conflicts() --
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()</code></pre>
 <ul>
 <li><p>本機執行OpenSesame腳本實驗，預設輸出格式為csv。logger預設儲存所有變項。</p></li>
-<li><p>JATOS執行OpenSesame腳本，預設輸出格式為JASON，必須<a href="OS_JATOS.html#OSWeb實驗資料格式轉換">轉換為csv格式</a>。考慮網路傳輸延遲，使用者要在腳本logger物件自行設定儲存變項。</p></li>
+<li><p>JATOS執行OpenSesame腳本，預設輸出格式為JASON，必須<a
+href="OS_JATOS.html#OSWeb實驗資料格式轉換">轉換為csv格式</a>。考慮網路傳輸延遲，使用者要在腳本logger物件自行設定儲存變項。</p></li>
 </ul>
 <div id="jatos系統變項欄位" class="section level2">
 <h2>JATOS系統變項欄位</h2>
 <ul>
-<li><p>輸出資料檔內有以下欄位，記錄參與者端的顯示器硬體設定、作業系統及瀏覽器設定，JATOS伺服器版本，實驗腳本頁首資訊(OpenSesame General properties)，以及參與者登入日期時間等資訊。如果實驗條件與這些資訊有關，可列入資料分析。</p></li>
-<li><p>以下是JATOS 3.7.3版匯出的系統變項，下載資料後將這些變項資料另存檔案，可區分系統資訊與實驗資料欄位。<strong>請注意</strong>，未來JATOS版本更新後，可能會有變動。</p></li>
+<li><p>輸出資料檔內有以下欄位，記錄參與者端的顯示器硬體設定、作業系統及瀏覽器設定，JATOS伺服器版本，實驗腳本頁首資訊(OpenSesame
+General
+properties)，以及參與者登入日期時間等資訊。如果實驗條件與這些資訊有關，可列入資料分析。</p></li>
+<li><p>以下是JATOS
+3.7.3版匯出的系統變項，下載資料後將這些變項資料另存檔案，可區分系統資訊與實驗資料欄位。<strong>請注意</strong>，未來JATOS版本更新後，可能會有變動。</p></li>
 </ul>
-<p>browser_codename, browser_name, browser_version, date_startdate, date_startdateUTC, date_starttime, experiment_debug, experiment_parameters, experiment_pilot, experiment_taskname, experiment_taskversion, jatosStudyResultId, jatosVersion, screen_availableHeight, screen_availableWidth, screen_colorDepth, screen_height, screen_pixelDepth, screen_screenX, screen_screenY, screen_width, system_os</p>
+<p>browser_codename, browser_name, browser_version, date_startdate,
+date_startdateUTC, date_starttime, experiment_debug,
+experiment_parameters, experiment_pilot, experiment_taskname,
+experiment_taskversion, jatosStudyResultId, jatosVersion,
+screen_availableHeight, screen_availableWidth, screen_colorDepth,
+screen_height, screen_pixelDepth, screen_screenX, screen_screenY,
+screen_width, system_os</p>
 </div>
 <div id="實驗變項設定與資料處理" class="section level2">
 <h2>實驗變項設定與資料處理</h2>
 <ul>
 <li><p>實驗獨變項變項必須在實驗迴圈表格(table)設定，並在<code>logger</code>元件內設定，才能紀錄在JATOS伺服器。</p></li>
-<li><p>任何參與者的反應輸入預設儲存變項是“response”，必須在<code>logger</code>元件設定“response”變項，才能紀錄在JATOS伺服器。</p></li>
-<li><p>任何序列及迴圈的作業目標可能不同，反應輸入預設儲存變項都是“response”。在每個迴圈表格(table)設定<strong>標記變項</strong>，有助區隔不同區塊的原始資料。</p></li>
-<li><p>有設定<code>keyboard_response</code>元件，必須在<code>logger</code>元件 設定“response_time”變項，才能在JATOS伺服器紀錄反應時間資料。</p></li>
-<li><p>反應正誤在迴圈表格內指定變項設定(預設“correct_response”)，必須在<code>logger</code>元件 設定“correct”變項，才能在JATOS伺服器紀錄反應正誤資料。</p></li>
-<li><p>設定實驗完成碼需要使用javascript，產生隨機代號，存於“identifier”變項。只要是<strong>線上實驗</strong>，不論如何招募參與者，建議都要生成實驗完成碼，在最後畫面呈現，才能確認參與者有按照步驟完成實驗。</p></li>
+<li><p>任何參與者的反應輸入預設儲存變項是”response”，必須在<code>logger</code>元件設定”response”變項，才能紀錄在JATOS伺服器。</p></li>
+<li><p>任何序列及迴圈的作業目標可能不同，反應輸入預設儲存變項都是”response”。在每個迴圈表格(table)設定<strong>標記變項</strong>，有助區隔不同區塊的原始資料。</p></li>
+<li><p>有設定<code>keyboard_response</code>元件，必須在<code>logger</code>元件
+設定”response_time”變項，才能在JATOS伺服器紀錄反應時間資料。</p></li>
+<li><p>反應正誤在迴圈表格內指定變項設定(預設”correct_response”)，必須在<code>logger</code>元件
+設定”correct”變項，才能在JATOS伺服器紀錄反應正誤資料。</p></li>
+<li><p>設定實驗完成碼需要使用javascript，產生隨機代號，存於”identifier”變項。只要是<strong>線上實驗</strong>，不論如何招募參與者，建議都要生成實驗完成碼，在最後畫面呈現，才能確認參與者有按照步驟完成實驗。</p></li>
 </ul>
 <blockquote>
 <p>以下R程式碼示範原始資料前置處理，實際使用需依正式實驗程序修改程式碼。</p>
@@ -525,17 +504,15 @@ glimpse(response_Exit)</code></pre>
 </div>
 <div id="進階範例" class="section level2">
 <h2>進階範例</h2>
-<p><span class="citation">Mathot &amp; March (2021)</span> 以語言學習實驗為例，展示如何設計及部署線上實驗，透過<a href="https://www.prolific.co/">Prolific</a>徵求參與者，以及分析實驗資料。</p>
+<p><span
+class="citation">(<strong>mathotConductingLinguisticExperiments2021?</strong>)</span>
+以語言學習實驗為例，展示如何設計及部署線上實驗，透過<a
+href="https://www.prolific.co/">Prolific</a>徵求參與者，以及分析實驗資料。</p>
 <div id="上一步jatos部署與測試" class="section level4">
 <h4>上一步：<a href="OS_JATOS.html">JATOS部署與測試</a></h4>
 <p><br/></p>
-<div id="參考文獻" class="section level5 unnumbered">
-<h5 class="unnumbered">參考文獻</h5>
-<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
-<div id="ref-mathotConductingLinguisticExperiments2021" class="csl-entry">
-Mathot, S., &amp; March, J. (2021). <em>Conducting linguistic experiments online with <span>OpenSesame</span> and <span>OSWeb</span></em>. <span>PsyArXiv</span>. <a href="https://doi.org/10.31234/osf.io/wnryc">https://doi.org/10.31234/osf.io/wnryc</a>
-</div>
-</div>
+<div id="參考文獻" class="section level5">
+<h5>參考文獻</h5>
 </div>
 </div>
 </div>
