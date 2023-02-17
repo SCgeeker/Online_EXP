@@ -71,9 +71,38 @@ f.ref <- function(x) {
 
 <span style="background-color: #FFFF00">
 **OSWeb顯示中文字的限制**<br/>  
-OpenSesame以HTML語法控制在螢幕呈現的文字，如果是中文字且一行文字長度超出螢幕寬度，目前的版本(v3.3)無法自動斷行。因此目前所有中文字的指導語及刺激項目，都需要事先轉換為PNG圖檔，置入要呈現的序列或迴圈元件。
+OpenSesame以HTML語法控制在螢幕呈現的中文文字自動斷行，也就是說如果文字長度超出螢幕寬度，目前的版本(v3.3)無法自動斷行。因此所有顯示中文字的指導語及刺激項目，建意事先轉換為PNG圖檔，或在要斷行的文字之間使用斷行標籤。
 </span>
 
+# 善用notepad元件管理腳本
+
+- notepad元件不會執行。
+- 可隨意記錄筆記，放在其他元件之前，可註解後續元件的功能與設定內容。
+
+# File pool
+
+- 一套腳本要呈現圖片、聲音等檔案，要先將檔案存入File pool。在主畫面視窗按"Ctrl + P"，或選擇View -> Show file pool，開啟File pool子視窗。
+
+- 子視窗功能按鈕有加入檔案，開啟檔案總管視窗。使用者可依需要，操作功能管理檔案。
+
+# Variable inspector
+
+- 要檢視所有元件的可存取變項，在主畫面視窗按"Ctrl + I"，或選擇View -> Show variable inspector，開啟Variable inspector子視窗。
+
+- 在javascropt元件內定義的變項不會顯示。
+
+- 子視窗的三個欄位
+  - Variable : 變項名稱
+  - Value: 變項數值；無數值為紀錄實驗數據的空變項
+  - Source(s): 變項有運作的實驗元件；global為全局變項
+
+- 由於3.3.9版起，線上實驗腳本要由使用者要自訂需紀錄的變項。<span style="background-color: #FFFF00">上線前務必規劃要紀錄的變項。</span>
+
+# Form元件的限制
+
+OSWeb 1.4.4.0支援在視窗模式使用Form元件，但是由於各家瀏覽器的功能差異及限制，尚未支援全螢幕模式。<span style="background-color: #FFFF00">如果實驗程序全程需要在全螢幕模式執行，務必考慮使用Form元件的必要性。</span>若要在全螢幕模式執行實驗，腳本內不可有任何Form元件，包括**回收桶**。
+
+> 以下圖例與實際腳本內容因更新進度不一致，會有所不同。請以參加的課程講授內容為主。
 
 # 建立主序列
 
@@ -125,7 +154,7 @@ knitr::include_graphics("includes/img/exp_seq01.png")
 
 **實驗刺激列表**
 
-為了達成交互平衡控制，練習有兩份刺激列表，正式實驗有四份刺激列表。每份激列表分別放置於迴圈物件(loop)，執行練習與正式實驗序列之前，先經過隨機洗牌決定要執行的迴圈物件序號。練習與正式實驗的迴圈物件編輯介面如`r `與`r `，決定序號的javascript程式碼如下，變數`PList`，`List`分別儲存隨機決定的序號號碼：
+為了達成交互平衡控制，練習有兩份刺激列表，正式實驗有四份刺激列表。每份激列表分別放置於迴圈元件(loop)，執行練習與正式實驗序列之前，先經過隨機洗牌決定要執行的迴圈元件序號。練習與正式實驗的迴圈元件編輯介面如`r `與`r `，決定序號的javascript程式碼如下，變數`PList`，`List`分別儲存隨機決定的序號號碼：
 
 ```
 // getRndInteger(min, max) returns a random number between min and max (both included):
@@ -184,7 +213,7 @@ knitr::include_graphics("includes/img/exp_seq05.png")
 
 迴圈`SP_Prac01`與迴圈`SP_Prac02`之下都是序列`SP_Prac_sequence`，製作程序是先在其中一個迴圈完成編輯，再使用<span style="background-color: #FFFF00">關聯式複製`Copy(Linked)`</span>，拷貝到另一個迴圈。之後只要修改其中一個迴圈之下的序列，另一個迴圈之下的序列同步變更。這種方式適用不同迴圈執行程序相同的腳本，仼何實驗元件都能使用關聯式複製，只要以滑鼠右鍵點擊要複製的元件，就能從選單選擇<span style="background-color: #FFFF00">關聯式複製`Copy(Linked)`</span>(見下圖)。
 
-![迴圈物件右鍵選單](includes/img/click_menu.png)
+![迴圈元件右鍵選單](includes/img/click_menu.png)
 
 
 **練習嘗試**
@@ -202,33 +231,33 @@ knitr::include_graphics("includes/img/exp_seq06.png")
 
 1. 第一次凝視點`First_Fixation_Prac`呈現1000毫秒
 
-![凝視點sketchpad物件](includes/img/OS/Prac_trial_001.png)
+![凝視點sketchpad元件](includes/img/OS/Prac_trial_001.png)
 
 2. `Probe_prac`呈現刺激句，刺激句來自迴圈內選單欄位[Probe]；`Probe_response_prac`參與者充分閱讀後按下指定反應鍵
 
-![左:刺激句sketchpad物件;右:切換keyboard response物件](includes/img/OS/Prac_trial_002.png)
+![左:刺激句sketchpad元件;右:切換keyboard response元件](includes/img/OS/Prac_trial_002.png)
 
 3. 第二次凝視點`Second_Fixation_Prac`呈現500毫秒
 
-![凝視點sketchpad物件](includes/img/OS/Prac_trial_003.png)
+![凝視點sketchpad元件](includes/img/OS/Prac_trial_003.png)
 
-4. `Target_Prac`呈現目標物件圖像，物件圖像來自迴圈內選單欄位[Target]；`Target_response_Prac`參與者要在限時2000毫秒內按下指定反應鍵"j"或"f"
+4. `Target_Prac`呈現目標元件圖像，元件圖像來自迴圈內選單欄位[Target]；`Target_response_Prac`參與者要在限時2000毫秒內按下指定反應鍵"j"或"f"
 
-![左:目標圖sketchpad物件;右:反應keyboard response物件](includes/img/OS/Prac_trial_004.png)
+![左:目標圖sketchpad元件;右:反應keyboard response元件](includes/img/OS/Prac_trial_004.png)
 
 5. 根據反應結果呈現500毫秒的回饋訊息：**正確**([correct]=1)`Target_response_correct_Prac`；**錯誤**([correct]=0)`Target_response_wrong_Prac`；**反應太慢**([response_time]>1499)`Target_response_noans_Prac`
 
-![反應正確訊息sketchpad物件](includes/img/OS/Prac_trial_005.png)
+![反應正確訊息sketchpad元件](includes/img/OS/Prac_trial_005.png)
 
 6. 正確次數紀錄器`Prac_Count`，正確次數紀錄於[correct_count]，累積達6即中止迴圈，有錯誤即歸零
 
 ![正確次數紀錄器程式碼](includes/img/OS/Prac_trial_006.png)
 
-7. 實驗嘗試紀錄`Task_logger`：此物件必須放置於在嘗試最底層迴圈的最底層序列最後位，OpenSesame/OSWeb才能逐次輸出紀錄。
+7. 實驗嘗試紀錄`Task_logger`：此元件必須放置於<!---在嘗試最底層迴圈的--->最底層序列的最後位，OpenSesame/OSWeb才能逐次輸出紀錄。
 
-- 3.3.9版調整`logger`元件記錄欄件數量，建議以自訂模式設置需要分析的欄位，以下截圖是示範腳本設定的欄位。控制視窗一次只能設定，可看到設定的欄位儲存那些實驗元件的資料，例如在`inline javascript`內設定的變數都是"custom"。需要設定的欄位數目太多，可從腳本視窗依格式新增。
+- 3.3.9版調整`logger`元件記錄欄位設定方法，線上實驗必須以自訂模式設置需要匯出分析的欄位，以下截圖是示範腳本設定的欄位。控制視窗一次只能設定，可看到設定的欄位儲存那些實驗元件的資料，例如在`inline javascript`內設定的變數都是"custom"。需要設定的欄位數目太多，可從腳本視窗依格式新增。
 
-![logger物件內設定欄位](includes/img/OS/logger.png)
+![logger元件內設定欄位](includes/img/OS/logger.png)
 
 ## 實驗序列
 
@@ -285,8 +314,8 @@ vars.check_10 = getRndInteger(45,47);
 
 **刺激表單欄位說明**
 
-"Orientation": 目標物件圖像呈現方向。H ~ 水平, V ~ 垂直, F ~ 填充<br/>
-"Match": 刺激句暗示方向與目標物件圖像呈現方向是否一致。Y ~ 一致, N ~ 不一致, F ~ 填充<br/>
+"Orientation": 目標元件圖像呈現方向。H ~ 水平, V ~ 垂直, F ~ 填充<br/>
+"Match": 刺激句暗示方向與目標元件圖像呈現方向是否一致。Y ~ 一致, N ~ 不一致, F ~ 填充<br/>
 "Probe": 提供實驗元件`Probe`呈現的刺激句<br/>
 "Target": 提供實驗元件`Target`呈現的目標圖像<br/>
 "correct_response": 對應`Target_response`的參數"correct_response"<br/>
@@ -335,7 +364,7 @@ vars.trial_seq += 1;
 ```
   
 3. 第二次凝視點`Second_Fixation`呈現500毫秒
-4. 呈現目標物件圖像`Target`，參與者充分閱讀後按下指定反應鍵`Target_response`
+4. 呈現目標元件圖像`Target`，參與者充分閱讀後按下指定反應鍵`Target_response`
 5. 根據反應結果呈現回饋訊息：**正確**([correct]=1)`Target_response_correct`；**錯誤**([correct]=0)`Target_response_wrong`；**反應太慢**([response_time]>1499)`Target_response_noans`
   - `Probe_import`挑選要呈現於memory check的刺激句，從第六次嘗試開始執行([list_length]>5)，參考以下javascript程式碼註解說明
 
@@ -345,20 +374,36 @@ function getRndInteger(min, max) {
   return Math.floor(Math.random() * (max - min + 1) ) + min;
 }
 
+// 儲存已呈現probe至5個以上開始執行
+if(vars.list_length > 5){
+
 // 決定probe_list的位置序號
-vars.anchor = getRndInteger(0,5);
+  vars.anchor = getRndInteger(0,5);
 
 // 依anchor位置序號，從probe_list載入該序號的刺激檔案至rectarget
 // 序列`Memory_seq`下元件`Probe_sti`呈現rectarget
-vars.rectarget = vars.probe_list[vars.anchor];
+  vars.rectarget = vars.probe_list[vars.anchor];
 
 // 設定`Probe_sti_response`正確反應按鍵，小於3為"是"，否則為"否"
-if(vars.anchor < 3) {
-		vars.correct_response = 'j';
+  if(vars.anchor < 3) {
+  		vars.correct_response = 'j';
+  }
+  else{
+  		vars.correct_response = 'f';
+  }
 }
+
+// 儲存辨別目標正確至變數correct_response_Target
+vars.correct_response_Target = vars.correct_response
+
+// 標記此次嘗試有無記憶測試
+if( (vars.trial_seq == vars.check0) | (vars.trial_seq == vars.check_1) | (vars.trial_seq == vars.check_2) | (vars.trial_seq == vars.check_3) | (vars.trial_seq == vars.check_4) | (vars.trial_seq == vars.check_5) | (vars.trial_seq == vars.check_6) | (vars.trial_seq == vars.check_7) | (vars.trial_seq == vars.check_8) | (vars.trial_seq == vars.check_9) | (vars.trial_seq == vars.check_10) ){
+        vars.memory = "y";
+} 
 else{
-		vars.correct_response = 'f';
+        vars.memory = 'n';
 }
+
 ```
 
 6. 序列`Memory_seq`執行memory check。"Run if"設定其中11次嘗試執行，每次實驗要執行的嘗試由`presetup`決定(見`r f.ref('fig_11')`)。
@@ -373,8 +418,10 @@ else{
 
 # 出口調查序列
 
-**建議1** 問卷題目建議使用表單網頁呈現，例如google form。
+**建議1** 問卷題目建議使用Form元件支援的格式呈現，請參考範例腳本的示範。<br/>
 **建議2** 本範例僅調查參與者性別與出生年，題目皆為單選題。
+
+> 如果你的實驗必須採用全螢幕模式，建議不要使用Form元件設計問卷。因為OSweb尚未支授Form元件以全螢幕呈現。
 
 `r f.ref('fig_14')` 顯示出口調查序列`PostSurvey`的元件。
 
@@ -397,20 +444,20 @@ knitr::include_graphics("includes/img/post_seq02.png")
 
 ## 題目序列
 
-`r f.ref('fig_16')`展示調查執行序列`Survey_seq`，題目只有一套，執行三項題目即結束。
+`r f.ref('fig_16')`展示調查執行序列`Survey_seq`，題目只有一套，執行二項題目即結束。
 
 
 ```{r post_seq03, echo=FALSE, fig.cap = fig.16_cap}
 knitr::include_graphics("includes/img/post_seq03.png")
 ```
 
-1. `Survey_Board`呈現題目與作答選項，題目迴圈`Survey`內選單欄位[Question]與[Options]；`Survey_response`說定可作答的按鍵，無回答時間限制。
+1. `post_survey_input`是Form元件，能讓參與者自行輸入按鍵資訊。題目迴圈`Survey`內選單欄位[Question]與[Options]，呈現題目資訊與作答選項，無回答時間限制。
 
-![左:題目sketchpad物件;右:選項keyboard response物件](includes/img/OS/survey_trial_001.png)
+![調查表單元件設定](includes/img/OS/survey_trial_001.png)
 
-2. 實驗嘗試紀錄`Task_logger`：從`Prac_trial`**關聯性複製**
+2. 實驗嘗試紀錄`Task_logger`：從`Prac_trial`或`SP_trial`**關聯性複製**
 
-#### 上一步：[Open Sesame開工預備](OS_intro.html) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 下一步：[JATOS部署與測試](OS_OSWeb.html)
+#### 上一步：[Open Sesame開工預備](OS_intro.html) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 下一步：[JATOS部署與測試](OS_JATOS.html)
 <br/>
 
 ##### 參考文獻

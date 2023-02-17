@@ -1,0 +1,104 @@
+---
+title: "OpenSeasme輸出資料處理示範"
+output:
+  html_document:
+    toc: TRUE
+    toc_depth: 3
+    toc_float: TRUE
+    highlight: textmate
+    include:
+      after_body: footer.html
+    css: styles.css
+bibliography: "includes/bib/OnLine_website.bib"
+biblio-style: apalike
+csl: "includes/bib/apa.csl"
+---
+
+
+```{r setup}
+knitr::opts_chunk$set(
+	message = FALSE,
+	warning = FALSE,
+	include = FALSE
+)
+library(tidyverse)
+```
+
+
+- 本機執行OpenSesame腳本實驗，預設輸出格式為csv。logger預設儲存所有變項。
+
+- JATOS執行OpenSesame腳本，預設輸出格式為JASON，必須[轉換為csv格式](OS_JATOS.html#OSWeb實驗資料格式轉換)。考慮網路傳輸延遲，使用者要在腳本logger物件自行設定儲存變項。
+
+## JATOS系統變項欄位
+
+- 輸出資料檔內有以下欄位，記錄參與者端的顯示器硬體設定、作業系統及瀏覽器設定，JATOS伺服器版本，實驗腳本頁首資訊(OpenSesame General properties)，以及參與者登入日期時間等資訊。如果實驗條件與這些資訊有關，可列入資料分析。
+
+- 以下是JATOS 3.7.3版匯出的系統變項，下載資料後將這些變項資料另存檔案，可區分系統資訊與實驗資料欄位。**請注意**，未來JATOS版本更新後，可能會有變動。
+
+```{r sys-col}
+sys_cols <- names(read_csv(file = "test/empty_cols.csv"))
+```
+
+`r sys_cols`
+
+
+## 實驗變項設定與資料處理
+
+- 實驗獨變項變項必須在實驗迴圈表格(table)設定，並在`logger`元件內設定，才能紀錄在JATOS伺服器。
+
+- 任何參與者的反應輸入預設儲存變項是"response"，必須在`logger`元件設定"response"變項，才能紀錄在JATOS伺服器。
+
+- 任何序列及迴圈的作業目標可能不同，反應輸入預設儲存變項都是"response"。在每個迴圈表格(table)設定**標記變項**，有助區隔不同區塊的原始資料。
+
+- 有設定`keyboard_response`元件，必須在`logger`元件 設定"response_time"變項，才能在JATOS伺服器紀錄反應時間資料。
+
+- 反應正誤在迴圈表格內指定變項設定(預設"correct_response")，必須在`logger`元件 設定"correct"變項，才能在JATOS伺服器紀錄反應正誤資料。
+
+- 設定實驗完成碼需要使用javascript，產生隨機代號，存於"identifier"變項。只要是**線上實驗**，不論如何招募參與者，建議都要生成實驗完成碼，在最後畫面呈現，才能確認參與者有按照步驟完成實驗。
+
+> 以下R程式碼示範原始資料前置處理，實際使用需依正式實驗程序修改程式碼。
+
+<!---
+{r preprocessing, echo=TRUE, eval=1, results='hide'}
+--->
+
+```
+## 匯入原始資料csv檔
+rawdata <- read_csv("test/test_results.csv")
+## 選定系統資訊變項及實驗完成碼，建立sys_data
+sys_data <- select(rawdata, c("identifier",sys_cols))
+## 選定非系統資訊變項之其他資料，建立response_data
+response_data <- select(rawdata, -sys_cols)
+
+## 選定來自練習段落的反應資料
+response_Prac <- filter(response_data,Task=="Prac")
+## 過濾不屬於練習段落的變項欄位
+response_Prac <- response_Prac[,which(colSums(response_Prac!="None",na.rm = TRUE) != 0)]
+## 預覽練習段落的反應資料
+glimpse(response_Prac)
+
+
+## 選定來自實驗段落的反應資料
+response_Exp <- filter(response_data,Task=="SP")
+## 過濾不屬於實驗段落的變項欄位
+response_Exp <- response_Exp[,which(colSums(response_Exp!="None",na.rm = TRUE) != 0)]
+## 預覽實驗段落的反應資料
+glimpse(response_Exp)
+
+## 選定來自出口調查的反應資料
+response_Exit <- filter(response_data,Task=="Post")
+## 過濾不屬於出口調查的變項欄位
+response_Exit <- response_Exit[,which(colSums(response_Exit!="None",na.rm = TRUE) != 0)]
+## 預覽出口調查的反應資料
+glimpse(response_Exit)
+```
+
+## 進階範例
+
+@mathotConductingLinguisticExperiments2021 以語言學習實驗為例，展示如何設計及部署線上實驗，透過[Prolific](https://www.prolific.co/)徵求參與者，以及分析實驗資料。
+
+
+#### 上一步：[JATOS部署與測試](OS_JATOS.html)
+<br/>
+
+##### 參考文獻

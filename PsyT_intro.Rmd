@@ -76,6 +76,15 @@ knitr::opts_chunk$set(echo = TRUE)
 ![為保護學生個人資訊隱私，帳號資訊採噴霧處理。](includes/img/Psytoolkit_student_view02.png)
 
 
+## 其他介紹
+
+- 佛光大學周蔚倫老師製作的教學示範影片
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/BzBpmu_w2AU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/HOfhZE5gCzA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
 #### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 下一步：[線上問卷](PsyT_survey.html)
 
 ##### 參考文獻

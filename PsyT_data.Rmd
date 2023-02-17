@@ -33,7 +33,7 @@ library(tidyverse)
 
 ```{r read_data, message=FALSE, warning=FALSE}
 ## path to the latest downloaded raw data
-downloaded_rawdata <- "includes/scripts/test_data.zip"
+downloaded_rawdata <- "includes/scripts/i_gen_data.zip"
 ## Check the downloaded data files
 datafiles <- unzip(downloaded_rawdata, list = TRUE)
 ## List files in zip file
