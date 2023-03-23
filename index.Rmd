@@ -19,7 +19,7 @@ description: |
 
 | 平台官網 | 主要服務對象 | 收費需求 |
 |---|---|---|
-| [Prolific](https://www.prolific.co/) | 全球學術機構人員及獨立研究者 | 終端使用者可事先儲值，依建議實驗長度支付參與者酬金。 |
+| [Prolific](https://app.prolific.co/) | 全球學術機構人員及獨立研究者 | 終端使用者可事先儲值，依建議實驗長度支付參與者酬金。 |
 | [MTurk](https://www.mturk.com/) | 美國國內登記之商業及學術機構調查人員 | 終端使用者可事先儲值，依招募條件有不同支付價格。 |
 | [Sona System](https://www.sona-systems.com/default.aspx) | 學術與教育機構 | 簽約對象為機構，串接機構內線上學習系統招募實體或線上參與者。 |
 
