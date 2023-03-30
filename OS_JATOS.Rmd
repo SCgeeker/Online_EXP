@@ -81,9 +81,51 @@ JATOS網路伺服器開源程式是由德國Max Planck研究所 @langeJustAnothe
 |General Multiple|任何參與者皆能使用的實驗連結，一項連結能登入多次至關閉為止。|
 |MTurk|在Amazon MTurk平台招募參與者的實驗連結。|
 
-**註** 如果要在[Prolific](https://app.prolific.co/)招募參與者，可參考[JATOS官方說明](https://www.jatos.org/Use-Prolific.html)以及[OpenSesame使用者手冊](https://osdoc.cogsci.nl/3.3/manual/osweb/prolific/)，了解如何在Prolific與JATOS網站設定要存檔的參與者ID及網站紀錄。
 
 2. "Worker & Batch Manager"介面可新增或刪除"Batch"，一個"Batch"相當於一群參與者。若是實驗要分派給不同地區的參與者，可設定"Batch"及實驗連結，輸出資料有Batch名稱。新增"Batch"只要在介面左上點選"New Batch"，在對話視窗輸入名稱即能新增；若要刪除Batch，從"Batch"介面右上選擇"More -> Delete"就能刪除。
+
+### 在[Prolific](https://app.prolific.co/)收案的腳本設定
+
+要紀錄Prolific的參與者ID及網站紀，可參考[JATOS官方說明](https://www.jatos.org/Use-Prolific.html)以及[OpenSesame使用者手冊](https://osdoc.cogsci.nl/3.3/manual/osweb/prolific/)的詳細設定。以下是簡易設 定步驟。
+
+1. 在腳本的第一個`sequence`物件最先置入`inline_javascript`，執行區(Run)寫入以下程式碼
+
+```
+if (window.jatos && jatos.urlQueryParameters.PROLIFIC_PID) {
+    console.log('Prolific information is available')
+    vars.prolific_participant_id = jatos.urlQueryParameters.PROLIFIC_PID
+    vars.prolific_study_id = jatos.urlQueryParameters.STUDY_ID
+    vars.prolific_session_id = jatos.urlQueryParameters.SESSION_ID
+} else {
+    console.log('Prolific information is not available (setting values to -1)')
+    vars.prolific_participant_id = -1
+    vars.prolific_study_id = -1
+    vars.prolific_session_id = -1
+}
+console.log('prolific_participant_id = ' + vars.prolific_participant_id)
+console.log('prolific_study_id = ' + vars.prolific_study_id)
+console.log('prolific_session_id = ' + vars.prolific_session_id)
+```
+
+2. JATOS端設定"General Multiple"，複製連結到Prolific案件設定網頁。連結格式如下圖：
+
+![](https://osdoc.cogsci.nl/3.3/pages/manual/osweb/img/prolific/jatos-url.png)
+
+3. 連結貼在Prolific案件設定網頁的指定欄位，其後再貼上以下程式碼：
+
+```
+&PROLIFIC_PID={{%PROLIFIC_PID%}}&STUDY_ID={{%STUDY_ID%}}&SESSION_ID={{%SESSION_ID%}}
+```
+
+完成後如同下圖：
+
+![](https://osdoc.cogsci.nl/3.3/pages/manual/osweb/img/prolific/prolific.png)
+
+複製上圖最後一欄生成的網址。
+
+4. 正式公開Prolific案件前，回到JATOS端案件儀表板，開啟'Property'分頁，將上一步最後複製的網址，貼在**End Redirect URL**欄位。完成後如同下圖：
+
+![](https://osdoc.cogsci.nl/3.3/pages/manual/osweb/img/prolific/jatos-properties.png)
 
 
 ## 實驗資料匯出JATOS

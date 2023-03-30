@@ -575,16 +575,56 @@ type</a>說明。</p></li>
 </tr>
 </tbody>
 </table>
-<p><strong>註</strong> 如果要在<a
-href="https://app.prolific.co/">Prolific</a>招募參與者，可參考<a
-href="https://www.jatos.org/Use-Prolific.html">JATOS官方說明</a>以及<a
-href="https://osdoc.cogsci.nl/3.3/manual/osweb/prolific/">OpenSesame使用者手冊</a>，了解如何在Prolific與JATOS網站設定要存檔的參與者ID及網站紀錄。</p>
 <ol start="2" style="list-style-type: decimal">
 <li>“Worker &amp; Batch
 Manager”介面可新增或刪除”Batch”，一個”Batch”相當於一群參與者。若是實驗要分派給不同地區的參與者，可設定”Batch”及實驗連結，輸出資料有Batch名稱。新增”Batch”只要在介面左上點選”New
 Batch”，在對話視窗輸入名稱即能新增；若要刪除Batch，從”Batch”介面右上選擇”More
 -&gt; Delete”就能刪除。</li>
 </ol>
+<div id="在prolific收案的腳本設定" class="section level3">
+<h3>在<a href="https://app.prolific.co/">Prolific</a>收案的腳本設定</h3>
+<p>要紀錄Prolific的參與者ID及網站紀，可參考<a
+href="https://www.jatos.org/Use-Prolific.html">JATOS官方說明</a>以及<a
+href="https://osdoc.cogsci.nl/3.3/manual/osweb/prolific/">OpenSesame使用者手冊</a>的詳細設定。以下是簡易設
+定步驟。</p>
+<ol style="list-style-type: decimal">
+<li>在腳本的第一個<code>sequence</code>物件最先置入<code>inline_javascript</code>，執行區(Run)寫入以下程式碼</li>
+</ol>
+<pre><code>if (window.jatos &amp;&amp; jatos.urlQueryParameters.PROLIFIC_PID) {
+    console.log(&#39;Prolific information is available&#39;)
+    vars.prolific_participant_id = jatos.urlQueryParameters.PROLIFIC_PID
+    vars.prolific_study_id = jatos.urlQueryParameters.STUDY_ID
+    vars.prolific_session_id = jatos.urlQueryParameters.SESSION_ID
+} else {
+    console.log(&#39;Prolific information is not available (setting values to -1)&#39;)
+    vars.prolific_participant_id = -1
+    vars.prolific_study_id = -1
+    vars.prolific_session_id = -1
+}
+console.log(&#39;prolific_participant_id = &#39; + vars.prolific_participant_id)
+console.log(&#39;prolific_study_id = &#39; + vars.prolific_study_id)
+console.log(&#39;prolific_session_id = &#39; + vars.prolific_session_id)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>JATOS端設定”General
+Multiple”，複製連結到Prolific案件設定網頁。連結格式如下圖：</li>
+</ol>
+<p><img
+src="https://osdoc.cogsci.nl/3.3/pages/manual/osweb/img/prolific/jatos-url.png" /></p>
+<ol start="3" style="list-style-type: decimal">
+<li>連結貼在Prolific案件設定網頁的指定欄位，其後再貼上以下程式碼：</li>
+</ol>
+<pre><code>&amp;PROLIFIC_PID={{%PROLIFIC_PID%}}&amp;STUDY_ID={{%STUDY_ID%}}&amp;SESSION_ID={{%SESSION_ID%}}</code></pre>
+<p>完成後如同下圖：</p>
+<p><img
+src="https://osdoc.cogsci.nl/3.3/pages/manual/osweb/img/prolific/prolific.png" /></p>
+<p>複製上圖最後一欄生成的網址。</p>
+<ol start="4" style="list-style-type: decimal">
+<li>正式公開Prolific案件前，回到JATOS端案件儀表板，開啟’Property’分頁，將上一步最後複製的網址，貼在<strong>End
+Redirect URL</strong>欄位。完成後如同下圖：</li>
+</ol>
+<p><img
+src="https://osdoc.cogsci.nl/3.3/pages/manual/osweb/img/prolific/jatos-properties.png" /></p>
+</div>
 </div>
 <div id="實驗資料匯出jatos" class="section level2">
 <h2>實驗資料匯出JATOS</h2>
