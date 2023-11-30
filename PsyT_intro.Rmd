@@ -20,7 +20,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## 開發者資訊 
 
-- 開發者Gijsbert Stoet發表於Teaching of Psychology的論文[@stoetPsyToolkitNovelWebBased2017]，使用Psytoolkit完成的研究報告務必引用這份論文。
+- 開發者Gijsbert Stoet教授發表於Behavior Research Methods[@Stoet-2010]及Teaching of Psychology的論文[@Stoet-2017]，使用Psytoolkit完成的研究報告務必引用這兩份論文。
 
 - [開發者聯絡方式](https://www.psytoolkit.org/contact.html):詢問使用問題；建議；商業使用洽詢；教學用途洽詢。  
 
@@ -31,7 +31,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## 註冊/登入畫面介紹
 
-![2020年春季登入畫面截圖。實際畫面以官方網站為準。](includes/img/Psytoolkit_login.png)  
+最新版有部署於歐洲及美國兩地的伺服器，任何人都可以註冊使用，但是兩個伺服器的資料互不流通。建議使用者根據**目標參與者的所在地區**，使用最接近的伺服器。
+
+![2023冬季登入畫面截圖。實際畫面以官方網站為準。]
+
+![2020年春季起始畫面截圖。實際畫面以官方網站為準。](includes/img/Psytoolkit_login.png)  
 
 
 ### 左側常駐功能列
