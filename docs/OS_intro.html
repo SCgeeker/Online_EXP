@@ -13,7 +13,7 @@
 
 <title>Open Sesame開工預備</title>
 
-<script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -29,14 +29,14 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -62,28 +62,6 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-/* for pandoc --citeproc since 2.11 */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
-</style>
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
@@ -454,8 +432,7 @@ div.tocify {
 <ul>
 <li><p>開發者<a href="https://github.com/smathot">Sebastiaan
 Mathôt</a>等人發表於Behavior Research Methods的論文<span
-class="citation">(Mathôt et al.,
-2012)</span>，使用OpenSesame完成的研究，務必在報告中引用這篇論文。</p></li>
+class="citation">(<strong>mathotOpenSesameOpensourceGraphical2012?</strong>)</span>，使用OpenSesame完成的研究，務必在報告中引用這篇論文。</p></li>
 <li><p><a
 href="https://forum.cogsci.nl/">使用者論壇</a>：與開發者及其他使用者交流使用心得與問題。</p></li>
 </ul>
@@ -495,11 +472,9 @@ IDE，熟悉Python的使用者可透過下載Python函式庫的方式安裝於�
 <div id="腳本編輯器介面" class="section level2">
 <h2>腳本編輯器介面</h2>
 <p>下圖是直接開啓OpenSesame的初始使用者介面，圖中註解有關編輯與測試實驗腳本的重要功能及選單。</p>
-<div class="figure">
-<img src="includes/img/OS_TOP.png" alt="OpenSesame開啟畫面。" width="2090" />
-<p class="caption">
-OpenSesame開啟畫面。
-</p>
+<div class="float">
+<img src="includes/img/OS_TOP.png" alt="OpenSesame開啟畫面。" />
+<div class="figcaption">OpenSesame開啟畫面。</div>
 </div>
 <ul>
 <li>增加任何一個實驗元件到程序總覽畫面，可在編輯介面編輯元件內容。</li>
@@ -548,26 +523,15 @@ style="background-color: #FFFF00">段落標記變項</span>有助清理及整頓
 <li>轉換OpenSesame本機腳本為JATOS伺服器可執行腳本的函式庫。</li>
 <li>主選單”Tools -&gt; OSWeb”切換至OSWeb介面。按鈕功能如下圖說明：</li>
 </ul>
-<div class="figure">
-<img src="includes/img/OSWeb.png" alt="OSWeb介面及功能說明，功能詳見範例示範。" width="687" />
-<p class="caption">
-OSWeb介面及功能說明，功能詳見範例示範。
-</p>
+<div class="float">
+<img src="includes/img/OSWeb.png"
+alt="OSWeb介面及功能說明，功能詳見範例示範。" />
+<div class="figcaption">OSWeb介面及功能說明，功能詳見範例示範。</div>
 </div>
 <div id="下一步腳本設計" class="section level4">
 <h4>         下一步：<a href="OS_script.html">腳本設計</a></h4>
-<div id="參考文獻" class="section level5 unnumbered">
-<h5 class="unnumbered">參考文獻</h5>
-<div id="refs" class="references csl-bib-body hanging-indent"
-line-spacing="2">
-<div id="ref-mathotOpenSesameOpensourceGraphical2012" class="csl-entry">
-Mathôt, S., Schreij, D., &amp; Theeuwes, J. (2012).
-<span>OpenSesame</span>: <span>An</span> open-source, graphical
-experiment builder for the social sciences. <em>Behavior Research
-Methods</em>, <em>44</em>(2), 314–324. <a
-href="https://doi.org/10.3758/s13428-011-0168-7">https://doi.org/10.3758/s13428-011-0168-7</a>
-</div>
-</div>
+<div id="參考文獻" class="section level5">
+<h5>參考文獻</h5>
 </div>
 </div>
 </div>

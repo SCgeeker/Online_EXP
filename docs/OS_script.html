@@ -13,7 +13,7 @@
 
 <title>OSWeb腳本編輯：句圖比對作業</title>
 
-<script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -29,14 +29,14 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -62,28 +62,6 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-/* for pandoc --citeproc since 2.11 */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
-</style>
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
@@ -455,12 +433,15 @@ href="includes/scripts/OrientationCrossLanguages_ZH_example.osexp">示範腳本<
 <h2>簡介句圖比對作業</h2>
 <p>句圖比對作業(sentence-picture verification
 task)用於探討人類能否以視覺經驗理解句子，過去發現顯示閱讀描述物體的句子，暗示形狀、顏色、與方向等視覺屬性，判斷的物體圖片與脈絡一致，反應快於不一致的物體圖片<span
-class="citation">(Connell, 2007; Stanfield &amp; Zwaan, 2001; Zwaan et
-al., 2002; Zwaan &amp; Pecher, 2012)</span>。在此以 <span
-class="citation">Stanfield &amp; Zwaan (2001)</span>
+class="citation">(<strong>connellRepresentingObjectColour2007?</strong>;
+<strong>stanfield_effect_2001?</strong>;
+<strong>zwaanRevisitingMentalSimulation2012?</strong>;
+<strong>zwaanLanguageComprehendersMentally2002?</strong>)</span>。在此以
+<span class="citation">(<strong>stanfield_effect_2001?</strong>)</span>
 的程序示範OpenSesame腳本編輯，<a
 href="includes/scripts/OrientationCrossLanguages_ZH_example.osexp">示範腳本</a>源自
-<span class="citation">Chen et al. (2018)</span>
+<span
+class="citation">(<strong>chenInvestigatingObjectOrientation2018?</strong>)</span>
 使用的繁體中文版實驗。示範說明依照序列(sequence)階層排列，建議學習者下載示範腳本後，按照以下說明調整測試，學習建構腳本的技巧。</p>
 <p><span style="background-color: #FFFF00">
 <strong>OSWeb顯示中文字的限制</strong><br/><br />
@@ -512,24 +493,23 @@ style="background-color: #FFFF00">如果實驗程序全程需要在全螢幕模�
 <h1>建立主序列</h1>
 <p>圖
 1展示句圖比對作業的主序列<code>PSA002</code>之下的實驗元件，主序列元件之下的實驗元件依順序執行，這個實驗程序有兩個次級序列：<code>SP</code>實驗作業；<code>PostSurvey</code>出口調查。每個實驗元件可設定執行條件<code>Run if</code>，預設總是執行(always)，若要跳過某個元件不執行，只要點轉對應的<code>Run if</code>欄位文字，改成永不執行(never)。</p>
-<div class="figure">
-<img src="includes/img/main_seq01.png" alt="圖  1: 主序列與次級序列，所有次級序列之下的實驗元件都會依序執行。" width="960" />
-<p class="caption">
-圖 1: 主序列與次級序列，所有次級序列之下的實驗元件都會依序執行。
-</p>
+<div class="float">
+<img src="includes/img/main_seq01.png"
+alt="圖 1: 主序列與次級序列，所有次級序列之下的實驗元件都會依序執行。" />
+<div class="figcaption">圖 1:
+主序列與次級序列，所有次級序列之下的實驗元件都會依序執行。</div>
 </div>
-<div class="figure">
-<img src="includes/img/main_seq02.png" alt="圖  2: 設定不執行出口調查次級序列，點擊never文字可修改。" width="960" />
-<p class="caption">
-圖 2: 設定不執行出口調查次級序列，點擊never文字可修改。
-</p>
+<div class="float">
+<img src="includes/img/main_seq02.png"
+alt="圖 2: 設定不執行出口調查次級序列，點擊never文字可修改。" />
+<div class="figcaption">圖 2:
+設定不執行出口調查次級序列，點擊never文字可修改。</div>
 </div>
 <p>序列元件是唯一可置入其他實驗元件到下一階層的實驗元件。方法有從左側常用實驗元件拖曳要加入的實驗元件，或者在要增加元件的序列點擊滑鼠右鍵，開啓選單選擇要置入的實驗元件。</p>
-<div class="figure">
-<img src="includes/img/main_seq03.png" alt="圖  3: 經由滑鼠選單，選擇要增加實驗元件。" width="484" />
-<p class="caption">
-圖 3: 經由滑鼠選單，選擇要增加實驗元件。
-</p>
+<div class="float">
+<img src="includes/img/main_seq03.png"
+alt="圖 3: 經由滑鼠選單，選擇要增加實驗元件。" />
+<div class="figcaption">圖 3: 經由滑鼠選單，選擇要增加實驗元件。</div>
 </div>
 <p><strong>完成代碼產生器</strong></p>
 <p>“OSWeb”支授以javascript編譯的自訂程序，在序列之下置入<code>inline javascript</code>實驗元件
@@ -543,22 +523,20 @@ style="background-color: #FFFF00">javascript程式碼執行成果只能在網頁
 4展示<code>PSA002_End</code>編輯介面，變數<code>identifier</code>呈現在畫面中間位置。</p>
 <p><strong>註：</strong>
 這個sketchpad變數”duration”設定是0，以及是腳本內唯一呈現中文字的畫面。比較其他序列之內的sketchpad設定差異。</p>
-<div class="figure">
-<img src="includes/img/main_seq04.png" alt="圖  4: 結束畫面編輯介面。上半是圖像化編輯視窗；下半是腳本編輯視窗。兩種視窗都能編輯畫面呈現資訊。" width="620" />
-<p class="caption">
-圖 4:
-結束畫面編輯介面。上半是圖像化編輯視窗；下半是腳本編輯視窗。兩種視窗都能編輯畫面呈現資訊。
-</p>
+<div class="float">
+<img src="includes/img/main_seq04.png"
+alt="圖 4: 結束畫面編輯介面。上半是圖像化編輯視窗；下半是腳本編輯視窗。兩種視窗都能編輯畫面呈現資訊。" />
+<div class="figcaption">圖 4:
+結束畫面編輯介面。上半是圖像化編輯視窗；下半是腳本編輯視窗。兩種視窗都能編輯畫面呈現資訊。</div>
 </div>
 </div>
 <div id="實驗作業序列" class="section level1">
 <h1>實驗作業序列</h1>
 <p>實驗作業程序首先執行<code>SP_list_random</code>，產生兩個變數<code>[Plist]</code>與<code>[List]</code>的數值，提供下層序列<code>SP_Practice</code>與<code>SP_Task</code>要執行那一個迴圈，每個迴圈差異在於設定的刺激列表。執行後先進行一段預訂六次嘗試的練習，再進行48次嘗試的正式實驗。練習與正式實驗程序分別以<code>SP_Practice</code>與<code>SP_Task</code>序列控制。兩段序列執行前都有置入sketchpad元件<code>SP_Instruction</code>與<code>SP_Start</code>，呈現說明反應方式的指導語。</p>
-<div class="figure">
-<img src="includes/img/exp_seq01.png" alt="圖  5: 實驗作業序列元件一覽。" width="433" />
-<p class="caption">
-圖 5: 實驗作業序列元件一覽。
-</p>
+<div class="float">
+<img src="includes/img/exp_seq01.png"
+alt="圖 5: 實驗作業序列元件一覽。" />
+<div class="figcaption">圖 5: 實驗作業序列元件一覽。</div>
 </div>
 <p><strong>實驗刺激列表</strong></p>
 <p>為了達成交互平衡控制，練習有兩份刺激列表，正式實驗有四份刺激列表。每份激列表分別放置於迴圈元件(loop)，執行練習與正式實驗序列之前，先經過隨機洗牌決定要執行的迴圈元件序號。練習與正式實驗的迴圈元件編輯介面如<code>r</code>與<code>r</code>，決定序號的javascript程式碼如下，變數<code>PList</code>，<code>List</code>分別儲存隨機決定的序號號碼：</p>
@@ -576,33 +554,31 @@ vars.PList = getRndInteger(1,2);</code></pre>
 指導語畫面呈現圖檔，腳本內”draw
 image”一行可設定指定圖檔，呈現位置，以及呈現條件<code>show_if</code>。結束畫面呈現文字，腳本內”draw
 textline”一行可設定文字內容(支援html語法)，設定字型，呈現位置，以及呈現條件<code>show_if</code>。</p>
-<div class="figure">
-<img src="includes/img/exp_seq02.png" alt="圖  6: 指導語畫面編輯介面。由於部分句子長度超過螢幕寬度，指導語以圖檔呈現。" width="622" />
-<p class="caption">
-圖 6:
-指導語畫面編輯介面。由於部分句子長度超過螢幕寬度，指導語以圖檔呈現。
-</p>
+<div class="float">
+<img src="includes/img/exp_seq02.png"
+alt="圖 6: 指導語畫面編輯介面。由於部分句子長度超過螢幕寬度，指導語以圖檔呈現。" />
+<div class="figcaption">圖 6:
+指導語畫面編輯介面。由於部分句子長度超過螢幕寬度，指導語以圖檔呈現。</div>
 </div>
 <div id="練習序列" class="section level2">
 <h2>練習序列</h2>
 <p>圖 7展示練習序列兩個迴圈，<code>SP_Prac01</code>,
 <code>SP_Prac02</code>，兩者差異僅在於刺激表單內容。從”Run
 if”設定變數<code>[PList]</code>(數值來自<code>SP_list_random</code>)決定要執行那一個迴圈。</p>
-<div class="figure">
-<img src="includes/img/exp_seq03.png" alt="圖  7: 練習序列元件編輯畫面，變數PList決定要執行的迴圈。" width="372" />
-<p class="caption">
-圖 7: 練習序列元件編輯畫面，變數PList決定要執行的迴圈。
-</p>
+<div class="float">
+<img src="includes/img/exp_seq03.png"
+alt="圖 7: 練習序列元件編輯畫面，變數PList決定要執行的迴圈。" />
+<div class="figcaption">圖 7:
+練習序列元件編輯畫面，變數PList決定要執行的迴圈。</div>
 </div>
 <p><strong>練習迴圈</strong></p>
 <p>圖
 8展示其中一個迴圈<code>SP_Prac01</code>之下的序列串連的實驗元件。練習迴圈設定參與者要答對所有題目才能結束，否則重新開始。這項設定由三個<code>inline javascript</code>控制，<code>Prac_setup</code>設定正確紀錄計數器，<code>Prac_Reset</code>負責重設正確紀錄計數器，<code>Prac_Count</code>累進正確反應到正確紀錄計數器。留意每一個<code>inline javascript</code>都是放置在一項序列。</p>
-<div class="figure">
-<img src="includes/img/exp_seq04.png" alt="圖  8: 練習序列元件內迴圈執行順序，序列元件SP_Prac_sequence以關聯式複製置入所有迴圈。" width="126" />
-<p class="caption">
-圖 8:
-練習序列元件內迴圈執行順序，序列元件SP_Prac_sequence以關聯式複製置入所有迴圈。
-</p>
+<div class="float">
+<img src="includes/img/exp_seq04.png"
+alt="圖 8: 練習序列元件內迴圈執行順序，序列元件SP_Prac_sequence以關聯式複製置入所有迴圈。" />
+<div class="figcaption">圖 8:
+練習序列元件內迴圈執行順序，序列元件SP_Prac_sequence以關聯式複製置入所有迴圈。</div>
 </div>
 <p>圖 9展示<code>SP_Prac01</code>編輯介面。要注意的參數有：</p>
 <p><code>Repeat</code>: 設定最多重覆次數。<br/> <code>Order</code>:
@@ -616,28 +592,28 @@ sequential ~ 刺激依表格順序呈現。<br/> <code>Break if</code>:
 “correct_response”:
 對應<code>Target_response_Prac</code>的參數”correct_response”<br/>
 “Task”: 匯出紀錄檔標記反應資料來源為”Prac”</p>
-<div class="figure">
-<img src="includes/img/exp_seq05.png" alt="圖  9: 練習迴圈元件編輯畫面，表格置入預定呈現的刺激及正確反應。" width="350" />
-<p class="caption">
-圖 9: 練習迴圈元件編輯畫面，表格置入預定呈現的刺激及正確反應。
-</p>
+<div class="float">
+<img src="includes/img/exp_seq05.png"
+alt="圖 9: 練習迴圈元件編輯畫面，表格置入預定呈現的刺激及正確反應。" />
+<div class="figcaption">圖 9:
+練習迴圈元件編輯畫面，表格置入預定呈現的刺激及正確反應。</div>
 </div>
 <p>迴圈<code>SP_Prac01</code>與迴圈<code>SP_Prac02</code>之下都是序列<code>SP_Prac_sequence</code>，製作程序是先在其中一個迴圈完成編輯，再使用<span
 style="background-color: #FFFF00">關聯式複製<code>Copy(Linked)</code></span>，拷貝到另一個迴圈。之後只要修改其中一個迴圈之下的序列，另一個迴圈之下的序列同步變更。這種方式適用不同迴圈執行程序相同的腳本，仼何實驗元件都能使用關聯式複製，只要以滑鼠右鍵點擊要複製的元件，就能從選單選擇<span
 style="background-color: #FFFF00">關聯式複製<code>Copy(Linked)</code></span>(見下圖)。</p>
-<div class="figure">
-<img src="includes/img/click_menu.png" alt="" />
-<p class="caption">迴圈元件右鍵選單</p>
+<div class="float">
+<img src="includes/img/click_menu.png" alt="迴圈元件右鍵選單" />
+<div class="figcaption">迴圈元件右鍵選單</div>
 </div>
 <p><strong>練習嘗試</strong></p>
 <p>圖 10
 陳列<code>Prac_trial</code>序列的所有實驗元件。<code>Prac_trial</code>構成一次練習嘗試參與者依序經歷的所有事件，下列標示的元件名稱搭配說明執行設定：
 <br/> <br/></p>
-<div class="figure">
-<img src="includes/img/exp_seq06.png" alt="圖  10: 練習嘗試序列元件編輯畫面，設定執行條件決定反應回饋訊息。" width="280" />
-<p class="caption">
-圖 10: 練習嘗試序列元件編輯畫面，設定執行條件決定反應回饋訊息。
-</p>
+<div class="float">
+<img src="includes/img/exp_seq06.png"
+alt="圖 10: 練習嘗試序列元件編輯畫面，設定執行條件決定反應回饋訊息。" />
+<div class="figcaption">圖 10:
+練習嘗試序列元件編輯畫面，設定執行條件決定反應回饋訊息。</div>
 </div>
 <blockquote>
 <p>點擊實驗元件，開啟編輯介面，切換”split
@@ -646,46 +622,52 @@ view”可檢視圖形介面與腳本參數。重要參數設定見以下截圖�
 <ol style="list-style-type: decimal">
 <li>第一次凝視點<code>First_Fixation_Prac</code>呈現1000毫秒</li>
 </ol>
-<div class="figure">
-<img src="includes/img/OS/Prac_trial_001.png" alt="" />
-<p class="caption">凝視點sketchpad元件</p>
+<div class="float">
+<img src="includes/img/OS/Prac_trial_001.png"
+alt="凝視點sketchpad元件" />
+<div class="figcaption">凝視點sketchpad元件</div>
 </div>
 <ol start="2" style="list-style-type: decimal">
 <li><code>Probe_prac</code>呈現刺激句，刺激句來自迴圈內選單欄位[Probe]；<code>Probe_response_prac</code>參與者充分閱讀後按下指定反應鍵</li>
 </ol>
-<div class="figure">
-<img src="includes/img/OS/Prac_trial_002.png" alt="" />
-<p class="caption">左:刺激句sketchpad元件;右:切換keyboard
-response元件</p>
+<div class="float">
+<img src="includes/img/OS/Prac_trial_002.png"
+alt="左:刺激句sketchpad元件;右:切換keyboard response元件" />
+<div class="figcaption">左:刺激句sketchpad元件;右:切換keyboard
+response元件</div>
 </div>
 <ol start="3" style="list-style-type: decimal">
 <li>第二次凝視點<code>Second_Fixation_Prac</code>呈現500毫秒</li>
 </ol>
-<div class="figure">
-<img src="includes/img/OS/Prac_trial_003.png" alt="" />
-<p class="caption">凝視點sketchpad元件</p>
+<div class="float">
+<img src="includes/img/OS/Prac_trial_003.png"
+alt="凝視點sketchpad元件" />
+<div class="figcaption">凝視點sketchpad元件</div>
 </div>
 <ol start="4" style="list-style-type: decimal">
 <li><code>Target_Prac</code>呈現目標元件圖像，元件圖像來自迴圈內選單欄位[Target]；<code>Target_response_Prac</code>參與者要在限時2000毫秒內按下指定反應鍵”j”或”f”</li>
 </ol>
-<div class="figure">
-<img src="includes/img/OS/Prac_trial_004.png" alt="" />
-<p class="caption">左:目標圖sketchpad元件;右:反應keyboard
-response元件</p>
+<div class="float">
+<img src="includes/img/OS/Prac_trial_004.png"
+alt="左:目標圖sketchpad元件;右:反應keyboard response元件" />
+<div class="figcaption">左:目標圖sketchpad元件;右:反應keyboard
+response元件</div>
 </div>
 <ol start="5" style="list-style-type: decimal">
 <li>根據反應結果呈現500毫秒的回饋訊息：<strong>正確</strong>([correct]=1)<code>Target_response_correct_Prac</code>；<strong>錯誤</strong>([correct]=0)<code>Target_response_wrong_Prac</code>；<strong>反應太慢</strong>([response_time]&gt;1499)<code>Target_response_noans_Prac</code></li>
 </ol>
-<div class="figure">
-<img src="includes/img/OS/Prac_trial_005.png" alt="" />
-<p class="caption">反應正確訊息sketchpad元件</p>
+<div class="float">
+<img src="includes/img/OS/Prac_trial_005.png"
+alt="反應正確訊息sketchpad元件" />
+<div class="figcaption">反應正確訊息sketchpad元件</div>
 </div>
 <ol start="6" style="list-style-type: decimal">
 <li>正確次數紀錄器<code>Prac_Count</code>，正確次數紀錄於[correct_count]，累積達6即中止迴圈，有錯誤即歸零</li>
 </ol>
-<div class="figure">
-<img src="includes/img/OS/Prac_trial_006.png" alt="" />
-<p class="caption">正確次數紀錄器程式碼</p>
+<div class="float">
+<img src="includes/img/OS/Prac_trial_006.png"
+alt="正確次數紀錄器程式碼" />
+<div class="figcaption">正確次數紀錄器程式碼</div>
 </div>
 <ol start="7" style="list-style-type: decimal">
 <li>實驗嘗試紀錄<code>Task_logger</code>：此元件必須放置於<!---在嘗試最底層迴圈的--->最底層序列的最後位，OpenSesame/OSWeb才能逐次輸出紀錄。</li>
@@ -693,9 +675,9 @@ response元件</p>
 <ul>
 <li>3.3.9版調整<code>logger</code>元件記錄欄位設定方法，線上實驗必須以自訂模式設置需要匯出分析的欄位，以下截圖是示範腳本設定的欄位。控制視窗一次只能設定，可看到設定的欄位儲存那些實驗元件的資料，例如在<code>inline javascript</code>內設定的變數都是”custom”。需要設定的欄位數目太多，可從腳本視窗依格式新增。</li>
 </ul>
-<div class="figure">
-<img src="includes/img/OS/logger.png" alt="" />
-<p class="caption">logger元件內設定欄位</p>
+<div class="float">
+<img src="includes/img/OS/logger.png" alt="logger元件內設定欄位" />
+<div class="figcaption">logger元件內設定欄位</div>
 </div>
 </div>
 <div id="實驗序列" class="section level2">
@@ -704,11 +686,11 @@ response元件</p>
 <code>SP_list02</code>, <code>SP_list03</code>,
 <code>SP_list04</code>，四者差異僅在於刺激表單內容。從”Run
 if”設定變數<code>[List]</code>(數值來自<code>SP_list_random</code>)決定要執行那一個迴圈。</p>
-<div class="figure">
-<img src="includes/img/exp_seq07.png" alt="圖  11: 正式實驗序列元件編輯畫面，變數List決定要執行的迴圈。" width="372" />
-<p class="caption">
-圖 11: 正式實驗序列元件編輯畫面，變數List決定要執行的迴圈。
-</p>
+<div class="float">
+<img src="includes/img/exp_seq07.png"
+alt="圖 11: 正式實驗序列元件編輯畫面，變數List決定要執行的迴圈。" />
+<div class="figcaption">圖 11:
+正式實驗序列元件編輯畫面，變數List決定要執行的迴圈。</div>
 </div>
 <p>執行正式實驗序列之前，<code>presetup</code>準備執行記憶檢測題需要的變數。javascript程式碼內變數及註解如下：</p>
 <pre><code>// 自訂函式，從任意最小及最大數值之間取得一個數值:
@@ -754,11 +736,11 @@ vars.check_10 = getRndInteger(45,47);</code></pre>
 提供實驗元件<code>Target</code>呈現的目標圖像<br/> “correct_response”:
 對應<code>Target_response</code>的參數”correct_response”<br/> “Task”:
 匯出紀錄檔標記反應資料來源為”SP”</p>
-<div class="figure">
-<img src="includes/img/exp_seq08.png" alt="圖  12: 正式實驗迴圈元件編輯畫面，表格置入預定呈現的刺激及正確反應。" width="500" />
-<p class="caption">
-圖 12: 正式實驗迴圈元件編輯畫面，表格置入預定呈現的刺激及正確反應。
-</p>
+<div class="float">
+<img src="includes/img/exp_seq08.png"
+alt="圖 12: 正式實驗迴圈元件編輯畫面，表格置入預定呈現的刺激及正確反應。" />
+<div class="figcaption">圖 12:
+正式實驗迴圈元件編輯畫面，表格置入預定呈現的刺激及正確反應。</div>
 </div>
 <p><strong>實驗嘗試</strong></p>
 <p>圖 13
@@ -766,11 +748,11 @@ vars.check_10 = getRndInteger(45,47);</code></pre>
 check，多數元件設定與<code>Prac_trial</code>相同。下列標示的元件名稱搭配說明執行設定：
 <br/></p>
 <p><br/></p>
-<div class="figure">
-<img src="includes/img/exp_seq09.png" alt="圖  13: 正式實驗嘗試序列元件編輯畫面，設定執行條件決定反應回饋訊息。" width="614" />
-<p class="caption">
-圖 13: 正式實驗嘗試序列元件編輯畫面，設定執行條件決定反應回饋訊息。
-</p>
+<div class="float">
+<img src="includes/img/exp_seq09.png"
+alt="圖 13: 正式實驗嘗試序列元件編輯畫面，設定執行條件決定反應回饋訊息。" />
+<div class="figcaption">圖 13:
+正式實驗嘗試序列元件編輯畫面，設定執行條件決定反應回饋訊息。</div>
 </div>
 <p><br/></p>
 <ol style="list-style-type: decimal">
@@ -850,9 +832,9 @@ if”設定其中11次嘗試執行，每次實驗要執行的嘗試由<code>pres
 <li>序列內元件：<code>Probe_sti</code>不限時呈現刺激句及問題；<code>Probe_sti_response</code>等待反應；反應後回饋<strong>正確</strong>([correct]=1)<code>Probe_sti_correct</code>；<strong>錯誤</strong>([correct]=0)<code>Probe_sti_wrong</code>
 各元件設定同<code>Target</code>,<code>Target_response</code>,<code>Target_response_correct</code>,<code>Target_response_wrong</code><br/></li>
 </ul>
-<div class="figure">
-<img src="includes/img/exp_seq09m.png" alt="" />
-<p class="caption">記憶檢測序列下的實驗元件</p>
+<div class="float">
+<img src="includes/img/exp_seq09m.png" alt="記憶檢測序列下的實驗元件" />
+<div class="figcaption">記憶檢測序列下的實驗元件</div>
 </div>
 <ol start="7" style="list-style-type: decimal">
 <li><code>task_break</code>中間休息提示，在第24次嘗試後顯示([trial_seq]
@@ -874,12 +856,11 @@ if”設定其中11次嘗試執行，每次實驗要執行的嘗試由<code>pres
 <p>如果你的實驗必須採用全螢幕模式，建議不要使用Form元件設計問卷。因為OSweb尚未支授Form元件以全螢幕呈現。</p>
 </blockquote>
 <p>圖 14 顯示出口調查序列<code>PostSurvey</code>的元件。</p>
-<div class="figure">
-<img src="includes/img/post_seq01.png" alt="圖  14: 出口調查序列元件一覽。Post_info呈現調查說明，Survey迴圈依序執行調查問題，" width="241" />
-<p class="caption">
-圖 14:
-出口調查序列元件一覽。Post_info呈現調查說明，Survey迴圈依序執行調查問題，
-</p>
+<div class="float">
+<img src="includes/img/post_seq01.png"
+alt="圖 14: 出口調查序列元件一覽。Post_info呈現調查說明，Survey迴圈依序執行調查問題，" />
+<div class="figcaption">圖 14:
+出口調查序列元件一覽。Post_info呈現調查說明，Survey迴圈依序執行調查問題，</div>
 </div>
 <p><code>Post_info</code>呈現已到最後段落的訊息。設定與正式實驗指導語呈現元件<code>SP_Instruction</code>,<code>SP_Start</code>相同。</p>
 <div id="題目迴圈" class="section level2">
@@ -887,29 +868,29 @@ if”設定其中11次嘗試執行，每次實驗要執行的嘗試由<code>pres
 <p>圖 15
 呈現調查題目迴圈<code>Survey</code>，參數設定大致與練習嘗試迴圈<code>SP_Practice</code>相同，除了”Repeat”與”Break
 if”是元件預設。表單內欄位”Question”與”Options”置入要呈現的題目與作答選項說明，依序呈現於題目序列<code>Survey_seq</code>的<code>Survey_board</code>。</p>
-<div class="figure">
-<img src="includes/img/post_seq02.png" alt="圖  15: Survey迴圈元件編輯畫面，表格置入調查問題與選項。" width="319" />
-<p class="caption">
-圖 15: Survey迴圈元件編輯畫面，表格置入調查問題與選項。
-</p>
+<div class="float">
+<img src="includes/img/post_seq02.png"
+alt="圖 15: Survey迴圈元件編輯畫面，表格置入調查問題與選項。" />
+<div class="figcaption">圖 15:
+Survey迴圈元件編輯畫面，表格置入調查問題與選項。</div>
 </div>
 </div>
 <div id="題目序列" class="section level2">
 <h2>題目序列</h2>
 <p>圖
 16展示調查執行序列<code>Survey_seq</code>，題目只有一套，執行二項題目即結束。</p>
-<div class="figure">
-<img src="includes/img/post_seq03.png" alt="圖  16: Survey_seq序列元件一覽。" width="158" />
-<p class="caption">
-圖 16: Survey_seq序列元件一覽。
-</p>
+<div class="float">
+<img src="includes/img/post_seq03.png"
+alt="圖 16: Survey_seq序列元件一覽。" />
+<div class="figcaption">圖 16: Survey_seq序列元件一覽。</div>
 </div>
 <ol style="list-style-type: decimal">
 <li><code>post_survey_input</code>是Form元件，能讓參與者自行輸入按鍵資訊。題目迴圈<code>Survey</code>內選單欄位[Question]與[Options]，呈現題目資訊與作答選項，無回答時間限制。</li>
 </ol>
-<div class="figure">
-<img src="includes/img/OS/survey_trial_001.png" alt="" />
-<p class="caption">調查表單元件設定</p>
+<div class="float">
+<img src="includes/img/OS/survey_trial_001.png"
+alt="調查表單元件設定" />
+<div class="figcaption">調查表單元件設定</div>
 </div>
 <ol start="2" style="list-style-type: decimal">
 <li>實驗嘗試紀錄<code>Task_logger</code>：從<code>Prac_trial</code>或<code>SP_trial</code><strong>關聯性複製</strong></li>
@@ -919,43 +900,8 @@ class="section level4">
 <h4>上一步：<a href="OS_intro.html">Open Sesame開工預備</a>       
 下一步：<a href="OS_JATOS.html">JATOS部署與測試</a></h4>
 <p><br/></p>
-<div id="參考文獻" class="section level5 unnumbered">
-<h5 class="unnumbered">參考文獻</h5>
-<div id="refs" class="references csl-bib-body hanging-indent"
-line-spacing="2">
-<div id="ref-chenInvestigatingObjectOrientation2018" class="csl-entry">
-Chen, S.-C., Szabelska, A., Chartier, C. R., Kekecs, Z., Lynott, D.,
-Bernabeu, P., Jones, B. C., DeBruine, L., Levitan, C., Werner, K. M.,
-Wang, K., Milyavskaya, M., Musser, E. D., Papadatou-Pastou, M., Coles,
-N., Janssen, S., Ozdogru, A., Storage, D., Manley, H., … Schmidt, K.
-(2018). <em>Investigating <span>Object Orientation Effects Across</span>
-14 <span>Languages</span></em>. <a
-href="https://doi.org/10.31234/osf.io/t2pjv">https://doi.org/10.31234/osf.io/t2pjv</a>
-</div>
-<div id="ref-connellRepresentingObjectColour2007" class="csl-entry">
-Connell, L. (2007). Representing object colour in language
-comprehension. <em>Cognition</em>, <em>102</em>, 476–485. <a
-href="https://doi.org/10.1016/j.cognition.2006.02.009">https://doi.org/10.1016/j.cognition.2006.02.009</a>
-</div>
-<div id="ref-stanfield_effect_2001" class="csl-entry">
-Stanfield, R. A., &amp; Zwaan, R. A. (2001). The effect of implied
-orientation derived from verbal context on picture recognition.
-<em>Psychological Science</em>, <em>12</em>(2), 153–156. <a
-href="https://doi.org/10.1111/1467-9280.00326">https://doi.org/10.1111/1467-9280.00326</a>
-</div>
-<div id="ref-zwaanRevisitingMentalSimulation2012" class="csl-entry">
-Zwaan, R. A., &amp; Pecher, D. (2012). Revisiting mental simulation in
-language comprehension: Six replication attempts. <em>PLoS ONE</em>,
-<em>7</em>, e51382. <a
-href="https://doi.org/10.1371/journal.pone.0051382">https://doi.org/10.1371/journal.pone.0051382</a>
-</div>
-<div id="ref-zwaanLanguageComprehendersMentally2002" class="csl-entry">
-Zwaan, R. A., Stanfield, R. A., &amp; Yaxley, R. H. (2002). Language
-comprehenders mentally represent the shapes of objects.
-<em>Psychological Science</em>, <em>13</em>, 168–171. <a
-href="https://doi.org/10.1111/1467-9280.00430">https://doi.org/10.1111/1467-9280.00430</a>
-</div>
-</div>
+<div id="參考文獻" class="section level5">
+<h5>參考文獻</h5>
 </div>
 </div>
 </div>

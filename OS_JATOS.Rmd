@@ -18,9 +18,11 @@ csl: "includes/bib/apa.csl"
 
 - 測試腳本專用伺服器[Cortex](https://cortex.jatos.org/)：自由註冊；系統每二十四小時自動重置，上傳的腳本會被刪除。
 
-- 歐洲認知心理學會(ESCoP)支持的免費研究用伺服器[MindProbe](https://www.mindprobe.eu/)：自行寫信聯絡管理者註冊帳號；執行研究期間，要留意系統維護訊息。
+- 歐洲認知心理學會(ESCoP)支持的免費研究用伺服器[MindProbe](https://www.mindprobe.eu/)：(1)自行寫信聯絡管理者註冊帳號，(2)有[ORCID](https://orcid.org/)的使用者可自動註冊；**執行研究期間，要留意系統維護訊息**。
 
-JATOS網路伺服器開源程式是由德國Max Planck研究所 @langeJustAnotherTool2015  開發，讓研究人員能自行架設或租用網站伺服器，部署以javascript撰寫的實驗腳本，包括 [jsPsych](https://www.jspsych.org/), [lab.js](https://lab.js.org/), [OSWeb/OpenSesame](https://osdoc.cogsci.nl/), 以及[PsyToolkit](https://www.psytoolkit.org/)。
+JATOS網路伺服器開源程式是由德國Max Planck研究所 @langeJustAnotherTool2015  開發，讓研究人員能自行架設或租用網站伺服器，部署以javascript撰寫的實驗腳本，包括 [jsPsych](https://www.jspsych.org/), [lab.js](https://lab.js.org/), [OSWeb](https://osdoc.cogsci.nl/4.0/manual/osweb/osweb/), 以及[PsyToolkit實驗腳本](https://www.psytoolkit.org/experiment-library/)。**[官方說明連結](https://www.jatos.org/Create-a-new-study.html)**
+
+為了設計及測試自行設計的實驗腳本，可在個人使用的[本地端設備安裝JATOS](https://www.jatos.org/Installation.html#easy-installation-on-your-local-computer)，確認上傳腳本的執行狀況符合研究需要。
 
 以下示範截圖來自測試腳本伺服器[Cortex](https://cortex.jatos.org/)。如果要正式部署實驗腳本收集資料，建議自行準備伺服器，或申請使用[MindProbe](https://www.mindprobe.eu/)。
 

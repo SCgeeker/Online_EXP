@@ -13,7 +13,7 @@
 
 <title>JATOS部署與測試</title>
 
-<script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -29,14 +29,14 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -62,28 +62,6 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-/* for pandoc --citeproc since 2.11 */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
-</style>
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
@@ -455,33 +433,37 @@ div.tocify {
 <li><p>測試腳本專用伺服器<a
 href="https://cortex.jatos.org/">Cortex</a>：自由註冊；系統每二十四小時自動重置，上傳的腳本會被刪除。</p></li>
 <li><p>歐洲認知心理學會(ESCoP)支持的免費研究用伺服器<a
-href="https://www.mindprobe.eu/">MindProbe</a>：自行寫信聯絡管理者註冊帳號；執行研究期間，要留意系統維護訊息。</p></li>
+href="https://www.mindprobe.eu/">MindProbe</a>：(1)自行寫信聯絡管理者註冊帳號，(2)有<a
+href="https://orcid.org/">ORCID</a>的使用者可自動註冊；<strong>執行研究期間，要留意系統維護訊息</strong>。</p></li>
 </ul>
 <p>JATOS網路伺服器開源程式是由德國Max Planck研究所 <span
-class="citation">Lange et al. (2015)</span>
+class="citation">(<strong>langeJustAnotherTool2015?</strong>)</span>
 開發，讓研究人員能自行架設或租用網站伺服器，部署以javascript撰寫的實驗腳本，包括
 <a href="https://www.jspsych.org/">jsPsych</a>, <a
 href="https://lab.js.org/">lab.js</a>, <a
-href="https://osdoc.cogsci.nl/">OSWeb/OpenSesame</a>, 以及<a
-href="https://www.psytoolkit.org/">PsyToolkit</a>。</p>
+href="https://osdoc.cogsci.nl/4.0/manual/osweb/osweb/">OSWeb</a>, 以及<a
+href="https://www.psytoolkit.org/experiment-library/">PsyToolkit實驗腳本</a>。<strong><a
+href="https://www.jatos.org/Create-a-new-study.html">官方說明連結</a></strong></p>
+<p>為了設計及測試自行設計的實驗腳本，可在個人使用的<a
+href="https://www.jatos.org/Installation.html#easy-installation-on-your-local-computer">本地端設備安裝JATOS</a>，確認上傳腳本的執行狀況符合研究需要。</p>
 <p>以下示範截圖來自測試腳本伺服器<a
 href="https://cortex.jatos.org/">Cortex</a>。如果要正式部署實驗腳本收集資料，建議自行準備伺服器，或申請使用<a
 href="https://www.mindprobe.eu/">MindProbe</a>。</p>
 <ol style="list-style-type: decimal">
 <li>只要有google帳號，任何人都能自行註冊登入Cortex伺服器。</li>
 </ol>
-<div class="figure">
-<img src="includes/img/JATOS/cortex_login.png" alt="" />
-<p class="caption">Cortex登入網頁</p>
+<div class="float">
+<img src="includes/img/JATOS/cortex_login.png" alt="Cortex登入網頁" />
+<div class="figcaption">Cortex登入網頁</div>
 </div>
 <ol start="2" style="list-style-type: decimal">
 <li>初次登入的儀表板畫面。中間顯示JATOS版本，程式版本昇級時Cortex與MindProbe伺服器會最快更新，<strong>自行維護的伺服器需要手動更新</strong>。頂層按鈕可操作建立新實驗腳本(New
 Study)，匯入實驗腳本(Import
 Study)，個人帳戶資訊，以及登出(Logout)。</li>
 </ol>
-<div class="figure">
-<img src="includes/img/JATOS/cortex_dashboard.png" alt="" />
-<p class="caption">JATOS儀表板</p>
+<div class="float">
+<img src="includes/img/JATOS/cortex_dashboard.png" alt="JATOS儀表板" />
+<div class="figcaption">JATOS儀表板</div>
 </div>
 <p><strong>註</strong>
 有更新版本時務必更新，否則參與者可能無法登入實驗網頁。</p>
@@ -493,9 +475,9 @@ Study)，個人帳戶資訊，以及登出(Logout)。</li>
 href="includes/scripts/OrientationCrossLanguages_ZH_example.osexp">示範腳本</a>為例。開啟腳本後，經OpenSesame主選單”Tools
 -&gt; OSWeb”切換到如以下截圖的畫面。 <br/></li>
 </ol>
-<div class="figure">
-<img src="includes/img/JATOS/OSWeb_GUI.png" alt="" />
-<p class="caption">OSWeb 操作面板</p>
+<div class="float">
+<img src="includes/img/JATOS/OSWeb_GUI.png" alt="OSWeb 操作面板" />
+<div class="figcaption">OSWeb 操作面板</div>
 </div>
 <ul>
 <li>操作面板功能說明</li>
@@ -529,9 +511,10 @@ alt="專案介面截圖" /></li>
 <li>按下專案介面的按鈕”Worker &amp; Batch
 Manager”，開啟預設實驗網頁連結部署介面，展開”Default”左方箭頭，畫面如下截圖：</li>
 </ol>
-<div class="figure">
-<img src="includes/img/JATOS/cortex_manager.png" alt="" />
-<p class="caption">Worker &amp; Batch Manager截圖</p>
+<div class="float">
+<img src="includes/img/JATOS/cortex_manager.png"
+alt="Worker &amp; Batch Manager截圖" />
+<div class="figcaption">Worker &amp; Batch Manager截圖</div>
 </div>
 <ul>
 <li><p>目前版本的JATOS支援五種部署方式，點擊右方”Get
@@ -630,9 +613,9 @@ Redirect URL</strong>欄位。完成後如同下圖：</li>
 &amp; Batch
 Manager”介面，實驗者設定的實驗網址按鈕旁的”Results”進入，如此”Results”介面已經初步過濾可匯出資料。</li>
 </ol>
-<div class="figure">
-<img src="includes/img/JATOS/cortex_results.png" alt="" />
-<p class="caption">Results介面</p>
+<div class="float">
+<img src="includes/img/JATOS/cortex_results.png" alt="Results介面" />
+<div class="figcaption">Results介面</div>
 </div>
 <ol start="2" style="list-style-type: decimal">
 <li><p>點選”Results”介面上方”Export
@@ -651,9 +634,10 @@ Metadata”)，才能核對真正完成的紀錄。JATOS的metadata匯出後檔�
 csv/xlsx”轉換為相容大多數資料處理軟體的格式。執行前建議勾選”Include
 JATOS context information”，操作方式請見以下動畫示範：</li>
 </ul>
-<div class="figure">
-<img src="includes/img/JATOS/OSWeb_Transfer.gif" alt="" />
-<p class="caption">檔案轉換操作示範</p>
+<div class="float">
+<img src="includes/img/JATOS/OSWeb_Transfer.gif"
+alt="檔案轉換操作示範" />
+<div class="figcaption">檔案轉換操作示範</div>
 </div>
 <ul>
 <li>使用R或自由軟體(JASP,
@@ -663,19 +647,8 @@ jamovi)處理資料的使用者，建議匯出格式為csv。</li>
 class="section level4">
 <h4>上一步：<a href="OS_script.html">OSWeb腳本編輯</a>        下一步：<a
 href="OS_data.html">OS資料處理示範</a></h4>
-<div id="參考文獻" class="section level5 unnumbered">
-<h5 class="unnumbered">參考文獻</h5>
-<div id="refs" class="references csl-bib-body hanging-indent"
-line-spacing="2">
-<div id="ref-langeJustAnotherTool2015" class="csl-entry">
-Lange, K., Kühn, S., &amp; Filevich, E. (2015). "<span>Just Another
-Tool</span> for <span>Online Studies</span>” (<span>JATOS</span>):
-<span>An</span> easy solution for setup and management of web servers
-supporting online studies. <em>PLOS ONE</em>, <em>10</em>(6), e0130834.
-<a
-href="https://doi.org/10.1371/journal.pone.0130834">https://doi.org/10.1371/journal.pone.0130834</a>
-</div>
-</div>
+<div id="參考文獻" class="section level5">
+<h5>參考文獻</h5>
 </div>
 </div>
 </div>

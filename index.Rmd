@@ -10,10 +10,10 @@ description: |
 | 平台官網 | 主要功能 | 收費需求 |
 |:---:|:---:|:---:|
 | [OpenSesame](https://osdoc.cogsci.nl/) | 編輯與測試OSWEB腳本<br/>轉換資料格式 |無|
-| [Jatos](https://www.jatos.org/) | 部署OSWEB腳本 | 1. 自建伺服器視服務商方案付費<br/> 2. [MindProbe](https://www.mindprobe.eu/)提供免費部署  |
+| [Jatos](https://www.jatos.org/) | 部署javascript/css相容規格的實驗網頁 | 1. 自建伺服器視服務商方案付費<br/> 2. [MindProbe](https://www.mindprobe.eu/)提供免費部署  |
 | [Psytoolkit](https://www.psytoolkit.org/) | 腳本編輯、部署 | 無 |
-| [formr](https://formr.org/) | 腳本編輯、部署 | 1. 官網申請免費使用帳號 <br/> 2. 自建伺服器視服務商方案付費 |
 | [Gorilla](https://gorilla.sc/) | 腳本編輯、部署 |按完成人數計費。參考官網[預先儲值方案](https://app.gorilla.sc/pricing)。 |
+| [formr](https://formr.org/) | 腳本編輯、部署 | 1. 官網申請免費使用帳號 <br/> 2. 自建伺服器視服務商方案付費 |
 
 ### 參與者招募平台
 
