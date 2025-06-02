@@ -4,6 +4,13 @@ description: |
  本站整理心理學網路實驗平台資源與使用方法
 ---
 
+<!---
+
+Useful tip for make exp + survey on JATOS
+https://www.jatos.org/Combine-two-pre-written-studies-into-one.html
+
+--->
+
 
 ### 實驗平台
 

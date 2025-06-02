@@ -63,7 +63,7 @@ f.ref <- function(x) {
 }
 ```
 
-**請先下載[示範腳本](includes/scripts/OrientationCrossLanguages_ZH_example.osexp)**
+**請先下載[句圖比對作業示範腳本](includes/scripts/OrientationCrossLanguages_ZH_example.osexp)**或**[佈署網路實驗示範腳本](includes/scripts/BW_reward_capture.osexp)**
 
 ## 簡介句圖比對作業
 
