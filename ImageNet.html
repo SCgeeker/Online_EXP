@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImageNet 標註流程簡報</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            background-color: #f0f4f8;
+            color: #2d3748;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .slide-container {
+            position: relative;
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 900px;
+            min-height: 600px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .slide {
+            padding: 2.5rem;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .slide.active {
+            opacity: 1;
+            position: relative;
+            display: flex;
+        }
+        .nav-button {
+            background-color: #4a5568;
+            color: #ffffff;
+            font-weight: bold;
+            border-radius: 9999px;
+            padding: 0.75rem 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: background-color 0.3s ease;
+        }
+        .nav-button:hover {
+            background-color: #2d3748;
+        }
+        .nav-button:disabled {
+            background-color: #cbd5e0;
+            cursor: not-allowed;
+        }
+        .slide-content h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #3182ce;
+        }
+        .slide-content h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        .slide-content p {
+            font-size: 1.125rem;
+            line-height: 1.75;
+        }
+        .slide-content ul {
+            list-style-type: disc;
+            padding-left: 2rem;
+        }
+        .slide-content li {
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+        }
+        .footer-nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 1.5rem;
+            background-color: #f7fafc;
+            border-top: 1px solid #e2e8f0;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+        }
+        .image-placeholder {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border-radius: 0.5rem;
+            border: 2px solid #e2e8f0;
+            margin: 1rem auto;
+            display: block;
+        }
+        .chart-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slide-container">
+        
+        <!-- Slide 1: Gemini Storybook Link -->
+        <div class="slide active" id="slide-1">
+            <div class="text-center">
+                <h1 class="text-5xl font-black text-indigo-700 mb-4">從 ImageNet 看見世界</h1>
+                <p class="text-2xl text-gray-600 font-light mb-8">電腦如何學習看見？一切從人類的標註開始。</p>
+                <div class="mt-8">
+                    <p class="text-xl text-gray-500 mb-4">這份簡報的靈感來自於 Gemini 生成的故事書，您可以點擊下方連結探索：</p>
+                    <a href="https://gemini.google.com/gem/storybook/be5a71c475bbc7ab" target="_blank" class="nav-button bg-blue-600 hover:bg-blue-700">前往故事書 ✨</a>
+<br><br><br><br>
+<h2>簡報製作：Gemini AI</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Title & Example Image -->
+        <div class="slide" id="slide-2">
+            <div class="text-center">
+                <h1 class="text-5xl font-black text-indigo-700 mb-4 animate-fade-in">ImageNet 標註簡報</h1>
+                <p class="text-2xl text-gray-600 font-light">Crowdsourcing 的智慧結晶：高效三重驗證法</p>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/ae/DenseCap_%28Johnson_et_al.%2C_2016%29_%28cropped%29.png" alt="An example of an annotated image with a bounding box." class="image-placeholder mt-8">
+            </div>
+        </div>
+
+        <!-- Slide 3: Introduction -->
+        <div class="slide" id="slide-3">
+            <div class="slide-content">
+                <h2 class="text-4xl text-blue-600 mb-4">引言：為何需要 ImageNet？</h2>
+                <p>在電腦視覺領域，ImageNet 就像是巨人的肩膀，它為深度學習模型的訓練提供了超過 1,500 萬張帶有標註的圖片。但問題來了... 這麼龐大的資料集，是怎麼被「手動」標註出來的呢？</p>
+                <p class="mt-4">這是一個浩大的工程，其中最大的挑戰就是如何在<span class="font-bold text-red-500">確保品質</span>的同時，<span class="font-bold text-green-500">控制成本</span>。</p>
+            </div>
+        </div>
+
+        <!-- Slide 4: The Challenge -->
+        <div class="slide" id="slide-4">
+            <div class="slide-content">
+                <h2 class="text-4xl text-blue-600 mb-4">傳統眾包的困境</h2>
+                <p>想像一下，如果我們用傳統方法，讓幾個人分別去標註一張圖，再取他們的平均結果，會發生什麼？</p>
+                <ul class="list-disc list-inside mt-4 space-y-2">
+                    <li><span class="font-bold">耗時：</span>每個人都要從頭開始畫框。</li>
+                    <li><span class="font-bold">不精確：</span>每個人畫的框大小、位置都略有不同，導致結果有偏差。</li>
+                    <li><span class="font-bold">成本高：</span>重複的繪製工作增加了不必要的開銷。</li>
+                </ul>
+                <p class="mt-4">ImageNet 團隊意識到，繪製邊界框是個<span class="font-bold text-orange-500">困難且耗時的任務</span>，而驗證它則相對簡單。</p>
+            </div>
+        </div>
+
+        <!-- Slide 5: The Three-Step Verification Process - Drawing Task -->
+        <div class="slide" id="slide-5">
+            <div class="slide-content">
+                <h2 class="text-4xl text-blue-600 mb-4">三重驗證流程：第一步</h2>
+                <h3 class="text-2xl font-bold text-gray-700">繪製任務 (Drawing Task)</h3>
+                <p class="mt-4 text-gray-600">第一位眾包工作者根據指示，在圖像中為指定物件繪製一個緊密的邊界框。這需要時間和專注力。(來源:Su et al., 2012)</p>
+                <img src="includes/img/drawing_task.png" alt="An example of a bounding box drawing task." class="image-placeholder mt-4">
+            </div>
+        </div>
+
+        <!-- Slide 6: The Three-Step Verification Process - Quality Verification -->
+        <div class="slide" id="slide-6">
+            <div class="slide-content">
+                <h2 class="text-4xl text-blue-600 mb-4">三重驗證流程：第二步</h2>
+                <h3 class="text-2xl font-bold text-gray-700">品質驗證 (Quality Verification)</h3>
+                <p class="mt-4 text-gray-600">第二位工作者審核前一步的邊界框，並回答一個簡單的是非題：「這個框是否正確地圈選了一個物件？」</p>
+                <img src="includes/img/quality_verification.png" alt="An example of a quality verification task." class="image-placeholder mt-4">
+            </div>
+        </div>
+
+        <!-- Slide 7: The Three-Step Verification Process - Coverage Verification -->
+        <div class="slide" id="slide-7">
+            <div class="slide-content">
+                <h2 class="text-4xl text-blue-600 mb-4">三重驗證流程：第三步</h2>
+                <h3 class="text-2xl font-bold text-gray-700">覆蓋率驗證 (Coverage Verification)</h3>
+                <p class="mt-4 text-gray-600">第三位工作者審核整個圖像，確認是否所有同類物件都已被標註。同樣，只需回答是非題。</p>
+                <img src="includes/img/coverage_verification.png" alt="An example of a coverage verification task." class="image-placeholder mt-4">
+            </div>
+        </div>
+
+        <!-- Slide 8: The Result & Cost-Effectiveness -->
+        <div class="slide" id="slide-8">
+            <div class="slide-content">
+                <h2 class="text-4xl text-blue-600 mb-4">成本效益分析</h2>
+                <p>這套系統帶來了驚人的效益，因為**驗證任務（是非題）遠比繪製任務（畫框）簡單、快速且便宜**，大幅降低了整體標註成本。</p>
+                <div class="chart-container">
+                    <canvas id="costChart"></canvas>
+                </div>
+                <ul class="list-disc list-inside mt-4 space-y-2">
+                    <li><span class="font-bold text-green-600">更高的準確性與召回率：</span>確保了數據的品質。</li>
+                    <li><span class="font-bold text-green-600">極低的成本：</span>將大部分「昂貴」的繪圖工作，替換成了「便宜」的驗證工作。</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 9: Conclusion - ILSVRC & AlexNet -->
+        <div class="slide" id="slide-9">
+            <div class="text-center">
+                <h2 class="text-4xl text-blue-600 font-black mb-4">總結：改變世界的影響</h2>
+                <p class="text-2xl text-gray-700 font-light">ImageNet 的成功，不僅在於數據集本身，更在於其催生了新的技術突破。</p>
+                <div class="mt-6 space-y-4 text-lg">
+                    <p>ImageNet 大規模視覺識別挑戰賽 (<span class="font-bold text-indigo-700">ILSVRC</span>) 成為了電腦視覺領域的奧運會。</p>
+                    <p>在 2012 年，<span class="font-bold text-indigo-700">AlexNet</span> 橫空出世，以驚人的成績贏得 ILSVRC 冠軍，從此引爆了深度學習的浪潮。</p>
+                    <p class="mt-4">這一切，都始於 ImageNet 團隊在資料標註流程上的巧妙創新。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation controls -->
+        <div class="footer-nav">
+            <button id="prevBtn" class="nav-button" disabled>上一頁</button>
+            <span id="pageInfo" class="text-gray-500 text-lg">1 / 9</span>
+            <button id="nextBtn" class="nav-button">下一頁</button>
+        </div>
+        
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const pageInfo = document.getElementById('pageInfo');
+            let currentSlide = 0;
+
+            const showSlide = (index) => {
+                slides.forEach((slide, i) => {
+                    if (i === index) {
+                        slide.classList.add('active');
+                    } else {
+                        slide.classList.remove('active');
+                    }
+                });
+                
+                prevBtn.disabled = index === 0;
+                nextBtn.disabled = index === slides.length - 1;
+                pageInfo.textContent = `${index + 1} / ${slides.length}`;
+            };
+
+            prevBtn.addEventListener('click', () => {
+                if (currentSlide > 0) {
+                    currentSlide--;
+                    showSlide(currentSlide);
+                }
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if (currentSlide < slides.length - 1) {
+                    currentSlide++;
+                    showSlide(currentSlide);
+                }
+            });
+
+            // Initial state
+            showSlide(currentSlide);
+
+            // Chart initialization for the cost comparison
+            const costCtx = document.getElementById('costChart').getContext('2d');
+            new Chart(costCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['傳統眾包', '三重驗證法'],
+                    datasets: [{
+                        label: '相對成本',
+                        data: [100, 30],
+                        backgroundColor: ['#D95F5F', '#00A6A6'],
+                        borderColor: ['#D95F5F', '#00A6A6'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                           display: false,
+                        },
+                        tooltip: {
+                           callbacks: {
+                               label: function(context) {
+                                   let label = context.dataset.label || '';
+                                   if (label) {
+                                       label += ': ';
+                                   }
+                                   if (context.parsed.y !== null) {
+                                       label += context.parsed.y + ' %';
+                                   }
+                                   return label;
+                               }
+                           }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 110,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

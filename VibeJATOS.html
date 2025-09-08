@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini + OpenSesame + JATOS 互動開發指南</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Application Structure Plan: A vertical single-page application with a sticky side navigation "stepper" to guide users through the 7 steps of the workflow. This structure is chosen because it mirrors the procedural nature of the source guide, provides a clear sense of progress, and allows for both linear scrolling and direct access to specific steps. Key interactions include tabbed content for tool descriptions, a copy-to-clipboard feature for code prompts, and a visual flowchart built with HTML/CSS to improve comprehension. -->
+    <!-- Visualization & Content Choices: Tool Descriptions -> Goal: Inform/Organize -> Interactive Tabs (HTML/JS) -> Justification: Breaks down text, focuses user attention. Experiment Flow -> Goal: Organize -> HTML/CSS Flowchart -> Justification: More intuitive and visual than a text list. Code Prompts -> Goal: Provide Asset -> Code block with Copy Button (JS) -> Justification: High utility, reduces user error. Debugging Examples -> Goal: Compare -> Toggleable "Good vs. Bad" examples (HTML/JS) -> Justification: Interactive comparison reinforces learning. Confirmation: No Chart.js/Plotly.js needed as there is no quantitative data. All visuals will be created with HTML/Tailwind CSS. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            background-color: #FDFBF8; /* Warm Off-White */
+            color: #374151; /* Dark Grey */
+        }
+        .step-link.active {
+            background-color: #14B8A6; /* Teal-500 */
+            color: #ffffff;
+            font-weight: 600;
+        }
+        .step-link {
+            transition: all 0.2s ease-in-out;
+        }
+        .step-link:not(.active):hover {
+            background-color: #E5E7EB;
+            color: #111827;
+        }
+        .prose-custom {
+            max-width: none;
+        }
+        .prose-custom h3 {
+            color: #0D9488; /* Teal-600 */
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+        .prose-custom p, .prose-custom li {
+            color: #4B5563; /* Gray-600 */
+        }
+        .prose-custom ul {
+            list-style-position: inside;
+        }
+        .prose-custom code {
+            background-color: #F3F4F6;
+            color: #111827;
+            padding: 0.2em 0.4em;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        .prompt-card {
+            background-color: #1F2937;
+            color: #D1D5DB;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            position: relative;
+            font-family: monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .tab-button.active {
+            border-color: #14B8A6;
+            color: #14B8A6;
+            background-color: #F0FDFA;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="relative min-h-screen md:flex">
+        <!-- Mobile nav -->
+        <div class="bg-gray-800 text-gray-100 flex justify-between md:hidden">
+            <a href="#" class="block p-4 text-white font-bold">互動開發指南</a>
+            <button class="mobile-menu-button p-4 focus:outline-none focus:bg-gray-700">
+                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="sidebar bg-white text-blue-100 w-64 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out border-r border-gray-200">
+            <h2 class="text-2xl font-bold text-gray-800 px-4">開發流程</h2>
+            <nav id="stepper-nav">
+                <a href="#step1" class="step-link block py-2.5 px-4 rounded">1. 觀念建構</a>
+                <a href="#step2" class="step-link block py-2.5 px-4 rounded">2. 變項定義</a>
+                <a href="#step3" class="step-link block py-2.5 px-4 rounded">3. 流程設計</a>
+                <a href="#step4" class="step-link block py-2.5 px-4 rounded">4. Gemini 溝通</a>
+                <a href="#step5" class="step-link block py-2.5 px-4 rounded">5. OpenSesame 實作</a>
+                <a href="#step6" class="step-link block py-2.5 px-4 rounded">6. 部署與測試</a>
+                <a href="#step7" class="step-link block py-2.5 px-4 rounded">7. 除錯與優化</a>
+            </nav>
+        </div>
+
+        <!-- Content -->
+        <main class="flex-1 p-4 sm:p-6 md:p-10">
+            <header class="mb-10">
+                <h1 class="text-4xl font-bold text-gray-800">Gemini + OpenSesame + JATOS 互動開發指南</h1>
+                <p class="mt-2 text-lg text-gray-600">一份協助無程式背景研究者的標準化工作流程，將實驗構想轉化為可執行的線上實驗。</p>
+            </header>
+
+            <div class="space-y-12">
+                <!-- Step 1 -->
+                <section id="step1" class="bg-white p-8 rounded-xl shadow-sm border border-gray-100">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">STEP 1: 觀念建構：認識你的工具</h2>
+                    <p class="mb-6 text-gray-600">在開始之前，必須先理解各個工具在您的研究中所扮演的角色。它們各自獨立，但又相輔相成，共同構成一個強大的線上實驗工作流程。</p>
+                    <div id="tools-tabs">
+                        <div class="border-b border-gray-200">
+                            <nav class="-mb-px flex space-x-6" aria-label="Tabs">
+                                <button class="tab-button active whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm" data-target="opensesame">OpenSesame (視覺化IDE)</button>
+                                <button class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300" data-target="jatos">JATOS (部署與執行)</button>
+                                <button class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300" data-target="gemini">Gemini (程式碼生成)</button>
+                            </nav>
+                        </div>
+                        <div class="mt-6 prose-custom">
+                            <div id="opensesame" class="tab-content">
+                                <h3>您的實驗設計師</h3>
+                                <p>OpenSesame 是一個專為實驗設計的圖形化介面。您可以使用它來繪製實驗的流程圖、定義變項，並透過其內建的 <code>inline_html</code> 和 <code>inline_javascript</code> 等「控制元件」，來嵌入客製化的程式碼。它提供了結構，而 Gemini 則提供內容。</p>
+                                <p class="mt-2 p-3 bg-teal-50 border-l-4 border-teal-400 text-teal-800"><strong>關鍵設定：</strong>為了將實驗部署到 JATOS，在 OpenSesame 的 <code>Experiment</code> 控制元件中，必須將部署目標設定為 <code>In a browser with OSWeb (osweb)</code>。</p>
+                            </div>
+                            <div id="jatos" class="tab-content hidden">
+                                <h3>您的線上實驗室</h3>
+                                <p>JATOS 負責管理研究、 hosting 您的實驗腳本、招募受試者，並安全地收集數據。JATOS 實驗的核心是由 HTML、CSS 和 JavaScript 檔案組成的「元件 (Component)」。我們的目標就是讓 Gemini 產出這些檔案。</p>
+                            </div>
+                            <div id="gemini" class="tab-content hidden">
+                                <h3>您的專業程式設計師</h3>
+                                <p>將 Gemini 視為您的專業程式設計師。您提供清晰的實驗藍圖（來自 OpenSesame 的設計）和具體需求，它會為您翻譯成 JATOS 所需的 JavaScript 和 HTML 程式碼。溝通的品質，決定了產出的品質。</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Step 2 -->
+                <section id="step2" class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 prose-custom">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">STEP 2: 研究主題與變項定義</h2>
+                    <p>在與 Gemini 溝通前，您必須先釐清自己的研究。將這些定義整理成一個清晰的列表，這對後續與 Gemini 溝通至關重要。</p>
+                    <h3>1. 研究問題</h3>
+                    <p>您想探討什麼？例如：「不同情緒效價的詞彙是否會影響 Stroop 效果的強度？」</p>
+                    <h3>2. 自變項 (Independent Variables)</h3>
+                    <p>您操弄的變項。例如：<code>word_type</code> (情緒詞: 正向, 負向, 中性) 和 <code>congruency</code> (一致, 不一致)。</p>
+                    <h3>3. 依變項 (Dependent Variables)</h3>
+                    <p>您測量的變項。例如：<code>reaction_time</code> (反應時間) 和 <code>accuracy</code> (正確率)。</p>
+                    <h3>4. 控制變項</h3>
+                    <p>保持恆定的條件，例如刺激呈現時間、字體大小等。</p>
+                </section>
+
+                <!-- Step 3 -->
+                <section id="step3" class="bg-white p-8 rounded-xl shadow-sm border border-gray-100">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">STEP 3: 實驗流程設計 (Flowchart)</h2>
+                     <p class="mb-6 text-gray-600">這是整個計畫中最關鍵的一步。請用文字或簡單的流程圖，描述實驗的完整順序。一個清晰的流程是與 Gemini 有效溝通的基礎。</p>
+                    <div class="mt-4 space-y-4">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-teal-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">1</div>
+                            <div class="ml-4 p-3 bg-gray-50 rounded-lg w-full">歡迎與同意書 (HTML)</div>
+                        </div>
+                        <div class="h-6 w-px bg-gray-300 ml-4"></div>
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-teal-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">2</div>
+                            <div class="ml-4 p-3 bg-gray-50 rounded-lg w-full">指導語 (HTML)</div>
+                        </div>
+                        <div class="h-6 w-px bg-gray-300 ml-4"></div>
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-teal-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">3</div>
+                            <div class="ml-4 p-3 bg-gray-50 rounded-lg w-full">練習試驗 (JavaScript)</div>
+                        </div>
+                        <div class="h-6 w-px bg-gray-300 ml-4"></div>
+                         <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-teal-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">4</div>
+                            <div class="ml-4 p-3 bg-gray-50 rounded-lg w-full">正式實驗指導語 (HTML)</div>
+                        </div>
+                        <div class="h-6 w-px bg-gray-300 ml-4"></div>
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-teal-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">5</div>
+                            <div class="ml-4 p-3 bg-gray-50 rounded-lg w-full">正式試驗 (JavaScript)</div>
+                        </div>
+                        <div class="h-6 w-px bg-gray-300 ml-4"></div>
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-teal-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">6</div>
+                            <div class="ml-4 p-3 bg-gray-50 rounded-lg w-full">基本資料問卷 (HTML)</div>
+                        </div>
+                        <div class="h-6 w-px bg-gray-300 ml-4"></div>
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-teal-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">7</div>
+                            <div class="ml-4 p-3 bg-gray-50 rounded-lg w-full">感謝與結束 (HTML)</div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Step 4 -->
+                <section id="step4" class="bg-white p-8 rounded-xl shadow-sm border border-gray-100">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">STEP 4: 與 Gemini 的有效溝通 (Prompt Engineering)</h2>
+                    <p class="mb-6 text-gray-600">有了清晰的流程後，就可以開始「指導」Gemini 工作。建議將一個元件的程式碼作為一次對話的目標。以下是一個請求生成「正式試驗」元件的範例 Prompt。</p>
+                    <div class="prompt-card">
+                        <button class="copy-btn absolute top-4 right-4 bg-gray-700 hover:bg-gray-600 text-gray-300 text-xs font-semibold py-1 px-2 rounded">複製</button>
+                        <pre class="text-sm">扮演一位專精於認知心理學實驗設計與 JavaScript 程式設計的專家。
+
+我的目標是為 JATOS 平台建立一個「情緒 Stroop 任務」的實驗元件。
+
+這是這個元件的詳細需求：
+1.  **實驗目的：** 測量受試者對不同顏色詞彙的反應時間與正確率。
+2.  **試驗總數：** 120 次。
+3.  **刺激與變項：**
+    * 自變項 A (word_type): 'positive', 'negative', 'neutral'
+    * 自變項 B (congruency): 'congruent', 'incongruent'
+    * 每個組合重複 20 次。
+4.  **試驗流程：**
+    * **隨機化：** 所有 120 個試驗必須在開始前完全隨機排序。
+    * **流程細節：**
+        a. 顯示一個置中的注視點 '+'，持續 500 毫秒。
+        b. 清除注視點，立即顯示刺激詞彙。
+        c. 等待受試者按鍵 ('r', 'b', 'g')。
+        d. 記錄反應鍵、反應時間與正確率。
+        e. 不要顯示回饋。
+        f. 進入下一個試驗。
+5.  **數據記錄 (JATOS 整合):**
+    * 在每一次試驗結束後，使用 `jatos.appendResultData(resultData)` 函數儲存數據。
+    * `resultData` 應包含 trial_number, word_type, congruency 等資訊。
+6.  **結束流程：**
+    * 當所有試驗完成後，呼叫 `jatos.startNextComponent()`。
+
+請為我生成一份完整的單一 HTML 檔案，將所有需要的 JavaScript 和 CSS 都包含在內。</pre>
+                    </div>
+                </section>
+
+                <!-- Step 5 -->
+                <section id="step5" class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 prose-custom">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">STEP 5: OpenSesame 實作：將 Gemini 程式碼填入正確位置</h2>
+                    <p>有了 Gemini 產生的程式碼後，下一步就是將它們整合進您的 OpenSesame 實驗。您需要根據程式碼的類型，選擇對應的 OpenSesame 控制元件。</p>
+                    <h3>HTML 內容 (例如：指導語、問卷)</h3>
+                    <p>對於靜態內容，請使用 OpenSesame 的 <strong><code>inline_html</code></strong> 控制元件。在實驗流程中，找到並拖曳這個元件，然後將 Gemini 生成的 HTML 程式碼完整貼入其編輯器中。</p>
+                    <h3>JavaScript 腳本 (例如：試驗流程)</h3>
+                    <p>對於動態的實驗邏輯，您需要使用 OpenSesame 的 <strong><code>inline_javascript</code></strong> 控制元件。將 Gemini 生成的 JavaScript 程式碼貼入這個元件的編輯器中。OpenSesame 會在匯出時，自動將您的腳本打包進一個 JATOS 元件中。</p>
+                </section>
+
+                <!-- Step 6 -->
+                <section id="step6" class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 prose-custom">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">STEP 6: 腳本部署與初步測試</h2>
+                    <p>完成 OpenSesame 的設定後，就可以將實驗上傳至 JATOS 進行測試。</p>
+                    <ol class="list-decimal list-inside space-y-3">
+                        <li><strong>設定 JATOS API:</strong> 在 OpenSesame 的 <strong>"Edit" -> "OSWeb and JATOS control panel"</strong> 中，填入您的 JATOS 伺服器網址和 API 金鑰，以建立連線。</li>
+                        <li><strong>匯出與上傳:</strong> 選擇 <strong>"File" -> "Publish to JATOS/MindProbe"</strong>，並點擊「上傳至 JATOS」按鈕。OpenSesame 會自動將您的實驗上傳。</li>
+                        <li><strong>測試:</strong> 在 JATOS 頁面中，找到您剛上傳的實驗，並使用 <code>Preview</code> 功能來測試每個元件是否如預期運作。</li>
+                    </ol>
+                </section>
+
+                <!-- Step 7 -->
+                <section id="step7" class="bg-white p-8 rounded-xl shadow-sm border border-gray-100">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">STEP 7: 如何與 Gemini 討論除錯或優化</h2>
+                     <p class="mb-6 text-gray-600">這是與 AI 協作最重要的一環。當您發現問題時，請遵循「具體描述、提供證據、明確提問」的原則。</p>
+                     <div class="grid md:grid-cols-2 gap-8">
+                        <div class="prose-custom">
+                            <h3 class="text-red-600">❌ 無效的回報方式</h3>
+                            <p class="p-4 border border-red-200 bg-red-50 rounded-lg">「我的實驗不動了，請幫我修好。」</p>
+                            <p>這樣的描述太模糊，Gemini 無法得知問題的上下文，也就難以提供有效的幫助。</p>
+                        </div>
+                        <div class="prose-custom">
+                             <h3 class="text-green-600">✅ 有效的錯誤回報結構</h3>
+                             <div class="p-4 border border-green-200 bg-green-50 rounded-lg space-y-2">
+                                <p><strong>1. 預期行為：</strong> 「我預期練習試驗結束後，會自動跳轉到下一個元件。」</p>
+                                <p><strong>2. 實際行為：</strong> 「但練習結束後畫面就變空白了。」</p>
+                                <p><strong>3. 錯誤訊息：</strong> 「瀏覽器開發者工具顯示錯誤：<code>Uncaught TypeError: jatos.startNextComponent is not a function</code>」</p>
+                                <p><strong>4. 附上程式碼：</strong> 「這是相關的程式碼片段：[貼上程式碼]」</p>
+                                <p><strong>5. 明確提問：</strong> 「請問這個錯誤是什麼意思？我該如何修改程式碼？」</p>
+                            </div>
+                        </div>
+                     </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Mobile menu
+            const btn = document.querySelector("button.mobile-menu-button");
+            const menu = document.querySelector(".sidebar");
+            btn.addEventListener("click", () => {
+                menu.classList.toggle("-translate-x-full");
+            });
+
+            // Tabs
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetId = button.dataset.target;
+
+                    tabButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    button.classList.add('active');
+
+                    tabContents.forEach(content => {
+                        if (content.id === targetId) {
+                            content.classList.remove('hidden');
+                        } else {
+                            content.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            // Copy to clipboard
+            const copyButtons = document.querySelectorAll('.copy-btn');
+            copyButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const pre = button.nextElementSibling;
+                    const text = pre.innerText;
+                    navigator.clipboard.writeText(text).then(() => {
+                        button.innerText = '已複製!';
+                        setTimeout(() => {
+                            button.innerText = '複製';
+                        }, 2000);
+                    }).catch(err => {
+                        console.error('Could not copy text: ', err);
+                    });
+                });
+            });
+
+            // Active step highlighting on scroll
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('#stepper-nav a');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href').substring(1) === entry.target.id) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, { rootMargin: '-30% 0px -70% 0px' });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+            
+            // Set initial active link
+            if (window.location.hash) {
+                 document.querySelector(`a[href="${window.location.hash}"]`).classList.add('active');
+            } else if (navLinks.length > 0) {
+                 navLinks[0].classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>

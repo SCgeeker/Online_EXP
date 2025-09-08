@@ -11,7 +11,7 @@
 
 
 
-<title>網路實驗平台資源索引</title>
+<title>VibePsytoolkit</title>
 
 <script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -35,8 +35,6 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -422,120 +420,173 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">網路實驗平台資源索引</h1>
 
 </div>
 
 
-<!---
-
-Useful tip for make exp + survey on JATOS
-https://www.jatos.org/Combine-two-pre-written-studies-into-one.html
-
---->
-<div id="實驗平台" class="section level3">
-<h3>實驗平台</h3>
-<table>
-<colgroup>
-<col width="33%" />
-<col width="33%" />
-<col width="33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="center">平台官網</th>
-<th align="center">主要功能</th>
-<th align="center">收費需求</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="center"><a
-href="https://osdoc.cogsci.nl/">OpenSesame</a></td>
-<td align="center">編輯與測試OSWEB腳本<br/>轉換資料格式</td>
-<td align="center">無</td>
-</tr>
-<tr class="even">
-<td align="center"><a href="https://www.jatos.org/">Jatos</a></td>
-<td align="center">部署javascript/css相容規格的實驗網頁</td>
-<td align="center">1. 自建伺服器視服務商方案付費<br/> 2. <a
-href="https://www.mindprobe.eu/">MindProbe</a>提供免費部署</td>
-</tr>
-<tr class="odd">
-<td align="center"><a
-href="https://www.psytoolkit.org/">Psytoolkit</a></td>
-<td align="center">腳本編輯、部署</td>
-<td align="center">無</td>
-</tr>
-<tr class="even">
-<td align="center"><a href="https://gorilla.sc/">Gorilla</a></td>
-<td align="center">腳本編輯、部署</td>
-<td align="center">按完成人數計費。參考官網<a
-href="https://app.gorilla.sc/pricing">預先儲值方案</a>。</td>
-</tr>
-<tr class="odd">
-<td align="center"><a href="https://formr.org/">formr</a></td>
-<td align="center">腳本編輯、部署</td>
-<td align="center">1. 官網申請免費使用帳號 <br/> 2.
-自建伺服器視服務商方案付費</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="參與者招募平台" class="section level3">
-<h3>參與者招募平台</h3>
-<table>
-<colgroup>
-<col width="33%" />
-<col width="33%" />
-<col width="33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>平台官網</th>
-<th>主要服務對象</th>
-<th>收費需求</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="https://app.prolific.co/">Prolific</a></td>
-<td>全球學術機構人員及獨立研究者</td>
-<td>終端使用者可事先儲值，依建議實驗長度支付參與者酬金。</td>
-</tr>
-<tr class="even">
-<td><a href="https://www.mturk.com/">MTurk</a></td>
-<td>美國國內登記之商業及學術機構調查人員</td>
-<td>終端使用者可事先儲值，依招募條件有不同支付價格。</td>
-</tr>
-<tr class="odd">
-<td><a href="https://connect.cloudresearch.com/">CloudResearch</a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><a href="https://www.sona-systems.com/default.aspx">Sona
-System</a></td>
-<td>學術與教育機構</td>
-<td>簽約對象為機構，串接機構內線上學習系統招募實體或線上參與者。</td>
-</tr>
-<tr class="odd">
-<td><a href="https://www.bountyworkers.net/">賞金達人</a></td>
-<td></td>
-<td>執行者為居住於台灣地區的人士，先以新台幣儲值，再發包任務</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="學習資源" class="section level3">
-<h3>學習資源</h3>
+<div id="以自然語言開發-psytoolkit-腳本專為非程式設計者設計的指南"
+class="section level1">
+<h1>以自然語言開發 PsyToolkit 腳本：專為非程式設計者設計的指南</h1>
+<p>傳統上，在 PsyToolkit
+上開發實驗和問卷需要學習兩種獨立的特定領域程式語言
+(DSL)。然而，透過我們基於 Gemini
+技術的新平台，您不再需要煩惱程式碼。這個平台就像一位精通 PsyToolkit
+的程式設計助手，您只需用日常語言與其對話，它就會為您完成所有程式碼編寫工作。</p>
+<p>本指南將引導您瞭解兩種腳本類型：<strong>問卷腳本</strong>（適合線上調查）和<strong>實驗腳本</strong>（適合認知心理學實驗）。</p>
+<hr />
+<div id="第一部分快速入門-自然語言對話流程" class="section level4">
+<h4><strong>第一部分：快速入門 — 自然語言對話流程</strong></h4>
+<p>無論您要建立問卷還是實驗，開發過程都遵循一個簡單的對話流程。</p>
+<ol style="list-style-type: decimal">
+<li><strong>設定目標
+(Objective)</strong>：以一句簡單且精確的中文開始，告訴平台您想做什麼。請盡量提供詳細資訊，這有助於平台生成更準確的腳本
+[1, 2]。
 <ul>
-<li><a href="ImageNet.html">如何打造ImageNet?</a></li>
-<li><a href="VibeJATOS.html">無基礎指南1: OpenSesame與JATOS</a></li>
-<li><a href="VibePsytoolkit.html">無基礎指南2: Psytoolkit</a></li>
+<li><strong>範例指令：</strong>
+<ul>
+<li>「建立一個關於壓力感知的問卷，包含 10 個李克特量表題。」</li>
+<li>「設計一個視覺 Stroop 實驗，包含協調和非協調兩種刺激物。」</li>
+<li>「建立一個簡單的反應時間實驗，參與者必須在螢幕出現紅色方塊時按下 ‘a’
+鍵。」</li>
+</ul></li>
+</ul></li>
+<li><strong>分步精煉 (Iterative
+Refinement)</strong>：平台會根據您的指令生成一份初步腳本，並提出結構化的問題，引導您提供更多細節
+[3]。您可以將此過程視為與一位專業程式設計師協作，逐步完善您的想法。
+<ul>
+<li><strong>平台可能提出的問題：</strong>
+<ul>
+<li>「您希望問卷包含哪些人口學問題？」</li>
+<li>「您希望 Stroop 實驗中使用的顏色有哪些？」</li>
+<li>「您希望參與者看到紅色方塊的時間是多久？回應時間限制是多久？」</li>
+</ul></li>
+</ul></li>
+<li><strong>即時修正與驗證 (Real-time
+Correction)</strong>：在對話過程中，如果您輸入的內容有任何邏輯或格式上的問題，平台會立即提醒您，並提供非技術性的修改建議。這讓您能夠專注於心理學設計，而非程式碼的技術細節
+[4, 5]。
+<ul>
+<li><strong>範例錯誤提示：</strong>
+<ul>
+<li>「您試圖在實驗中儲存一個名為 ‘my_score’
+的變數，但此變數尚未被定義。請先使用 <code>set</code>
+指令定義它。」</li>
+</ul></li>
+</ul></li>
+</ol>
+<hr />
+</div>
+<div id="第二部分問卷腳本survey-syntax使用指南" class="section level4">
+<h4><strong>第二部分：問卷腳本（Survey Syntax）使用指南</strong></h4>
+<p>問卷腳本適用於需要收集參與者意見、填寫人口學資料或進行人格測驗等場景
+[6, 7]。</p>
+<p><strong>核心對話模式：</strong></p>
+<ul>
+<li><strong>定義問題類型：</strong>
+您可以透過自然語言指令來指定問題類型。例如：
+<ul>
+<li>「建立一個單選題，問題是『你最喜歡的顏色？』，選項是紅、黃、藍。」這會生成
+<code>t: radio</code> 類型的問題 [6]。</li>
+<li>「新增一個多選題，讓參與者選擇所有他們喜歡的運動，選項是足球、籃球、網球。」這會生成
+<code>t: check</code> 類型的問題 [6]。</li>
+</ul></li>
+<li><strong>自訂選項與邏輯：</strong>
+<ul>
+<li>您可以指定每個選項的文字，甚至可以為選項添加分數。例如：「在李克特量表中，從『非常不同意』到『非常同意』，分數從
+1 到 7。」[6, 8]。</li>
+<li>若想實現條件跳轉，您可以說：「如果參與者在『你最喜歡的顏色？』中選擇了藍色，就跳到名為『blue_lover_q』的問題。」這將生成
+<code>jump</code> 指令 [6]。</li>
+</ul></li>
+<li><strong>插入多媒體內容：</strong>
+<ul>
+<li>「在問卷中嵌入一個 YouTube
+影片，標題是『請觀看以下影片並回答問題』。」這將生成
+<code>t: youtube</code> 的問題 [6]。</li>
+</ul></li>
+<li><strong>腳本部署：</strong>
+<ul>
+<li>對話結束後，您可以選擇將問卷腳本以 <code>.txt</code> 或
+<code>.zip</code> 檔案格式下載，然後手動上傳到您的 PsyToolkit 帳戶 [9,
+10]。</li>
+<li>或者，平台可能會提供一個直接部署到您帳戶的選項，將整個過程自動化
+[11, 10]。</li>
+</ul></li>
 </ul>
-<p>運用R markdown建置網站的資訊，可參考套件開發者的<a
-href="https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html">電子書</a>。</p>
+<hr />
+</div>
+<div id="第三部分實驗腳本experiment-syntax使用指南"
+class="section level4">
+<h4><strong>第三部分：實驗腳本（Experiment
+Syntax）使用指南</strong></h4>
+<p>實驗腳本適用於需要精確時間控制、測量反應時間和進行複雜隨機化任務的場景
+[12, 7]。</p>
+<p><strong>核心對話模式：</strong></p>
+<ul>
+<li><strong>定義刺激物：</strong> 您可以透過自然語言上傳和管理刺激物。
+<ul>
+<li>「上傳三張圖片：<code>happy.jpg</code>、<code>sad.jpg</code> 和
+<code>neutral.jpg</code>。」平台會引導您將檔案上傳到雲端，並將其自動納入腳本的
+<code>bitmaps</code> 區段 [13]。</li>
+</ul></li>
+<li><strong>設計實驗流程：</strong>
+將實驗流程分解為多個步驟，然後依序告訴平台。這比一次性描述整個實驗更有效
+[1, 3]。
+<ul>
+<li>「請定義一個名為『stroop_trial』的任務。」</li>
+<li>「在任務中，顯示一張 <code>word.bmp</code>
+圖片，其顏色為紅色，並在畫面上停留 500 毫秒。」這會生成
+<code>show</code> 指令 [14]。</li>
+<li>「接著，等待參與者按下鍵盤上的『F』或『J』鍵，並記錄反應時間和按鍵。」這會生成
+<code>readkey</code> 指令 [12]。</li>
+</ul></li>
+<li><strong>設定變數與邏輯：</strong>
+<ul>
+<li>「建立一個全域變數
+<code>&amp;trial_count</code>，每完成一個試驗就增加 1。」這將生成
+<code>set &amp;trial_count increase</code> [12]。</li>
+<li>「如果參與者的反應是正確的，將分數變數 <code>&amp;score</code> 加
+1。」這會生成 <code>if</code> 條件判斷式 [9]。</li>
+</ul></li>
+<li><strong>定義資料儲存：</strong>
+<ul>
+<li>您可以指定要儲存哪些資料以供後續分析。「在每個試驗結束時，請儲存試驗號碼、刺激物類型、反應時間和分數。」這將生成
+<code>save</code> 指令，並確保您的數據文件結構清晰 [12, 9]。</li>
+</ul></li>
+<li><strong>腳本部署：</strong>
+<ul>
+<li>與問卷腳本類似，您可以在平台完成後下載一個 <code>.zip</code>
+檔案，其中包含了所有腳本和刺激物。您只需將其直接上傳到您的 PsyToolkit
+帳戶即可 [9, 10]。</li>
+</ul></li>
+</ul>
+</div>
+<div id="小提示" class="section level4">
+<h4><strong>小提示：</strong></h4>
+<ul>
+<li><strong>賦予角色 (Role
+Assignment)</strong>：在開始對話時，您可以先給予一個角色，例如「您現在是一位專門協助心理學研究的程式設計師。」這會幫助平台更好地理解您的意圖並產生更精確的腳本
+[1]。</li>
+<li><strong>從範例中學習 (Learning from Examples)</strong>：PsyToolkit
+官方文件庫有超過 50 個經典實驗範例
+[15]。如果需要，您可以要求平台參考這些範例來產生腳本，例如：「請參考
+Stroop
+實驗的範例，為我設計一個類似的實驗。」這將大幅提高生成腳本的準確性
+[16]。</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li><code>https://www.psytoolkit.org/features.html</code></li>
+<li><code>https://www.psytoolkit.org/doc3.6.4/online-survey-syntax.html</code></li>
+<li><code>https://www.psytoolkit.org/doc3.6.4/syntax.html</code></li>
+<li><code>https://www.psytoolkit.org/doc3.6.2/feedback.html</code></li>
+<li><code>https://www.psytoolkit.org/experiment-library/nback2.html</code></li>
+<li><code>https://www.psytoolkit.org/experiment-library/</code></li>
+<li><code>https://www.psytoolkit.org/lessons/</code></li>
+<li><code>https://www.psytoolkit.org/doc3.6.4/short_syntax.html</code></li>
+<li><code>https://ai.google.dev/gemini-api/docs/embeddings</code></li>
+<li><code>https://www.prompthub.us/blog/using-llms-for-code-generation-a-guide-to-improving-accuracy-and-addressing-common-issues</code></li>
+<li><code>https://dev.to/nagasuresh_dondapati_d5df/15-prompting-techniques-every-developer-should-know-for-code-generation-1go2</code></li>
+<li><code>https://learn.microsoft.com/en-us/azure/ai-foundry/openai/how-to/structured-outputs</code></li>
+</ol>
+</div>
 </div>
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="創用 CC 授權條款" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png" /></a><br />本網站由慈濟大學人類發展與心理學系副教授<a href="https://scchen.com/">陳紹慶</a>創建維護，網站內容採用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">創用 CC 姓名標示-非商業性 4.0 國際 授權條款</a>授權.
